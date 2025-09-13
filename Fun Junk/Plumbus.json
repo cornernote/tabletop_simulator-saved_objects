@@ -1,0 +1,469 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "e96a4b",
+      "Name": "Bag",
+      "Transform": {
+        "posX": 0.502143,
+        "posY": 0.7749665,
+        "posZ": -4.259451,
+        "rotX": -5.2960645E-06,
+        "rotY": -9.224757E-06,
+        "rotZ": 4.66907863E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Plumbus",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.7058823,
+        "g": 0.366520882,
+        "b": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "fbfd9f",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 1.00400949,
+            "posY": 3.03266215,
+            "posZ": -4.14091349,
+            "rotX": 359.690582,
+            "rotY": 179.958755,
+            "rotZ": 0.7829788,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "Plumbus Stand",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://pastebin.com/raw/QRuS11Le",
+            "DiffuseURL": "http://www.psdgraphics.com/file/stainless-steel.jpg",
+            "NormalURL": "",
+            "ColliderURL": "https://pastebin.com/raw/QRuS11Le",
+            "Convex": true,
+            "MaterialIndex": 2,
+            "TypeIndex": 1,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        {
+          "GUID": "7cca37",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": -5.32209063,
+            "posY": 2.95736957,
+            "posZ": -4.39003468,
+            "rotX": -0.000204469659,
+            "rotY": 180.0006,
+            "rotZ": 359.977661,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "Plumbus",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://pastebin.com/raw/cBicS3zK",
+            "DiffuseURL": "http://i.imgur.com/rO0u4Wf.png",
+            "NormalURL": "",
+            "ColliderURL": "https://pastebin.com/raw/cBicS3zK",
+            "Convex": true,
+            "MaterialIndex": 0,
+            "TypeIndex": 1,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        {
+          "GUID": "d2fd8b",
+          "Name": "Custom_Tile",
+          "Transform": {
+            "posX": -19.4822159,
+            "posY": 3.00250959,
+            "posZ": 1.0115149,
+            "rotX": 1.46891566E-08,
+            "rotY": 180.0,
+            "rotZ": -7.3437306E-08,
+            "scaleX": 5.395272,
+            "scaleY": 1.0,
+            "scaleZ": 5.395272
+          },
+          "Nickname": "Plumbus Owner's Manual",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomImage": {
+            "ImageURL": "http://i.imgur.com/Pr8Gazn.png",
+            "ImageSecondaryURL": "",
+            "ImageScalar": 1.0,
+            "WidthScale": 0.0,
+            "CustomTile": {
+              "Type": 0,
+              "Thickness": 0.2,
+              "Stackable": false,
+              "Stretch": true
+            }
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "States": {
+            "2": {
+              "GUID": "f2242c",
+              "Name": "Custom_Tile",
+              "Transform": {
+                "posX": -7.572879,
+                "posY": 0.960000157,
+                "posZ": 9.336946,
+                "rotX": -1.10992024E-08,
+                "rotY": 179.980057,
+                "rotZ": -1.78350277E-07,
+                "scaleX": 5.395272,
+                "scaleY": 1.0,
+                "scaleZ": 5.395272
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": true,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "CustomImage": {
+                "ImageURL": "http://i.imgur.com/OYDYpPN.png",
+                "ImageSecondaryURL": "",
+                "ImageScalar": 1.0,
+                "WidthScale": 0.0,
+                "CustomTile": {
+                  "Type": 0,
+                  "Thickness": 0.2,
+                  "Stackable": false,
+                  "Stretch": true
+                }
+              },
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            },
+            "3": {
+              "GUID": "37cda9",
+              "Name": "Custom_Tile",
+              "Transform": {
+                "posX": -7.572879,
+                "posY": 0.960000038,
+                "posZ": 9.336946,
+                "rotX": -2.6087946E-07,
+                "rotY": 179.980072,
+                "rotZ": -7.691351E-09,
+                "scaleX": 5.395272,
+                "scaleY": 1.0,
+                "scaleZ": 5.395272
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "CustomImage": {
+                "ImageURL": "http://i.imgur.com/ZM2cv8m.png",
+                "ImageSecondaryURL": "",
+                "ImageScalar": 1.0,
+                "WidthScale": 0.0,
+                "CustomTile": {
+                  "Type": 0,
+                  "Thickness": 0.2,
+                  "Stackable": false,
+                  "Stretch": true
+                }
+              },
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            },
+            "4": {
+              "GUID": "f9b823",
+              "Name": "Custom_Tile",
+              "Transform": {
+                "posX": -7.57287836,
+                "posY": 0.960000336,
+                "posZ": 9.336946,
+                "rotX": 3.49463072E-08,
+                "rotY": 179.980072,
+                "rotZ": 1.02868704E-07,
+                "scaleX": 5.395272,
+                "scaleY": 1.0,
+                "scaleZ": 5.395272
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "CustomImage": {
+                "ImageURL": "http://i.imgur.com/ffMrEhD.png",
+                "ImageSecondaryURL": "",
+                "ImageScalar": 1.0,
+                "WidthScale": 0.0,
+                "CustomTile": {
+                  "Type": 0,
+                  "Thickness": 0.2,
+                  "Stackable": false,
+                  "Stretch": true
+                }
+              },
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            },
+            "5": {
+              "GUID": "26d85b",
+              "Name": "Custom_Tile",
+              "Transform": {
+                "posX": -7.57287836,
+                "posY": 0.960000336,
+                "posZ": 9.336946,
+                "rotX": 9.029808E-08,
+                "rotY": 179.980087,
+                "rotZ": 8.493758E-08,
+                "scaleX": 5.395272,
+                "scaleY": 1.0,
+                "scaleZ": 5.395272
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "CustomImage": {
+                "ImageURL": "http://i.imgur.com/ug4X07Q.png",
+                "ImageSecondaryURL": "",
+                "ImageScalar": 1.0,
+                "WidthScale": 0.0,
+                "CustomTile": {
+                  "Type": 0,
+                  "Thickness": 0.2,
+                  "Stackable": false,
+                  "Stretch": true
+                }
+              },
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

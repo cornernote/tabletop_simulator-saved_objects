@@ -1,0 +1,72 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "fbc162",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": 19.9752159,
+        "posY": 0.969933033,
+        "posZ": 12.149744,
+        "rotX": -0.001631314,
+        "rotY": 90.00984,
+        "rotZ": -1.43944033E-06,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Pirate Cannon",
+      "Description": "Power: 30",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.8,
+        "g": 0.8,
+        "b": 0.8
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": false,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/853850382731374838/D7F2147428782DDB0D00D4B51C75AC583D64A133/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 2,
+        "TypeIndex": 0,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "fx = {Fire = 0,\tIdle = 0, Move = 1}\r\n\r\nsettings = {\r\n\tbarrelOffset  = {x=    0, y= 1.15, z= -1.8},\r\n\tmuzzleOffset  = {x= -0.2, y= 5.2 , z=  0.8},\r\n\tmuzzleOffset2 = {x=  0.2, y= 5.6 , z=  2.1},\r\n\tminSpin   = 60,\r\n\tmaxSpin   = 120,\r\n\terrorColor = {1, 0.4, 0.4},\r\n\tinfoColor = {0.8, 0.8, 1},\r\n\tuseRecoil = false,\r\n}\r\n\r\nhelp = {\r\n\tlowPower        = \"Power is too low. Check object description\",\r\n\tnothingSelected = \"You don't have anything selected\",\r\n\tobjtoolarge     = \"%s is too large to be auto-loaded\",\r\n\tunreadablePower = \"Couldn't read Power from description. Example: [00CED1]Power: 25-32[ffffff]\",\r\n\tbuttonFireLabel = \"Fire!\",\r\n\tbuttonLoadLabel = \"Load\",\r\n\tbuttonFireLabel = \"Fire!\",\r\n\tbuttonLockLabel = \"Lock\",\r\n\tbuttonUnlock    = \"Unlock\",\r\n\tbuttonLoad      = \"Load selected objects into the cannon.\\nIf nothing is selected, repeat the previous payload.\",\r\n\tbuttonLock      = \"You must lock the cannon in place \\nin order to load objects properly.\"\r\n}\r\n\r\n--Runtime\r\nrotationAtLaunch     = {}\r\nposAtLaunch          = {}\r\nmemorizedObjects     = {}\r\nnrOfMemorizedObjects = {}\r\nisFiring = false\r\n\r\nfunction onload()\r\n\tCreateButtons()\r\n\tself.tooltip = false\r\nend\r\n\r\nfunction FireCannon(obj, color)\r\n\r\n\tif isFiring then return end\r\n\r\n\tlocal power, launchVelocity = CalcPowerAndLaunchVelocity(color)\r\n\r\n\tif power > 0 then\r\n\t\tisFiring = true\r\n\t\tself.AssetBundle.playTriggerEffect(fx.Fire)\r\n\t\tLaunchBarrelContents(launchVelocity)\r\n\t\tAfterFire()\r\n\tend\r\n\r\nend\r\n\r\nfunction AddObjects(obj,color)\r\n\r\n\tlocal barrelContents = GetBarrelContents()\r\n\tlocal selectedObjects = Player[color].getSelectedObjects()\r\n\tlocal firableObjects, nrOfFirable = GetFirableObjects(selectedObjects)\r\n\r\n\tif nrOfFirable > 0 then\r\n\t\tmemorizedObjects[color] = firableObjects\r\n\t\tnrOfMemorizedObjects[color] = nrOfFirable\r\n\telse\r\n\t\tfirableObjects = memorizedObjects[color] or {}\r\n\t\tnrOfFirable = nrOfMemorizedObjects[color] or 0\r\n\tend\r\n\r\n\tif nrOfFirable == 0 then\r\n\t\tfirableObjects = memorizedObjects[\"no color\"] or {}\r\n\t\tnrOfFirable = nrOfMemorizedObjects[\"no color\"] or 0\r\n\tend\r\n\r\n\tif nrOfFirable == 0 then broadcastToColor(help.nothingSelected, color, settings.infoColor) return end\r\n\r\n\tlocal objectsToMove = {}\r\n\tfor thisObjGUID,_ in pairs(firableObjects) do\r\n\t\tlocal thisObj = getObjectFromGUID(thisObjGUID)\r\n\t\tif thisObj and (not barrelContents[thisObjGUID]) then\r\n\t\t\ttable.insert(objectsToMove, thisObj)\r\n\t\tend\r\n\tend\r\n\r\n\tif #objectsToMove > 0 then\r\n\t\tself.setLock(true)\r\n\t\tShuffle(objectsToMove)\r\n\t\tMoveTableToBarrel({objs = objectsToMove})\r\n\tend\r\nend\r\n\r\nfunction LaunchBarrelContents(launchVelocity)\r\n\tlocal barrelContents, nrOfBarrelContents = GetBarrelContents()\r\n\tfor thisObjGUID,_ in pairs(barrelContents) do\r\n\t\tlocal launchSpin = settings.minSpin + math.random() * (settings.maxSpin - settings.minSpin)\r\n\t\tLaunchObject(getObjectFromGUID(thisObjGUID), launchVelocity, launchSpin)\r\n\tend\r\nend\r\n\r\nfunction AfterFire()\r\n\tif settings.useRecoil then\r\n\t\trotationAtLaunch = self.getRotation()\r\n\t\tposAtLaunch = self.getPosition()\r\n\t\tCreateTimer(self.GetGUID() .. \"Unlock\", \"Unlock\", 0.2)\r\n\t\tCreateTimer(self.GetGUID() .. \"Recoil\", \"Recoil\", 0.23, {power = power})\r\n\t\tCreateTimer(self.GetGUID() .. \"Reset\" , \"Reset\" , 2.8)\r\n\t\tCreateTimer(self.GetGUID() .. \"Lock\"  , \"Lock\"  , 3.5)\r\n\telse\r\n\t\tCreateTimer(self.GetGUID() .. \"Reset\" , \"Reset\" , 2.5)\r\n\tend\r\nend\r\n\r\n\r\nfunction CalcPowerAndLaunchVelocity(color)\r\n\r\n \t-- Help avoid end of barrel by raising the angle slightly\r\n \tlocal launchDirection = rotateVec3(self.getTransformForward(), self.getTransformRight(), 45)\r\n\tlocal desc = self.getDescription()\r\n\tlocal powerMin, powerMax = desc:match(\"Power:%s*([%d%.]+)%s*-?%s*([%d%.]*)\")\r\n\tpowerMin = tonumber(powerMin)  powerMax = tonumber(powerMax) or powerMin\r\n\r\n\tif (not powerMin) or (not powerMax) then\r\n\t\tbroadcastToColor(help.unreadablePower, color, settings.errorColor)\r\n\t\tprint(string.format(\"[ff6666]%s\", help.unreadablePower) )\r\n\t\treturn 0\r\n\tend\r\n\r\n\tlocal power = powerMin + math.random() * (powerMax - powerMin)\r\n\tif power <= 0 then broadcastToColor(help.lowPower, color, settings.errorColor) return 0 end\r\n\r\n\tlocal launchVelocity = {launchDirection.x * power, launchDirection.y * power, launchDirection.z * power}\r\n\r\n\treturn power, launchVelocity\r\n\r\nend\r\n\r\nfunction CreateTimer(timerName, funcName, delay, params)\r\n\r\n\tlocal parameters = {}\r\n\tparameters.identifier     = timerName\r\n\tparameters.function_name  = funcName\r\n\tparameters.delay          = delay\r\n\r\n\tif params and type(params) == 'table' then\r\n\t\tparameters.parameters = params\r\n\tend\r\n\r\n\tTimer.create(parameters)\r\n\r\nend\r\n\r\nfunction Reset()\r\n\tif settings.useRecoil then\r\n\t\tself.setPositionSmooth(posAtLaunch, false, true)\r\n\t\tself.setRotationSmooth(rotationAtLaunch, false, true)\r\n\tend\r\n\tisFiring = false\r\nend\r\n\r\nfunction Lock()\r\n\tself.setLock(true)\r\n\tself.interactable = true\r\nend\r\n\r\nfunction Unlock()\r\n\tself.interactable = false -- prevent outlines during firing\r\n\tself.setLock(false)\r\nend\r\n\r\nfunction ToggleLock()\r\n\tself.setLock(not self.GetLock())\r\nend\r\n\r\nfunction Recoil(args)\r\n\tlocal fwdDirection = rotateVec3(self.getTransformForward(), self.getTransformRight(), -11)\r\n\tlocal power = args.power/2 + 3\r\n\tif power > 0 then\r\n\t\tlocal pushVelocity = {\r\n\t\t\tfwdDirection.x * power * -1,\r\n\t\t\tfwdDirection.y * power * -1,\r\n\t\t\tfwdDirection.z * power * -1\r\n\t\t\t}\r\n\t\tself.setVelocity(pushVelocity)\r\n\tend\r\nend\r\n\r\nfunction LaunchObject(thisObj, launchVelocity, launchSpin)\r\n\tif thisObj ~= self then\r\n\r\n\t\tlocal spin = {}\r\n\t\tspin.x = math.random() * launchSpin\r\n\t\tspin.y = math.random() * (launchSpin - spin.x)\r\n\t\tspin.z = (launchSpin - spin.x - spin.y)\r\n\r\n\t\t--randomly invert some of the axes\r\n\t\tspin.x = spin.x * (math.random(0,1)*2-1)\r\n\t\tspin.y = spin.y * (math.random(0,1)*2-1)\r\n\t\tspin.z = spin.z * (math.random(0,1)*2-1)\r\n\r\n\t\t--Use setVelocity so that mass can be ignored\r\n\t\tthisObj.setVelocity(launchVelocity)\r\n\t\tthisObj.setAngularVelocity(spin)\r\n\r\n\tend\r\nend\r\n\r\nfunction GetBarrelContents()\r\n\r\n\tlocal castSize    = 2 * self.getScale().x\r\n \tlocal hitResults = Physics.cast(\r\n\t\t{\r\n        origin       = self:positionToWorld( settings.barrelOffset ),\r\n        direction    = rotateVec3( self.getTransformForward(), self.getTransformRight(), 45 ),\r\n        type         = 2, -- sphere\r\n        size         = {castSize,castSize,castSize},\r\n        max_distance = 7.3 * self.getScale().x,\r\n        debug        = false\r\n    \t}\r\n\t)\r\n\r\n\tlocal barrelContents = {}\r\n\tlocal nrOfObjects = 0\r\n\tfor _,hit in ipairs(hitResults) do\r\n\t\tif hit.hit_object ~= self then\r\n\t\t\tnrOfObjects = nrOfObjects + 1\r\n\t\t\tbarrelContents[hit.hit_object.getGUID()] = true\r\n\t\tend\r\n\tend\r\n\r\n\treturn barrelContents, nrOfObjects\r\n\r\nend\r\n\r\nfunction GetFirableObjects(t)\r\n\tlocal validObjects = {}\r\n\tlocal nrOfFirable = 0\r\n\r\n\tfor _,o in ipairs(t) do\r\n\t\tif (o.GetLock() == false) and IsSmallEnough(o) then\r\n\t\t\tvalidObjects[o.getGUID()] = true\r\n\t\t\tnrOfFirable = nrOfFirable + 1\r\n\t\tend\r\n\tend\r\n\r\n\treturn validObjects, nrOfFirable\r\nend\r\n\r\nfunction IsSmallEnough(obj)\r\n\tlocal size = obj.getBoundsNormalized().size\r\n\tlocal barrelSize = self.getScale().x * 1.8\r\n\r\n\tlocal result = size.x < barrelSize and size.y < barrelSize and size.z < barrelSize\r\n\tif result == false then\r\n\t\tlocal n = obj.getName() if n == \"\" then n = obj.name end\r\n\t\tprint(string.format(help.objtoolarge, n ))\r\n\tend\r\n\r\n\treturn result\r\nend\r\n\r\nfunction MoveTableToBarrel(params)\r\n\tlocal objs = params.objs\r\n\tif objs and #objs > 0 then\r\n\t\tlocal thisObj = table.remove(objs, 1)\r\n\t\tif thisObj.GetLock() == false then\r\n\t\t\tlocal o1 = settings.muzzleOffset\r\n\t\t\tlocal o2 = settings.muzzleOffset2\r\n\t\t\tlocal rndPoint = math.random()\r\n\t\t\tlocal thisPosition = {\r\n\t\t\t\to1.x + math.random()*(o2.x-o1.x),\r\n\t\t\t\to1.y + rndPoint*(o2.y-o1.y),\r\n\t\t\t\to1.z + rndPoint*(o2.z-o1.z)\r\n\t\t\t\t}\r\n\t\t\tthisObj.setPositionSmooth(self:positionToWorld( thisPosition ), false, true)\r\n\t\tend\r\n\t\tif #objs > 0 then\r\n\t\t\tCreateTimer(objs[1].GetGUID() .. \"MoveTableToBarrel\", \"MoveTableToBarrel\", 0.2, {objs = objs})\r\n\t\tend\r\n\tend\r\nend\r\n\r\nfunction CreateButtons()\r\n\r\n\tlocal b = {}\r\n\tb.function_owner = self\r\n\tb.color          = {0.05, 0.05, 0.05, 0.9}\r\n\t--b.color          = {0.75, 0.75, 0.75, 0.9}\r\n\tb.font_color     = {0.7, 0.7, 0.7, 1}\r\n\r\n\tb.label          = help.buttonFireLabel\r\n\tb.click_function = 'FireCannon'\r\n\tb.tooltip        = help.buttonFire\r\n\tb.width          = 280\r\n\tb.height         = 360\r\n\tb.position       = {0, 3.32, -2.55}\r\n\tb.rotation       = {25, 180, 0}\r\n\tself.createButton(b)\r\n\r\n\tb.width          = 500\r\n\tb.height         = 400\r\n\tb.position       = {1.26, 2.8, -1.8}\r\n\tb.rotation       = {13, -65, 55}\r\n\tself.createButton(b)\r\n\r\n\tb.width          = 500\r\n\tb.height         = 400\r\n\tb.position       = {-1.26, 2.8, -1.8}\r\n\tb.rotation       = {13, 65, -55}\r\n\tself.createButton(b)\r\n\r\n\r\n\tb.label          = help.buttonLoadLabel\r\n\tb.click_function = 'AddObjects'\r\n\tb.tooltip        = help.buttonLoad\r\n\tb.width          = 300\r\n\tb.height         = 350\r\n\tb.position       = {0, 4.68, 0.19}\r\n\tb.rotation       = {28, 180, 0}\r\n\tself.createButton(b)\r\n\r\n\tb.width          = 480\r\n\tb.height         = 400\r\n\tb.position       = {1.08, 4.2, 0.6}\r\n\tb.rotation       = {14, -61, 55}\r\n\tself.createButton(b)\r\n\r\n\tb.width          = 480\r\n\tb.height         = 400\r\n\tb.position       = {-1.08, 4.2, 0.6}\r\n\tb.rotation       = {14, 61, -55}\r\n\tself.createButton(b)\r\n\r\n\tb.label          = help.buttonLockLabel\r\n\tb.click_function = 'ToggleLock'\r\n\tb.tooltip        = help.buttonLock\r\n\tb.width          = 400\r\n\tb.height         = 400\r\n\tb.position       = {0, 0.22, -3.00}\r\n\tb.rotation       = {0, 180, 0}\r\n\tself.createButton(b)\r\n\r\nend\r\n\r\nfunction onPickedUp(player_color)\r\n\tself.AssetBundle.playLoopingEffect(fx.Move)\r\nend\r\n\r\nfunction onDropped(player_color)\r\n\tself.AssetBundle.playLoopingEffect(fx.Idle)\r\nend\r\n\r\nfunction onCollisionEnter(hit)\r\n\tif not isFiring then\r\n\t\tlocal p = self.positionToLocal(hit.contact_points[1])\r\n\t\tlocal obj = hit.collision_object\r\n\t\tlocal tag = obj.tag\r\n\t\t-- local name = obj.getName() if name =='' then name = obj.name end\r\n\t\t-- print(string.format(\"%s, %.2f %.2f %.2f\", name, p[1], p[2], p[3]))\r\n\r\n\t\t--Approximate location of the red vent hole\r\n\t\tif tag ~= 'Dice' and p[2] > 2.9 and p[3] < -1.7 then\r\n\t\t\tFireCannon(nil, \"no color\")\r\n\t\tend\r\n\tend\r\nend\r\n\r\nfunction Shuffle(t)\r\n\tlocal length = #t\r\n\tfor i = length, 1, -1 do\r\n\t\tlocal thisIndex = math.random(length)\r\n\t\tt[i], t[thisIndex] = t[thisIndex], t[i]\r\n\tend\r\n\treturn t\r\nend\r\n\r\n--  Functions to let us rotate a vector around an axis. -------------------\r\n--  This lets us point the cannon shot\r\n\r\nfunction dotProduct(a, b)\r\n\treturn a[1]*b[1] + a[2]*b[2] + (a[3] or 0)*(b[3] or 0)\r\nend\r\n\r\n-- multiply vector v by matrix with rows r1, r2 and r3\r\nfunction applyMatrixRowsToVec3(v, r1, r2, r3)\r\n    return {dotProduct(v, r1), dotProduct(v, r2), dotProduct(v, r3)}\r\nend\r\n\r\n-- Create rotation vectors for angle (radians) about unit vector u\r\nfunction rotationVectors(u, angle)\r\n    local c = math.cos(angle)\r\n    local s = math.sin(angle)\r\n\tlocal d = 1-c\r\n    local su = {s*u[1], s*u[2], s*u[3]}\r\n    local du = {d*u[1], d*u[2], d*u[3]}\r\n    local r1 = {du[1]*u[1] + c, du[1]*u[2] + su[3], du[1]*u[3] - su[2]}\r\n    local r2 = {du[2]*u[1] - su[3], du[2]*u[2] + c, du[2]*u[3] + su[1]}\r\n    local r3 = {du[3]*u[1] + su[2], du[2]*u[2] - su[1], du[3]*u[3] + c}\r\n    return r1, r2, r3\r\nend\r\n\r\n--  Return vector v rotated angle degrees around vector u.\r\nfunction rotateVec3(v, u, angle)\r\n\tlocal rads = angle * math.pi / 180\r\n\tlocal v2 = applyMatrixRowsToVec3(v, rotationVectors(u, rads))\r\n\tv2.x = v2[1]\r\n\tv2.y = v2[2]\r\n\tv2.z = v2[3]\r\n    return v2\r\nend\r\n\r\n-- END Math functions ----------------------------------------------------------",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

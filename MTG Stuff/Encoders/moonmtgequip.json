@@ -1,0 +1,66 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "7deec9",
+      "Name": "PiecePack_Moons",
+      "Transform": {
+        "posX": -28.435,
+        "posY": 1.05763531,
+        "posZ": -0.810000062,
+        "rotX": -1.01478736E-06,
+        "rotY": 0.000388501,
+        "rotZ": -1.42598637E-05,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "moon-mtg-equip",
+      "Description": "manages equipment/enchantments - stack cards into a group, then click the \"equip all to top\" context menu button\n\nawawa!\nmade by stella + Lilith\nstella.lifeless.space",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MeshIndex": 1,
+      "LuaScript": "--[[--\n\nmoon-mtg-equip\n\nhandles equipment attaching\n\nawawa!\nmade by stella + Lilith\nstella.lifeless.space\n\n--]]--\n\nprop_id = \"moon-mtg-equip\"\nversion = \"1.0.0\"\n\n--[[--\nfeel free to copy this snippet, it's *really* useful for encoder api stuff\n\ntranslates enc.doXYZ(args) into enc.call(\"doXYZ\", args)\n--]]--\nlocal encoder\ndo\n\tlocal mt = {\n\t\t__index = function(self, index)\n\t\t\treturn function(args) return rawget(self, \"object\").call(\"API\" .. index, args) end\n\t\tend\n\t}\n\n\tencoder = function()\n\t\tlocal object = Global.getVar(\"Encoder\")\n\t\treturn object ~= nil and setmetatable({ object = object }, mt) or nil\n\tend\nend\n\n-- logic\n\nlocal function register_module()\n\tlocal enc = encoder()\n\tif enc == nil then return end\n\n\tif tonumber(enc.object.getVar(\"version\"):match(\"%d+%.%d+\")) < 4.4 then\n\t\tbroadcastToAll(\"encoder version must be >=4.4\", { 1, 0, 0, 1 })\n\t\terror(\"bad encoder version\")\n\tend\n\n\tenc.registerProperty {\n\t\tpropID = prop_id,\n\t\tname = \"Manage Equipment\",\n\t\tvalues = { \"moon_mtg_equip\" },\n\t\ttags = \"basic,counter\",\n\t\tvisible = false,\n\t\tvisible_in_hand = 0,\n\n\t\tfuncOwner = self,\n\t\tactivateFunc = \"\",\n\t}\n\n\tenc.registerValue {\n\t\tvalueID = \"moon_mtg_equip\",\n\t\tvalidType = \"nil\",\n\t\tdesc = \"who up describing they values (when are these ever used)\",\n\t\tdefault = {},\n\t}\nend\n\nlocal function init_card(card)\n\tif card.tag ~= \"Card\" then return end\n\tif card.getVar('noencode') ~= nil and card.getVar('noencode') == true then return end\n\n\tlocal enc = encoder()\n\tif enc == nil then return end\n\n\tif not enc.objectExists { obj = card } then enc.encodeObject { obj = card } end\n\n\tif not enc.propertyExists { propID = prop_id } then return end\n\n\tif not enc.objIsPropEnabled { obj = card, propID = prop_id } then\n\t\tenc.objEnableProp { obj = card, propID = prop_id }\n\n\t\tenc.rebuildButtons { obj = card }\n\tend\nend\n\nlocal function equipped_offset(i)\n\tlocal col = math.floor(i / 3)\n\tlocal row = i % 3\n\treturn Vector(-1.65 - 1.15 * col, 0.05 + row * (-0.05 / 3), -0.75 + row * (2.2 / 3))\nend\n\nlocal function equip_to(deck, to)\n\tlocal enc = encoder()\n\tif enc == nil then return end\n\n\tlocal data = enc.objGetPropData { obj = to, propID = prop_id }\n\tlocal origin, angles = to.getPosition(), to.getRotation()\n\n\twhile deck ~= nil and (deck.tag == \"Card\" or #deck.getObjects() > 0) do\n\t\tlocal card\n\t\tif deck.tag == \"Card\" then\n\t\t\tcard = deck\n\t\t\tdeck = nil\n\t\telse\n\t\t\tcard = deck.takeObject {\n\t\t\t\tposition = deck.getPosition(),\n\t\t\t\ttop = true,\n\t\t\t\tsmooth = false,\n\t\t\t}\n\t\t\tdeck = deck.remainder or deck\n\t\tend\n\n\t\tcard.setPosition(to.positionToWorld(equipped_offset(#data.moon_mtg_equip)))\n\t\tcard.setRotation(angles, false, false)\n\t\tcard.setScale({ 0.475, 0.475, 0.475 })\n\t\tcard.locked = true\n\t\tto.addAttachment(card)\n\n\t\ttable.insert(data.moon_mtg_equip, #to.getAttachments())\n\tend\n\n    enc.objSetPropData { obj = to, propID = prop_id, data = data }\nend\n\n-- a little odd way to ensure deduplication\n-- but hey, it works :tm:\nlocal function setup_deck_ctx(obj, force)\n\tif obj.getVar(\"moon-mtg-equip-ctx\") and not force then return end\n\n\tobj.addContextMenuItem(\"equip all to top\", function(plycol, objpos, deck)\n\t\tif deck.tag ~= \"Deck\" then return end\n\n\t\tlocal card = deck.takeObject {\n\t\t\tposition = deck.getPosition() + Vector(0, 1, 0),\n\t\t\ttop = true,\n\t\t}\n\t\tdeck = deck.remainder or deck\n\n\t\tinit_card(card)\n\t\tequip_to(deck, card)\n\tend)\n\n\tobj.setVar(\"moon-mtg-equip-ctx\", true)\nend\n\n-- api calls\n\nfunction createButtons(params)\n\tlocal enc = encoder()\n\tif enc == nil then return end\n\n\tlocal flip = enc.getFlip { obj = params.obj } or 1\n\tif flip == -1 then return end\n\n\tlocal equipped = enc.objGetPropData { obj = params.obj, propID = prop_id }\n\tif #equipped.moon_mtg_equip == 0 then return end\n\n\tparams.obj.createButton {\n\t\tlabel = \"unequip all\",\n\n\t\tposition = { 0, 0.28, 0 },\n\t\trotation = { 0, 0, 0 },\n\t\tscale = { 0.5, 0.5, 0.5 },\n\t\twidth = 800,\n\t\theight = 300,\n\n\t\tfont_size = 125,\n\t\tfont_color = { 1, 1, 1 },\n\t\tcolor = { 0.1, 0.1, 0.1 },\n\n\t\ttooltip = \"unequip all\",\n\n\t\tclick_function = 'unequip_all',\n\t\tfunction_owner = self,\n\t}\nend\n\nfunction unequip_all(obj, ply)\n\tlocal enc = encoder()\n\tif enc == nil then return end\n\n\tlocal equipped = enc.objGetPropData { obj = obj, propID = prop_id }\n\tif #equipped.moon_mtg_equip == 0 then return end\n\n\tlocal origin = obj.getPosition()\n\tobj.setPosition(origin + Vector(0, #equipped.moon_mtg_equip + 1, 0))\n\n\tfor i = #equipped.moon_mtg_equip, 1, -1 do\n\t\tlocal new = obj.removeAttachment(equipped.moon_mtg_equip[i] - 1)\n\t\tnew.setPosition(origin + Vector(0, #equipped.moon_mtg_equip - i + 1, 0))\n\t\tnew.setScale({ 1, 1, 1 })\n\t\tnew.locked = false\n\tend\n\n\tenc.objSetPropData { obj = obj, propID = prop_id, data = { moon_mtg_equip = {} } }\nend\n\n-- events\n\nfunction onload()\n\tself.addContextMenuItem(\"Register Module\", register_module)\n\tWait.condition(register_module, function() return Global.getVar(\"Encoder\") ~= nil end, 30)\n\n\tfor _, obj in pairs(getObjects()) do\n\t\tif obj.tag == \"Deck\" then\n\t\t\tsetup_deck_ctx(obj, true)\n\t\tend\n\tend\nend\n\nfunction onObjectDropped(ply, obj)\n\tinit_card(obj)\nend\n\nfunction onObjectSpawn(obj)\n\tif obj.tag ~= \"Card\" then return end\n\n\tWait.frames(function() setup_deck_ctx(obj, true) end, 10)\nend\n\nfunction onObjectEnterContainer(container, obj)\n\tif container.tag ~= \"Deck\" or obj.tag ~= \"Card\" then return end\n\n\tsetup_deck_ctx(container)\nend\n\nfunction onObjectEnterZone(zone,obj)\n\tif obj == nil or not (obj.tag == \"Card\" or obj.tag == \"Deck\") then return end\n\tif obj.getName():lower():find('planechase') then return end\n\n\tif obj.tag == \"Deck\" then\n\t\tWait.frames(function() setup_deck_ctx(obj, true) end, 10)\n\tend\nend\n\nfunction onObjectLeaveZone(zone, obj)\n\tif obj == nil or not (obj.tag == \"Card\" or obj.tag == \"Deck\") then return end\n\tif obj.getName():lower():find('planechase') then return end\n\n\tif obj.tag == \"Deck\" then\n\t\tWait.frames(function() setup_deck_ctx(obj, true) end, 10)\n\tend\nend",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

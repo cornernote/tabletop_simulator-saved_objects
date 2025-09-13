@@ -1,0 +1,91 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "3dacb3",
+      "Name": "Custom_Model_Bag",
+      "Transform": {
+        "posX": -14.1461649,
+        "posY": 1.77825975,
+        "posZ": 3.86436844,
+        "rotX": -1.18844582E-06,
+        "rotY": 270.0,
+        "rotZ": 1.253376E-07,
+        "scaleX": 0.92999965,
+        "scaleY": 0.92999965,
+        "scaleZ": 0.92999965
+      },
+      "Nickname": "Minecraft Chest Closed",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.9999998,
+        "g": 0.992160261,
+        "b": 0.9999998
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Number": 2,
+      "CustomMesh": {
+        "MeshURL": "https://www.dropbox.com/scl/fi/jroy8lc52cvle726s1mhj/chest.obj?rlkey=rlm3nl8o8jswivm1t3y658vtn&st=d4kyam96&dl=1",
+        "DiffuseURL": "https://www.dropbox.com/scl/fi/klirtavsqjc7zbw1hy152/normal.png?rlkey=d6no1fuhadoe09rarc6tq9vjr&st=bntkka5y&dl=1",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 3,
+        "TypeIndex": 6,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "SpecularIntensity": 0.4,
+          "SpecularSharpness": 4.0,
+          "FresnelStrength": 0.1
+        },
+        "CastShadows": true
+      },
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

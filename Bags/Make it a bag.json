@@ -1,0 +1,126 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "3d8083",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": -1.52380455,
+        "posY": 0.9599999,
+        "posZ": -1.455837,
+        "rotX": -5.859477E-07,
+        "rotY": 359.985779,
+        "rotZ": -8.62949463E-08,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Make it a bag",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/1021696515360942641/B791A0903D9D1F5E32E510BE88B59BBADA327C92/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1666858152072410834/221A1116B76B9355A1EEBF89612907FEA99730B2/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 2,
+        "TypeIndex": 4,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 0.7372549,
+            "g": 0.7372549,
+            "b": 0.7372549
+          },
+          "SpecularIntensity": 0.0,
+          "SpecularSharpness": 2.0,
+          "FresnelStrength": 0.0
+        },
+        "CastShadows": true
+      },
+      "LuaScript": "-- Bundled by luabundle {\"version\":\"1.6.0\"}\nlocal __bundle_require, __bundle_loaded, __bundle_register, __bundle_modules = (function(superRequire)\n\tlocal loadingPlaceholder = {[{}] = true}\n\n\tlocal register\n\tlocal modules = {}\n\n\tlocal require\n\tlocal loaded = {}\n\n\tregister = function(name, body)\n\t\tif not modules[name] then\n\t\t\tmodules[name] = body\n\t\tend\n\tend\n\n\trequire = function(name)\n\t\tlocal loadedModule = loaded[name]\n\n\t\tif loadedModule then\n\t\t\tif loadedModule == loadingPlaceholder then\n\t\t\t\treturn nil\n\t\t\tend\n\t\telse\n\t\t\tif not modules[name] then\n\t\t\t\tif not superRequire then\n\t\t\t\t\tlocal identifier = type(name) == 'string' and '\\\"' .. name .. '\\\"' or tostring(name)\n\t\t\t\t\terror('Tried to require ' .. identifier .. ', but no such module has been registered')\n\t\t\t\telse\n\t\t\t\t\treturn superRequire(name)\n\t\t\t\tend\n\t\t\tend\n\n\t\t\tloaded[name] = loadingPlaceholder\n\t\t\tloadedModule = modules[name](require, loaded, register, modules)\n\t\t\tloaded[name] = loadedModule\n\t\tend\n\n\t\treturn loadedModule\n\tend\n\n\treturn require, loaded, register, modules\nend)(nil)\n__bundle_register(\"__root\", function(require, _LOADED, __bundle_register, __bundle_modules)\nrequire(\"makeabag/creator\")\nend)\n__bundle_register(\"makeabag/creator\", function(require, _LOADED, __bundle_register, __bundle_modules)\nshape = \"square\"\r\nbagtype = \"normal\"\r\nrotate = 0\r\nurls = {\r\n  square = \"https://steamusercontent-a.akamaihd.net/ugc/1666858152071990826/9AD455F2CBAEC01B2CBCDDB8B6DC4CE48D14B545/\",\r\n  cylinder = \"https://steamusercontent-a.akamaihd.net/ugc/1666858152071991282/5C391C2599AE5F6972D6EFA7BFC04B41D6E821E3/\",\r\n  hex = \"https://steamusercontent-a.akamaihd.net/ugc/1666858349285421330/85514136CA7CC07D1571B594321C1D3D01DC2B2C/\",\r\n  triangle =\"https://steamusercontent-a.akamaihd.net/ugc/1666858288775771801/9B3BE50061314478867674DFD2262D4CD3DC30A3/\",\r\n}\r\nfunction toggle(player, value, id)\r\n  if value == \"True\" then\r\n    _G[self.UI.getAttribute(id, \"type\")] = id\r\n  end\r\n  self.UI.setAttribute(id, \"icon\", value==\"True\" and \"ui_checkon\" or \"ui_checkoff\")\r\nend\r\n\r\nfunction setRotation(player, value, id)\r\n  rotate = tonumber(value) * 15\r\n  self.UI.setAttribute(\"rotation\", \"text\", \"Rotation: \"..tostring(rotate))\r\nend\r\n\r\nfunction doit()\r\n  local url, type, obj\r\n  url = urls[shape]\r\n  if bagtype == \"normal\" then\r\n    type = 6\r\n  else\r\n    type = 7\r\n  end\r\n  local pos = self.getPosition()\r\n  for i,hit in pairs( Physics.cast({ origin = pos, direction = {x=0, y=1, z=0}, max_distance = 1})) do\r\n      if (hit.hit_object ~= self and hit.hit_object.tag ~= \"Surface\") then\r\n          obj = hit.hit_object\r\n      end\r\n  end\r\n  if not obj then return end\r\n  local bounds = obj.getBoundsNormalized()\r\n  local position = obj.getPosition()\r\n  local rotation = obj.getRotation()\r\n  obj.setLock(true)\r\n  local new_obj = spawnObject({\r\n    type              = \"Custom_Model\",\r\n    position          = position-bounds.offset,\r\n    rotation          = rotation+Vector(0, rotate, 0),\r\n    scale             = bounds.size,\r\n    sound             = false,\r\n  })\r\n  new_obj.setCustomObject({\r\n    mesh = url,\r\n    type = type,\r\n  })\r\n  new_obj.setLock(true)\r\n  new_obj.setColorTint(Color(1, 1, 1, 0))\r\n  new_obj.addAttachment(obj)\r\n  new_obj.setLock(false)\r\n  broadcastToAll(\"Done\", \"Green\")\r\nend\r\n\nend)\nreturn __bundle_require(\"__root\")",
+      "LuaScriptState": "{\"config\":{\"ARCS\":{\"BRACKETS\":[],\"COLOR\":\"inherit\",\"MAX\":16,\"MESH\":\"\",\"MODE\":1,\"SCALE\":1,\"SHAPE\":4,\"ZERO\":0},\"BARS\":[],\"BASE_LENGTH\":2,\"BASE_WIDTH\":2,\"FLAG\":{\"COLOR\":\"#ffffff\"},\"GEOMETRY\":{\"COLOR\":\"inherit\",\"MATERIAL\":0,\"MESH\":\"\",\"NORMAL\":\"\",\"TEXTURE\":\"\"},\"LOCK_FLAG\":false,\"LOCK_GEOMETRY\":false,\"META\":{\"AUTOUPDATE\":false,\"UPDATECHECK\":true},\"MODULE_ARC\":false,\"MODULE_BARS\":false,\"MODULE_FLAG\":false,\"MODULE_GEOMETRY\":false,\"MODULE_MARKERS\":false,\"MODULE_MOVEMENT\":false,\"MOVEMENT\":{\"COLOR\":\"inherit\",\"DEFINITIONS\":[[\"Standstill\",\"https://raw.githubusercontent.com/RobMayer/TTSLibrary/master/ui/move/standstill.png\",0,0,0,2,0,\"#0088ff\"]],\"LANDSHOW\":true,\"LANDTEST\":false,\"MODE\":1,\"ORIGIN\":\"EDGE\",\"SEGMENTS\":[[0,[]]],\"SPEEDDISTANCE\":1,\"SPEEDMAX\":4,\"SPEEDMIN\":0,\"TURNMAX\":3,\"TURNNOTCH\":22.5,\"UIHEIGHT\":0.25},\"OVERHEAD_HEIGHT\":2,\"OVERHEAD_OFFSET\":0,\"OVERHEAD_ORIENT\":\"VERTICAL\",\"OVERHEAD_WIDTH\":3,\"PERMEDIT\":10,\"PERMVIEW\":524287,\"REFRESH\":3,\"UI_SCALE\":1},\"metaconfig\":{\"AUTOUPDATE\":false,\"UPDATECHECK\":true},\"presets\":[]}",
+      "XmlUI": "<!-- include makeabag/xml.xml -->\n<Defaults>\r\n  <Text color='White' fontSize='18'/>\r\n  <ToggleButton textAlignment=\"MiddleLeft\" fontSize='24' preferredHeight='40' colors='#ffcc33|#ffffff|#808080|#606060' selectedBackgroundColor='#dddddd' deselectedBackgroundColor='#999999' onValueChanged=\"toggle\"/>\r\n  <Button fontSize='18' preferredHeight='40' colors='#dddddd|#ffffff|#808080|#606060' />\r\n</Defaults>\r\n\r\n<Panel height='400' width='600' position=\"0 -450 0\">\r\n  <VerticalLayout spacing='5' flexibleHeight=\"True\" padding='5 5 5 5' color='black'>\r\n    <HorizontalLayout preferredHeight=\"30\">\r\n      <Text preferredWidth=\"1000\" alignment='UpperLeft' fontSize='24' text='Options' preferredHeight='40' />\r\n    </HorizontalLayout>\r\n    <VerticalLayout color='#404040' padding='10 10 10 10' spacing='5' childForceExpandHeight=\"False\">\r\n      <ToggleGroup preferredHeight=\"160\">\r\n        <VerticalLayout>\r\n          <HorizontalLayout  spacing=\"40\">\r\n            <ToggleButton id=\"square\" type=\"shape\" minWidth=\"30\" preferredWidth=\"1000\" text=\"Square\" icon='ui_checkon' isOn=\"True\" iconAlignment=\"Right\"/>\r\n            <ToggleButton id=\"cylinder\" type=\"shape\" minWidth=\"30\" preferredWidth=\"1000\" text=\"Cylinder\" icon='ui_checkoff' iconAlignment=\"Right\"/>\r\n          </HorizontalLayout>\r\n          <HorizontalLayout>\r\n            <Text>\r\n              Triangle is orientated point up. Hex with point side.\r\n              Rotate to create more fitting bag.\r\n            </Text>\r\n          </HorizontalLayout>\r\n          <HorizontalLayout  spacing=\"40\">\r\n            <ToggleButton id=\"hex\" type=\"shape\" minWidth=\"30\" preferredWidth=\"1000\" text=\"Hex\" icon='ui_checkoff' iconAlignment=\"Right\"/>\r\n            <ToggleButton id=\"triangle\" type=\"shape\" minWidth=\"30\" preferredWidth=\"1000\" text=\"Triangle\" icon='ui_checkoff' iconAlignment=\"Right\"/>\r\n          </HorizontalLayout>\r\n        </VerticalLayout>\r\n      </ToggleGroup>\r\n      <Text text=\"Rotation: 0\" id=\"rotation\" />\r\n      <Slider onValueChanged='setRotation' minValue='0' maxValue=\"24\" value=\"0\" wholeNumbers=\"True\" preferredHeight='40' />\r\n      <ToggleGroup preferredHeight=\"50\">\r\n        <HorizontalLayout  spacing=\"40\">\r\n          <ToggleButton id=\"normal\" type=\"bagtype\" minWidth=\"30\" preferredWidth=\"1000\" text=\"Normal Bag\" icon='ui_checkon' isOn=\"True\" iconAlignment=\"Right\"/>\r\n          <ToggleButton id=\"infinite\" type=\"bagtype\" minWidth=\"30\" preferredWidth=\"1000\" text=\"Infinite Bag\" icon='ui_checkoff' iconAlignment=\"Right\"/>\r\n        </HorizontalLayout>\r\n      </ToggleGroup>\r\n      <Button text=\"Create Bag\" onClick=\"doit\"/>\r\n    </VerticalLayout>\r\n  </VerticalLayout>\r\n</Panel>\r\n\n<!-- include makeabag/xml.xml -->",
+      "CustomUIAssets": [
+        {
+          "Type": 0,
+          "Name": "ui_plus",
+          "URL": "https://steamusercontent-a.akamaihd.net/ugc/1666858349285437499/2F3473A51B3BB03ADD6C6D8252C41E5F3FB23A06/"
+        },
+        {
+          "Type": 0,
+          "Name": "ui_power",
+          "URL": "https://steamusercontent-a.akamaihd.net/ugc/1666858349285437586/C06023E14EA556EB327C685824CD954D0728E5BD/"
+        },
+        {
+          "Type": 0,
+          "Name": "ui_minus",
+          "URL": "https://steamusercontent-a.akamaihd.net/ugc/1666858349285437712/23890E5658F3E4757F889A10FCCBF76A64F9EAB7/"
+        },
+        {
+          "Type": 0,
+          "Name": "ui_drop",
+          "URL": "https://steamusercontent-a.akamaihd.net/ugc/1666858349285437791/A8EECA6326DB4A0AD40B2717123EF9D8B62A4DB9/"
+        },
+        {
+          "Type": 0,
+          "Name": "ui_checkon",
+          "URL": "https://steamusercontent-a.akamaihd.net/ugc/1666858349285437880/9B69A887F05A9898E082259FA7A05CD0672039ED/"
+        },
+        {
+          "Type": 0,
+          "Name": "ui_checkoff",
+          "URL": "https://steamusercontent-a.akamaihd.net/ugc/1666858349285437968/18D994B6680FECDC9AF3C2C0C0716EA471BE9588/"
+        }
+      ],
+      "AttachedSnapPoints": [
+        {
+          "Position": {
+            "x": -0.0571668446,
+            "y": 0.5,
+            "z": -0.017043354
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "0aa4b4",
+      "Name": "Custom_Model_Bag",
+      "Transform": {
+        "posX": 30.3148212,
+        "posY": 2.61177325,
+        "posZ": -2.96996212,
+        "rotX": -6.138624E-07,
+        "rotY": 180.001648,
+        "rotZ": -1.52879386E-06,
+        "scaleX": 0.92500025,
+        "scaleY": 0.92500025,
+        "scaleZ": 0.92500025
+      },
+      "Nickname": "1-Color Deck Box",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.9999998,
+        "g": 0.992163241,
+        "b": 0.9999998
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Number": 0,
+      "CustomMesh": {
+        "MeshURL": "https://www.dropbox.com/s/fbpp2c2mzvdi2lg/DeckBox.obj?dl=1",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1871804141032985418/238B6D200F339E5A6F2D5A0EEE9C589A09390774/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 6,
+        "CastShadows": true
+      },
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "States": {
+        "2": {
+          "GUID": "0a7624",
+          "Name": "Custom_Model_Bag",
+          "Transform": {
+            "posX": -22.0476646,
+            "posY": 3.153394,
+            "posZ": -36.0914574,
+            "rotX": 0.0169000365,
+            "rotY": 179.9974,
+            "rotZ": 0.07992538,
+            "scaleX": 0.92500025,
+            "scaleY": 0.92500025,
+            "scaleZ": 0.92500025
+          },
+          "Nickname": "White",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.9999998,
+            "g": 0.992163241,
+            "b": 0.9999998
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "Number": 0,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/fbpp2c2mzvdi2lg/DeckBox.obj?dl=1",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1871804141032984666/08CECB7B84A01E782A1E05697EB95808421991D8/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 1,
+            "TypeIndex": 6,
+            "CastShadows": true
+          },
+          "Bag": {
+            "Order": 0
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        "3": {
+          "GUID": "e67997",
+          "Name": "Custom_Model_Bag",
+          "Transform": {
+            "posX": -18.51016,
+            "posY": 3.14854622,
+            "posZ": -35.8065071,
+            "rotX": 0.0168960225,
+            "rotY": 180.000122,
+            "rotZ": 0.07993477,
+            "scaleX": 0.92500025,
+            "scaleY": 0.92500025,
+            "scaleZ": 0.92500025
+          },
+          "Nickname": "Blue",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.9999998,
+            "g": 0.992163241,
+            "b": 0.9999998
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "Number": 0,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/fbpp2c2mzvdi2lg/DeckBox.obj?dl=1",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1871804141032983793/32E02B204FA7DE3ED6490D8B61557A3CAD326A2E/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 1,
+            "TypeIndex": 6,
+            "CastShadows": true
+          },
+          "Bag": {
+            "Order": 0
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        "4": {
+          "GUID": "212da8",
+          "Name": "Custom_Model_Bag",
+          "Transform": {
+            "posX": -11.8186121,
+            "posY": 3.13962436,
+            "posZ": -34.4210434,
+            "rotX": 0.0169160664,
+            "rotY": 179.992859,
+            "rotZ": 0.079933,
+            "scaleX": 0.92500025,
+            "scaleY": 0.92500025,
+            "scaleZ": 0.92500025
+          },
+          "Nickname": "Black",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.642857254,
+            "g": 0.642857254,
+            "b": 0.642857254
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "Number": 0,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/fbpp2c2mzvdi2lg/DeckBox.obj?dl=1",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1871804141032982956/A98AD5D941307B0C09A9078228E204C7B23D6480/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 1,
+            "TypeIndex": 6,
+            "CastShadows": true
+          },
+          "Bag": {
+            "Order": 0
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        "5": {
+          "GUID": "48fa60",
+          "Name": "Custom_Model_Bag",
+          "Transform": {
+            "posX": -8.598083,
+            "posY": 3.13501787,
+            "posZ": -34.8160973,
+            "rotX": 0.0168948583,
+            "rotY": 180.003433,
+            "rotZ": 0.0799427554,
+            "scaleX": 0.92500025,
+            "scaleY": 0.92500025,
+            "scaleZ": 0.92500025
+          },
+          "Nickname": "Red",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.9999998,
+            "g": 0.992163241,
+            "b": 0.9999998
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "Number": 0,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/fbpp2c2mzvdi2lg/DeckBox.obj?dl=1",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1871804141032982015/4949393E0C870F1A493002A2F0C408A29FB2E937/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 1,
+            "TypeIndex": 6,
+            "CastShadows": true
+          },
+          "Bag": {
+            "Order": 0
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        "6": {
+          "GUID": "bb5012",
+          "Name": "Custom_Model_Bag",
+          "Transform": {
+            "posX": 8.08613,
+            "posY": 3.11453962,
+            "posZ": -25.3756752,
+            "rotX": 0.0168877039,
+            "rotY": 179.999619,
+            "rotZ": 0.07993649,
+            "scaleX": 0.92500025,
+            "scaleY": 0.92500025,
+            "scaleZ": 0.92500025
+          },
+          "Nickname": "Green",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.9999998,
+            "g": 0.992163241,
+            "b": 0.9999998
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "Number": 0,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/fbpp2c2mzvdi2lg/DeckBox.obj?dl=1",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1871804141032980373/391E4AE6C0248A5F2249C377FC7BD835D01ABE93/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 1,
+            "TypeIndex": 6,
+            "CastShadows": true
+          },
+          "Bag": {
+            "Order": 0
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      }
+    }
+  ]
+}

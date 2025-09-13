@@ -1,0 +1,77 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "e0e4b5",
+      "Name": "Custom_Token",
+      "Transform": {
+        "posX": 11.515,
+        "posY": 1.06,
+        "posZ": 2.43,
+        "rotX": -1.0005666E-07,
+        "rotY": 180.000122,
+        "rotZ": -8.32584E-08,
+        "scaleX": 0.6855281,
+        "scaleY": 1.0,
+        "scaleZ": 0.6855281
+      },
+      "Nickname": "WHO SHALL I TARGET ?",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/94979895601463007/65990AE5C6761CAAF255FB76391F5D714CFDF169/",
+        "ImageSecondaryURL": "",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.0,
+        "CustomToken": {
+          "Thickness": 0.2,
+          "MergeDistancePixels": 15.0,
+          "StandUp": false,
+          "Stackable": false
+        }
+      },
+      "LuaScript": "\r\n-- http://steamcommunity.com/profiles/76561197968345269\r\n\r\ndRoll=0\r\n\r\nfunction onload()\r\n  self.createButton({ click_function = 'pickPlayer',\r\n                      label = 'Random\\nopponent',\r\n                      function_owner = self,\r\n                      position = {0, 0.18, 0},\r\n                      rotation = {0, 0, 0},\r\n                      width = 1000,\r\n                      height = 1000,\r\n                      font_size = 200})\r\n  --self.setName('Player picker')\r\n  --self.setDescription('v20160621')\r\nend\r\n\r\nfunction pickPlayer(clicked_object, player)\r\n  dRoll=dRoll+1\r\n  local sittingPlayers = {}\r\n  for k,v in pairs({'White','Brown','Red','Orange','Yellow','Green','Teal','Blue','Purple','Pink','Black'}) do\r\n    if Player[v].seated and v ~= player then\r\n      table.insert(sittingPlayers,v)\r\n    end\r\n  end\r\n  if #sittingPlayers > 0 then\r\n    local pickedColor = sittingPlayers[math.random(#sittingPlayers)]\r\n    printToAll('(#' .. dRoll .. ') ' .. Player[player].steam_name .. ' (' ..  player ..') picks ' .. Player[pickedColor].steam_name .. ' (' ..  pickedColor ..')', {self.getColorTint().r,self.getColorTint().g,self.getColorTint().b})\n  end\r\nend\r\n",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

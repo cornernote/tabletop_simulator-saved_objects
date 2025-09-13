@@ -1,0 +1,75 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "55d417",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": -16.21915,
+        "posY": 0.7313175,
+        "posZ": 4.24661541,
+        "rotX": -2.34896788E-06,
+        "rotY": 134.980911,
+        "rotZ": -4.89572869E-07,
+        "scaleX": 1.25,
+        "scaleY": 1.25,
+        "scaleZ": 1.25
+      },
+      "Nickname": "T.A.R.D.I.S.",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.9999998,
+        "g": 0.9921616,
+        "b": 0.9999998
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://www.dropbox.com/s/w7xuvbw5ucjbh5b/tardis5.obj?dl=1",
+        "DiffuseURL": "https://www.dropbox.com/s/z7r6d1zu81onrg1/79797c43.png?dl=1",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 0,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

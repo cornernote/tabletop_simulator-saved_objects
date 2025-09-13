@@ -1,0 +1,81 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "b9fc9d",
+      "Name": "Custom_Model_Bag",
+      "Transform": {
+        "posX": 27.4953346,
+        "posY": 0.960001349,
+        "posZ": 2.969676,
+        "rotX": 1.69737359E-05,
+        "rotY": 270.0006,
+        "rotZ": -1.74911554E-06,
+        "scaleX": 2.19999957,
+        "scaleY": 2.19999957,
+        "scaleZ": 2.19999957
+      },
+      "Nickname": "Deck\\nBox",
+      "Description": "font size = 85\n",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.1254895,
+        "g": 0.1254895,
+        "b": 0.1254895
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Number": 0,
+      "CustomMesh": {
+        "MeshURL": "https://www.dropbox.com/s/ikgs1s70gnh9fjs/MtGdecksdeckBox001.obj?dl=1",
+        "DiffuseURL": "http://i.imgur.com/1ohL4YF.pnghttp://i.imgur.com/1ohL4YF.png",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 6,
+        "CastShadows": true
+      },
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "function onload()\n  b_display = { index = 0,\n                      click_function = 'updateDisplay',\r\n                      label = self.getName(),\r\n                      function_owner = self,\r\n                      position = {0, 1.4, 0},\r\n                      rotation = {0, 270, 0},\r\n                      width = 500,\r\n                      height = 200,\r\n                      font_size = 200}\n\n  b_display.label = b_display.label:gsub('\\\\n', '\\n')\n  local description = string.match(self.getDescription(), '%d+')\r\n    if description != '' and type(tonumber(description)) == 'number' then\r\n        b_display.font_size = tonumber(description)\r\n  end\n\r\n  self.createButton(b_display)\r\nend\n\nfunction updateDisplay()\r\n    local name = self.getName()\r\n    name = name:gsub('\\\\n', '\\n')\r\n    b_display.label = name\n\n    local description = string.match(self.getDescription(), '%d+')\r\n    if description != '' and type(tonumber(description)) == 'number' then\r\n        b_display.font_size = tonumber(description)\r\n    end\n\r\n    self.editButton(b_display)\r\nend",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

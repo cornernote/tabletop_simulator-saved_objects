@@ -1,0 +1,186 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "a4f2d6",
+      "Name": "Bag",
+      "Transform": {
+        "posX": 13.8650236,
+        "posY": 0.7847246,
+        "posZ": -8.369999,
+        "rotX": 1.941922E-06,
+        "rotY": -0.0013544783,
+        "rotZ": 0.00162976538,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Portal",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.7058823,
+        "g": 0.366520882,
+        "b": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "3617cd",
+          "Name": "Custom_Token",
+          "Transform": {
+            "posX": 44.5115356,
+            "posY": 1.875063,
+            "posZ": 7.87346125,
+            "rotX": -0.000325755449,
+            "rotY": -0.0003495368,
+            "rotZ": 0.008168145,
+            "scaleX": 1.83435237,
+            "scaleY": 1.0,
+            "scaleZ": 1.83435237
+          },
+          "Nickname": "Orange Portal",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": false,
+          "Snap": false,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": false,
+          "Sticky": false,
+          "Tooltip": false,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomImage": {
+            "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/1996819597333627645/94E256F66DFA07BA5124BB63EE00F7ABD52768A1/",
+            "ImageSecondaryURL": "",
+            "ImageScalar": 1.0,
+            "WidthScale": 0.0,
+            "CustomToken": {
+              "Thickness": 0.1,
+              "MergeDistancePixels": 5.0,
+              "StandUp": false,
+              "Stackable": false
+            }
+          },
+          "LuaScript": "isPortal = true\nlocal otherPortal = nil\n\nfunction setNewPortal()\n  local otherPortalGUID = nil\n  local setNextPortal = false\n  for _, obj in ipairs(getObjects()) do\n    if obj.getGUID() == self.getGUID() then\n      setNextPortal = true\n    elseif setNextPortal and obj.getVar(\"isPortal\") == true then\n      otherPortalGUID = obj.getGUID()\n      break\n    end\n  end\n  if otherPortalGUID == nil then\n    for _, obj in ipairs(getObjects()) do\n      if obj.getGUID() ~= self.getGUID() and obj.getVar(\"isPortal\") == true then\n        otherPortalGUID = obj.getGUID()\n        break\n      end\n    end\n  end\n  otherPortal = getObjectFromGUID(otherPortalGUID)\nend\n\nWait.time(function()\n  setNewPortal()\nend, 0.1)\n\nfunction onObjectSpawn(obj)\n  if obj.getVar(\"isPortal\") == true then\n    setNewPortal()\n  end\nend\n\nfunction onObjectDestroy(obj)\n  if obj.getVar(\"isPortal\") == true then\n    setNewPortal()\n  end\nend\n\nfunction getRotatedVelocity(v, r)\n    -- define the 3D velocity vector\n  v = {v.x, v.y, v.z}\n\n  -- define the rotation vector\n  r = {r.x, r.y, r.z}\n\n  -- calculate the magnitude of the rotation vector\n  local angle = math.sqrt(r[1]^2 + r[2]^2 + r[3]^2)\n\n  -- if the rotation angle is zero, do nothing\n  if angle == 0 then\n      return v\n  end\n\n  -- normalize the rotation vector\n  r[1] = r[1] / angle\n  r[2] = r[2] / angle\n  r[3] = r[3] / angle\n\n  -- calculate the components of the cross product between the velocity vector and the rotation vector\n  local crossx = v[2] * r[3] - v[3] * r[2]\n  local crossy = v[3] * r[1] - v[1] * r[3]\n  local crossz = v[1] * r[2] - v[2] * r[1]\n\n  -- calculate the components of the dot product between the velocity vector and the rotation vector\n  local dot = v[1] * r[1] + v[2] * r[2] + v[3] * r[3]\n\n  -- calculate the rotated velocity vector\n  local v_rotated = {\n      v[1] * math.cos(angle) + crossx * math.sin(angle) + r[1] * dot * (1 - math.cos(angle)),\n      v[2] * math.cos(angle) + crossy * math.sin(angle) + r[2] * dot * (1 - math.cos(angle)),\n      v[3] * math.cos(angle) + crossz * math.sin(angle) + r[3] * dot * (1 - math.cos(angle))\n  }\n\n  -- return the rotated velocity vector\n  return v_rotated\nend\n\nfunction onCollisionEnter(collision_info)\n  if otherPortal then\n    local obj = collision_info.collision_object\n    if obj.getVar(\"isPortal\") ~= true and not (obj.name == 'Table_RPG' or obj.interactable ~= true or obj.locked) then\n      local size = obj.getBounds().size\n      local offset_base = math.sqrt(size.x^2 + size.y^2 + size.z^2)\n      local factor = 1\n      local vel = collision_info.relative_velocity -- 1, 2, 3\n      local vec_mag = math.sqrt(vel[1]^2 + vel[2]^2 + vel[3]^2)\n      local p2_rot = otherPortal.getRotation() -- x, y, z\n      local p2_pos = otherPortal.getPosition()\n      if (p2_rot.z > 90 and p2_rot.z < 270) or (p2_rot.x > 90 and p2_rot.x < 270) then\n        factor = -1\n      end\n      local x_offset = math.sin(math.rad(p2_rot.z)) * offset_base\n      local z_offset = math.sin(math.rad(p2_rot.x)) * offset_base\n      local y_offset = factor * offset_base\n      obj.setPosition({p2_pos.x+x_offset,p2_pos.y+y_offset,p2_pos.z+z_offset})\n      rot = obj.getRotation()\n      local exit_rot = {x=rot.x,y=rot.y+180,z=rot.z+180}\n      if exit_rot.y >= 360 then\n        exit_rot.y = exit_rot.y - 360\n      end\n      if exit_rot.z >= 360 then\n        exit_rot.z = exit_rot.z - 360\n      end\n      obj.setRotation(exit_rot)\n      vel = obj.getVelocity()\n      local exit_vel = getRotatedVelocity({x=vel.x,y=-vel.y,z=-vel.z}, p2_rot)\n      obj.setVelocity(exit_vel)\n    end\n  end\nend\n",
+          "LuaScriptState": "{\"announceColour\":\"[1ac6ff]\",\"autoPromote\":false,\"chatCommands\":true,\"extraOptionsOpen\":false,\"greyBT\":false,\"interact\":true,\"kickBT\":false,\"maxPickup\":-1,\"nicknames\":[],\"printCommands\":false,\"printHoursOnJoin\":false,\"stopVoteTouching\":false,\"trusted\":[]}",
+          "XmlUI": ""
+        },
+        {
+          "GUID": "d0a43c",
+          "Name": "Custom_Token",
+          "Transform": {
+            "posX": 49.4632339,
+            "posY": 1.87482584,
+            "posZ": 11.5047522,
+            "rotX": 0.000454812631,
+            "rotY": -0.00148636976,
+            "rotZ": -0.000843411544,
+            "scaleX": 1.83435237,
+            "scaleY": 1.0,
+            "scaleZ": 1.83435237
+          },
+          "Nickname": "Blue Portal",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": false,
+          "Snap": false,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": false,
+          "Sticky": false,
+          "Tooltip": false,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomImage": {
+            "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/1996819597333623304/7914562823A0C45395FC75070589694CF4A1450E/",
+            "ImageSecondaryURL": "",
+            "ImageScalar": 1.0,
+            "WidthScale": 0.0,
+            "CustomToken": {
+              "Thickness": 0.1,
+              "MergeDistancePixels": 5.0,
+              "StandUp": false,
+              "Stackable": false
+            }
+          },
+          "LuaScript": "isPortal = true\nlocal otherPortal = nil\n\nfunction setNewPortal()\n  local otherPortalGUID = nil\n  local setNextPortal = false\n  for _, obj in ipairs(getObjects()) do\n    if obj.getGUID() == self.getGUID() then\n      setNextPortal = true\n    elseif setNextPortal and obj.getVar(\"isPortal\") == true then\n      otherPortalGUID = obj.getGUID()\n      break\n    end\n  end\n  if otherPortalGUID == nil then\n    for _, obj in ipairs(getObjects()) do\n      if obj.getGUID() ~= self.getGUID() and obj.getVar(\"isPortal\") == true then\n        otherPortalGUID = obj.getGUID()\n        break\n      end\n    end\n  end\n  otherPortal = getObjectFromGUID(otherPortalGUID)\nend\n\nWait.time(function()\n  setNewPortal()\nend, 0.1)\n\nfunction onObjectSpawn(obj)\n  if obj.getVar(\"isPortal\") == true then\n    setNewPortal()\n  end\nend\n\nfunction onObjectDestroy(obj)\n  if obj.getVar(\"isPortal\") == true then\n    setNewPortal()\n  end\nend\n\nfunction getRotatedVelocity(v, r)\n    -- define the 3D velocity vector\n  v = {v.x, v.y, v.z}\n\n  -- define the rotation vector\n  r = {r.x, r.y, r.z}\n\n  -- calculate the magnitude of the rotation vector\n  local angle = math.sqrt(r[1]^2 + r[2]^2 + r[3]^2)\n\n  -- if the rotation angle is zero, do nothing\n  if angle == 0 then\n      return v\n  end\n\n  -- normalize the rotation vector\n  r[1] = r[1] / angle\n  r[2] = r[2] / angle\n  r[3] = r[3] / angle\n\n  -- calculate the components of the cross product between the velocity vector and the rotation vector\n  local crossx = v[2] * r[3] - v[3] * r[2]\n  local crossy = v[3] * r[1] - v[1] * r[3]\n  local crossz = v[1] * r[2] - v[2] * r[1]\n\n  -- calculate the components of the dot product between the velocity vector and the rotation vector\n  local dot = v[1] * r[1] + v[2] * r[2] + v[3] * r[3]\n\n  -- calculate the rotated velocity vector\n  local v_rotated = {\n      v[1] * math.cos(angle) + crossx * math.sin(angle) + r[1] * dot * (1 - math.cos(angle)),\n      v[2] * math.cos(angle) + crossy * math.sin(angle) + r[2] * dot * (1 - math.cos(angle)),\n      v[3] * math.cos(angle) + crossz * math.sin(angle) + r[3] * dot * (1 - math.cos(angle))\n  }\n\n  -- return the rotated velocity vector\n  return v_rotated\nend\n\nfunction onCollisionEnter(collision_info)\n  if otherPortal then\n    local obj = collision_info.collision_object\n    if obj.getVar(\"isPortal\") ~= true and not (obj.name == 'Table_RPG' or obj.interactable ~= true or obj.locked) then\n      local size = obj.getBounds().size\n      local offset_base = math.sqrt(size.x^2 + size.y^2 + size.z^2)\n      local factor = 1\n      local vel = collision_info.relative_velocity -- 1, 2, 3\n      local vec_mag = math.sqrt(vel[1]^2 + vel[2]^2 + vel[3]^2)\n      local p2_rot = otherPortal.getRotation() -- x, y, z\n      local p2_pos = otherPortal.getPosition()\n      if (p2_rot.z > 90 and p2_rot.z < 270) or (p2_rot.x > 90 and p2_rot.x < 270) then\n        factor = -1\n      end\n      local x_offset = math.sin(math.rad(p2_rot.z)) * offset_base\n      local z_offset = math.sin(math.rad(p2_rot.x)) * offset_base\n      local y_offset = factor * offset_base\n      obj.setPosition({p2_pos.x+x_offset,p2_pos.y+y_offset,p2_pos.z+z_offset})\n      rot = obj.getRotation()\n      local exit_rot = {x=rot.x,y=rot.y+180,z=rot.z+180}\n      if exit_rot.y >= 360 then\n        exit_rot.y = exit_rot.y - 360\n      end\n      if exit_rot.z >= 360 then\n        exit_rot.z = exit_rot.z - 360\n      end\n      obj.setRotation(exit_rot)\n      vel = obj.getVelocity()\n      local exit_vel = getRotatedVelocity({x=vel.x,y=-vel.y,z=-vel.z}, p2_rot)\n      obj.setVelocity(exit_vel)\n    end\n  end\nend\n",
+          "LuaScriptState": "{\"announceColour\":\"[1ac6ff]\",\"autoPromote\":false,\"chatCommands\":true,\"extraOptionsOpen\":false,\"greyBT\":false,\"interact\":true,\"kickBT\":false,\"maxPickup\":-1,\"nicknames\":[],\"printCommands\":false,\"printHoursOnJoin\":false,\"stopVoteTouching\":false,\"trusted\":[]}",
+          "XmlUI": ""
+        }
+      ]
+    }
+  ]
+}

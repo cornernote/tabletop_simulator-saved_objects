@@ -1,0 +1,72 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "f8a7d4",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": 27.9647541,
+        "posY": 2.97016048,
+        "posZ": 9.990001,
+        "rotX": 0.007089959,
+        "rotY": 270.000244,
+        "rotZ": 0.0005747468,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Magic 8-Ball",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/1714156622369711646/9E3288BDCD710E7772DF7628EECF1DB6AA7977BA/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 0,
+        "TypeIndex": 1,
+        "LoopingEffectIndex": 4
+      },
+      "LuaScript": "function onload()\r\n  wisdoms = {\r\n    \r\n    \"DON'T\\nCOUNT\\nON IT\",\r\n    \"MY\\nREPLY\\nIS NO\",\r\n    \"MY\\nSOURCES\\nSAY NO\",\r\n    \"OUTLOOK\\nNOT SO GOOD\",\r\n    \"VERY\\nDOUBTFUL\",\r\n\r\n    \"REPLY\\nHAZY\\nTRY AGAIN\",\r\n    \"ASK\\nAGAIN\\nLATER\",\r\n    \"BETTER\\nNOT TELL\\nYOU NOW\",\r\n    \"CANNOT\\nPREDICT NOW\",\r\n    \"\\n\\nCONCENTRATE\\nAND ASK AGAIN\",\r\n\r\n    \"AS I\\nSEE IT,\\nYES\",\r\n    \"MOST\\nLIKELY\",\r\n    \"OUTLOOK\\nGOOD\",\r\n    \"YES\",\r\n    \"SIGNS\\nPOINT\\nTO YES\",\r\n\r\n    \"IT IS\\nCERTAIN\",\r\n    \"IT IS\\nDECIDEDLY SO\",\r\n    \"WITHOUT\\nA DOUBT\",\r\n    \"YES\\nDEFINITELY\",\r\n    \"YOU MAY\\nRELY ON IT\"\r\n\r\n  }\r\n\r\n  vel = 0\r\n  pickedup = false\r\n  shaken = false\r\n  shakelimit = 3000\r\n  self.AssetBundle.playLoopingEffect(0)\r\n\r\n  self.createButton({\r\n    label=\"DONT\\nCOUNT\\nON IT\",\r\n    click_function=\"nada\",\r\n    function_owner=self,\r\n    position={0,-1.6,0},\r\n    height=0,\r\n    width=0,\r\n    font_size=60,\r\n    font_color={1,1,1,1},\r\n    rotation={0,0,180},\r\n    color={0,0,0,1}\r\n  })\r\nend\r\n\r\nfunction update()\r\n\r\n  if pickedup then\r\n    local cvel = self.getVelocity()\r\n    vel = vel + math.abs(cvel.x, cvel.y, cvel.z)\r\n    if vel >= shakelimit then\r\n      pickedup = false\r\n      shaken = true\r\n      self.AssetBundle.playLoopingEffect(2)\r\n      self.flip()\r\n      Wait.time(createMessage, 1)\r\n    end\r\n  end\r\n\r\nend\r\n\r\nfunction onPickUp()\r\n  vel = 0\r\n  pickedup = false\r\n  shaken = false\r\n  self.AssetBundle.playLoopingEffect(1)\r\n  pickedup = true\r\nend\r\nfunction onDrop()\r\n  if pickedup then\r\n    self.AssetBundle.playLoopingEffect(4)\r\n  end\r\nend\r\n\r\nfunction createMessage()\r\n  local rand = math.random(1,#wisdoms)\r\n  self.editButton({index = 0, label = wisdoms[rand]})\r\n  self.AssetBundle.playLoopingEffect(5)\r\nend",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

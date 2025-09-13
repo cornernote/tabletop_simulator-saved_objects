@@ -1,0 +1,72 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "5470f4",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": 7.755003,
+        "posY": 0.9622526,
+        "posZ": -12.6889706,
+        "rotX": 0.006096996,
+        "rotY": 269.999481,
+        "rotZ": 0.00511406874,
+        "scaleX": 0.8750002,
+        "scaleY": 0.8750002,
+        "scaleZ": 0.8750002
+      },
+      "Nickname": "Street Lamp",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.2426467,
+        "g": 0.2426467,
+        "b": 0.2426467
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://www.dropbox.com/s/cn3z27qg53qwlw6/streetlamp1.unity3d?dl=1",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 0,
+        "TypeIndex": 0,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

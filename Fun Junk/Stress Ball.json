@@ -1,0 +1,85 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "497f94",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": 15.745,
+        "posY": 2.73368025,
+        "posZ": 4.59,
+        "rotX": 1.60519731,
+        "rotY": 179.999146,
+        "rotZ": -0.00552058872,
+        "scaleX": 1.67499888,
+        "scaleY": 1.67499888,
+        "scaleZ": 1.67499888
+      },
+      "Nickname": "Stress Ball",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.470587254,
+        "g": 0.470587254,
+        "b": 0.470587254
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://www.dropbox.com/s/nqpadv5nvs05wvh/ball.unity3d?dl=1",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 3,
+        "TypeIndex": 0,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "PhysicsMaterial": {
+        "StaticFriction": 0.0,
+        "DynamicFriction": 0.0,
+        "Bounciness": 1.0,
+        "FrictionCombine": 0,
+        "BounceCombine": 0
+      },
+      "Rigidbody": {
+        "Mass": 1.0,
+        "Drag": 0.0,
+        "AngularDrag": 0.0,
+        "UseGravity": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "cf6ca1",
+      "Name": "Custom_Assetbundle_Bag",
+      "Transform": {
+        "posX": 9.165016,
+        "posY": 1.279363,
+        "posZ": -20.25,
+        "rotX": 1.18413745E-07,
+        "rotY": 180.00058,
+        "rotZ": -0.00163239508,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Void",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.838235259,
+        "g": 0.838235259,
+        "b": 0.838235259
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Number": 0,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "http://chry.me/up/new_blackhole4.unity3d",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 2,
+        "TypeIndex": 6,
+        "LoopingEffectIndex": 1
+      },
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "function onLoad()\r\n    self.createButton({\r\n        click_function=\"click_clopen\", function_owner=self,\r\n        position={0,0.5,0}, height=500, width=500, color={0,0,0,0}\r\n    })\r\n    params = {assetbundle=\"http://chry.me/up/new_blackhole4.unity3d\",material=2}\r\nend\r\n\r\nfunction click_clopen()\r\n    if self.AssetBundle.getLoopingEffectIndex() == 0 then\r\n        params.type = 6\r\n        self.AssetBundle.playLoopingEffect(1)\r\n    else\r\n        params.type = 0\r\n        self.AssetBundle.playLoopingEffect(0)\r\n    end\r\n    self.setCustomObject(params)\r\n    self.reload()\r\nend\r\n\r\nfunction onCollisionEnter()\r\n    if self.AssetBundle.getLoopingEffectIndex() == 1 then\r\n        self.reset()\r\n    end\r\nend\r\n",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

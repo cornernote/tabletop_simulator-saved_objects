@@ -1,0 +1,73 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "022a82",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": 21.8880882,
+        "posY": 0.9612251,
+        "posZ": -1.958339,
+        "rotX": 0.0006850822,
+        "rotY": 239.215088,
+        "rotZ": -3.244762E-05,
+        "scaleX": 0.375000477,
+        "scaleY": 0.375000477,
+        "scaleZ": 0.375000477
+      },
+      "Nickname": "Gelatinous Cube",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.5215685,
+        "g": 0.8980392,
+        "b": 1.0,
+        "a": 0.583643258
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": false,
+      "Snap": false,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": false,
+      "Autoraise": false,
+      "Sticky": false,
+      "Tooltip": false,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/1852670178180602017/E390FFE50381CE71D69FE1771548536277BFB332/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 4,
+        "TypeIndex": 0,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "disableFrames = 500\r\ncollisionDisableFrames = 0\r\nreverseDirection = false\r\nlineData = {}\r\nlineLastPosition = nil\r\nrotationLastPosition = nil\r\nrandomTick = math.floor(math.random(10,100))\r\nrandomTick2 = math.floor(math.random(100,200))\r\nturnMultiplier = nil\r\n\r\nfunction onLoad()\r\n    Wait.time(doRotation, 0.2, -1)\r\n    self.addContextMenuItem(\"Reset Trails\", resetTrail, false)\r\nend\r\n\r\nfunction resetTrail(player_color)\r\n    self.reload()\r\nend\r\n\r\nfunction onUpdate()\r\n    if self.is_face_down == true then\r\n        return\r\n    end\r\n    if collisionDisableFrames > 0 then\r\n        collisionDisableFrames = collisionDisableFrames - 1\r\n    end\r\n    if disableFrames > 0 then\r\n        if disableFrames == 200 then\r\n            local rb = self.getComponent(\"Rigidbody\")\r\n            rb.set(\"freezeRotation\", true)\r\n        end\r\n        disableFrames = disableFrames - 1\r\n        return\r\n    end\r\n\r\n    local velocityWorld = self.positionToWorld({1, 0, 0})\r\n    local velocityVector = Vector.between(self.getPosition(), velocityWorld)\r\n    velocityVector:normalize()\r\n    if reverseDirection then\r\n        velocityVector:inverse()\r\n    end\r\n    -- Never allow it to climb vertically\r\n    velocityVector.y = 0\r\n    self.setVelocity(velocityVector)\r\nend\r\n\r\nfunction onRotate(spin, flip, player_color, old_spin, old_flip)\r\n    if flip ~= old_flip then\r\n        disableFrames = 600\r\n    end\r\nend\r\n\r\nfunction onCollisionEnter()\r\n    --print(\"colliding\")\r\n    if self.is_face_down == true then\r\n        return\r\n    end\r\n    reverseDirection = not reverseDirection\r\n    self.rotate({0,10,0})\r\nend\r\n\r\nfunction doRotation()\r\n    if self.is_face_down == true or disableFrames > 0 then\r\n        return\r\n    end\r\n\r\n    local myPos = self.getPosition()\r\n\r\n    -- Check if we're stuck\r\n    if rotationLastPosition ~= nil and Vector.between(myPos, rotationLastPosition):magnitude() < 0.01 then\r\n        --print(\"stuck\")\r\n        reverseDirection = not reverseDirection\r\n        rotationLastPosition = nil\r\n        return\r\n    end\r\n    rotationLastPosition = myPos\r\n\r\n    randomTick2 = randomTick2 - 1\r\n    if randomTick2 <= 0 then\r\n        randomTick2 = math.floor(math.random(100,200))\r\n        randomTick = math.floor(math.random(10,100))\r\n        self.rotate({0,math.random(-180, 180),0})\r\n        return\r\n    end\r\n\r\n    randomTick = randomTick - 1\r\n    if randomTick <= 0 then\r\n        randomTick = math.floor(math.random(10,100))\r\n        self.rotate({0,math.random(-90,90),0})\r\n        return\r\n    end\r\n\r\n    local forwardPosition = self.positionToWorld({1, 0, 0})\r\n    local forwardVector = Vector.between(myPos, forwardPosition)\r\n    castMult = 1\r\n    if reverseDirection then\r\n        castMult = -1\r\n        forwardVector:inverse()\r\n    end\r\n    leftCast = Physics.cast({\r\n        origin       = self.positionToWorld({0, 0.1, 0.9*castMult}),\r\n        direction    = forwardVector,\r\n        type         = 1,\r\n        max_distance = 1.5,\r\n        debug        = false,\r\n    })\r\n    local posPlus = self.getPosition();\r\n    posPlus.y = posPlus.y + 0.1\r\n    centerCast = Physics.cast({\r\n        origin       = posPlus,\r\n        direction    = forwardVector,\r\n        type         = 1,\r\n        max_distance = 1.5,\r\n        debug        = false,\r\n    })\r\n    rightCast = Physics.cast({\r\n        origin       = self.positionToWorld({0, 0.1, -0.9*castMult}),\r\n        direction    = forwardVector,\r\n        type         = 1,\r\n        max_distance = 1.5,\r\n        debug        = false,\r\n    })\r\n    local leftDistance = 1000\r\n    for _, hitTable in ipairs(leftCast) do\r\n        if hitTable ~= nil and hitTable.point ~= nil then\r\n            leftDistance = hitTable.distance;\r\n            break;\r\n        end\r\n    end\r\n    local centerDistance = 1000\r\n    for _, hitTable in ipairs(centerCast) do\r\n        if hitTable ~= nil and hitTable.point ~= nil then\r\n            centerDistance = hitTable.distance;\r\n            break;\r\n        end\r\n    end\r\n    local rightDistance = 1000\r\n    for _, hitTable in ipairs(rightCast) do\r\n        if hitTable ~= nil and hitTable.point ~= nil then\r\n            rightDistance = hitTable.distance;\r\n            break;\r\n        end\r\n    end\r\n    if leftDistance ~= 1000 or rightDistance ~= 1000 then\r\n        if turnMultiplier == nil then\r\n            if leftDistance < rightDistance then\r\n                --print(\"right\")\r\n                turnMultiplier = 1\r\n            else\r\n                --print(\"left\")\r\n                turnMultiplier = -1\r\n            end\r\n        end\r\n        randomTick2 = math.floor(math.random(100,200))\r\n        self.rotate({0,90*turnMultiplier,0})\r\n        return\r\n    elseif centerDistance ~= 1000 then\r\n        if turnMultiplier == nil then\r\n            if math.random(0, 1) > 0.5 then\r\n                --print(\"random right\")\r\n                turnMultiplier = 1\r\n            else\r\n                --print(\"random left\")\r\n                turnMultiplier = -1\r\n            end\r\n        end\r\n        randomTick2 = math.floor(math.random(100,200))\r\n        self.rotate({0,90*turnMultiplier,0})\r\n        return\r\n    else\r\n        turnMultiplier = nil\r\n    end\r\n    self.rotate({0,math.random(-30,30),0})\r\nend\r\n",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

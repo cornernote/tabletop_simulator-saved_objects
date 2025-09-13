@@ -1,0 +1,206 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "5820e2",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": -12.4626369,
+        "posY": 2.762752,
+        "posZ": 9.4609375,
+        "rotX": 0.008149141,
+        "rotY": 359.964,
+        "rotZ": -0.001091336,
+        "scaleX": 0.25,
+        "scaleY": 0.25,
+        "scaleZ": 0.25
+      },
+      "Nickname": "Fire Small",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/1697279045398302169/B2D57713BFFD619F77490690B49B2A9A990CDF9C/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 0,
+        "TypeIndex": 0,
+        "LoopingEffectIndex": 2
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ChildObjects": [
+        {
+          "GUID": "307b35",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 16.3661213,
+            "posY": -6.785888,
+            "posZ": -6.944345,
+            "rotX": 357.663116,
+            "rotY": 0.242555946,
+            "rotZ": 358.1679,
+            "scaleX": 35.6000557,
+            "scaleY": 35.6000557,
+            "scaleZ": 35.6000557
+          },
+          "Nickname": "Maxwell",
+          "Description": "Maxwell is a very good boy",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": true,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/2026087820431793346/316E024E4C3915B698E1CFC691AD9EB70AF67A06/",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/2026087820431794094/7E31AB30620041C3B764B4C6E0328FAD20EF1857/",
+            "NormalURL": "",
+            "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/2026087820431793346/316E024E4C3915B698E1CFC691AD9EB70AF67A06/",
+            "Convex": true,
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "CustomShader": {
+              "SpecularColor": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+              },
+              "SpecularIntensity": 0.0,
+              "SpecularSharpness": 7.0,
+              "FresnelStrength": 0.4
+            },
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ChildObjects": [
+            {
+              "GUID": "35d30b",
+              "Name": "Custom_Model",
+              "Transform": {
+                "posX": -0.468434334,
+                "posY": 0.170870528,
+                "posZ": 0.206947327,
+                "rotX": 81.3714752,
+                "rotY": 105.739243,
+                "rotZ": 353.9411,
+                "scaleX": 0.112359375,
+                "scaleY": 0.11235939,
+                "scaleZ": 0.112359375
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": true,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "CustomMesh": {
+                "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/2269319015256898892/912306F988CFD0EA6F29CE60660F2CB93591F53B/",
+                "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/2269319015256899294/0D1CFD665E4AC94B6DA4C62404FCABFB285D32BC/",
+                "NormalURL": "",
+                "ColliderURL": "",
+                "Convex": true,
+                "MaterialIndex": 3,
+                "TypeIndex": 0,
+                "CustomShader": {
+                  "SpecularColor": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0
+                  },
+                  "SpecularIntensity": 0.0,
+                  "SpecularSharpness": 2.0,
+                  "FresnelStrength": 0.0
+                },
+                "CastShadows": true
+              },
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

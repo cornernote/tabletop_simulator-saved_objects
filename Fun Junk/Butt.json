@@ -1,0 +1,132 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "bf49cd",
+      "Name": "Custom_Model_Infinite_Bag",
+      "Transform": {
+        "posX": 0.364787042,
+        "posY": 1.25415587,
+        "posZ": -0.6004843,
+        "rotX": -3.22160736E-06,
+        "rotY": 180.0,
+        "rotZ": -3.7046043E-06,
+        "scaleX": 1.44999969,
+        "scaleY": 1.44999969,
+        "scaleZ": 1.44999969
+      },
+      "Nickname": "Butt",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "CustomMesh": {
+        "MeshURL": "http://pastebin.com/raw/wrj6v12b",
+        "DiffuseURL": "http://previewcf.turbosquid.com/Preview/2014/08/01__13_22_41/skin.psd2411fb13-f199-4d9b-8eac-99ca390d5c67Larger.jpg",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 7,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "c9d21b",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 5.643152,
+            "posY": 3.125521,
+            "posZ": -0.632887244,
+            "rotX": 0.0188005883,
+            "rotY": 179.9936,
+            "rotZ": 0.0119666541,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "CustomMesh": {
+            "MeshURL": "http://pastebin.com/raw/dKXNvFdQ",
+            "DiffuseURL": "https://s-media-cache-ak0.pinimg.com/736x/b8/a8/36/b8a836efdc17cd32912f3f8a19cd0b8a.jpg",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 3,
+            "TypeIndex": 0,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      ]
+    }
+  ]
+}

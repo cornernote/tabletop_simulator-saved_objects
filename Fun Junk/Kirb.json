@@ -1,0 +1,132 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "6e87c8",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": -12.1848125,
+        "posY": 2.72300839,
+        "posZ": -15.894352,
+        "rotX": -0.00034621096,
+        "rotY": -0.004295015,
+        "rotZ": -0.000153025947,
+        "scaleX": 1.39999986,
+        "scaleY": 1.39999986,
+        "scaleZ": 1.39999986
+      },
+      "Nickname": "Kirb",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": false,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/784113404624951024/607C7E9D2466C57AF4C0FFB41B208F7CE2552146/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/784113153102932033/5E531921F1A9435A1B5B69E38328E0B73010218B/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 0,
+        "TypeIndex": 0,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ChildObjects": [
+        {
+          "GUID": "6f6862",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": -1.42511773,
+            "posY": -0.5189479,
+            "posZ": 0.8529551,
+            "rotX": -0.003729325,
+            "rotY": 89.02646,
+            "rotZ": -0.000142993958,
+            "scaleX": 1.19999611,
+            "scaleY": 1.19999588,
+            "scaleZ": 1.19999611
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.996078551,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": false,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/863978359495064406/50966C05FB8C4D41BA069EB5E0E19E95BF3A9963/",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/863978359495062918/777CFB72754EC943DF113C1EC1CA495B07FCB6C1/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      ]
+    }
+  ]
+}

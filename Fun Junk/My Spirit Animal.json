@@ -1,0 +1,75 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "8f9eb1",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": -29.375,
+        "posY": 1.15671778,
+        "posZ": 1.3499999,
+        "rotX": -3.4282084E-07,
+        "rotY": 89.98294,
+        "rotZ": -2.21924915E-06,
+        "scaleX": 0.7749992,
+        "scaleY": 0.7749992,
+        "scaleZ": 0.7749992
+      },
+      "Nickname": "My Spirit Animal",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/782910068889243541/105208BBD1085BDEA1756BE21E2CF0B0579B74BA/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/782910068889244378/49EDA3B95409431C79E4B6681E1EFE58CB2FA605/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 0,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

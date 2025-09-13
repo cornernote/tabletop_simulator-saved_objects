@@ -1,0 +1,114 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "1c65c8",
+      "Name": "Infinite_Bag",
+      "Transform": {
+        "posX": 9.681711,
+        "posY": 0.943,
+        "posZ": 4.71769142,
+        "rotX": 4.11192332E-07,
+        "rotY": 8.313734E-08,
+        "rotZ": -7.24042764E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Bag of Dad Jokes",
+      "Description": "\nEvery time you pull out a notecard, prepare yourself for a fresh dose of dad-level comedy. \r\n\nWARNING: may cause uncontrollable eye rolls, snorts, and awkward silence.\n\n----------",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.3058885,
+        "g": 0.372555166,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "LuaScript": "local apiUrl = \"https://icanhazdadjoke.com/\"\r\nlocal apiHeaders = { Accept = \"application/json\" }\r\n\r\nfunction onObjectLeaveContainer(container, leave_object)\r\n    if container ~= self then\r\n        return\r\n    end\r\n\r\n    leave_object.setName(\"Dad Joke\")\r\n    leave_object.setDescription(\"Loading...\")\r\n\r\n    WebRequest.custom(apiUrl, \"GET\", true, \"{}\", apiHeaders, function(request)\r\n        if request.is_error then\r\n            leave_object.setName(\"Error Loading Dad Joke\")\r\n            leave_object.setDescription(request.error)\r\n            return\r\n        end\r\n\r\n        local data = JSON.decode(request.text or \"{}\")\r\n\r\n        if not data.joke then\r\n            leave_object.setName(\"Error Loading Dad Joke\")\r\n            leave_object.setDescription(\"No joke found.\")\r\n            return\r\n        end\r\n\r\n        leave_object.setDescription(data.joke)\r\n    end)\r\nend",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "467422",
+          "Name": "Notecard",
+          "Transform": {
+            "posX": 9.630737,
+            "posY": 3.109296,
+            "posZ": 4.5007143,
+            "rotX": 359.683044,
+            "rotY": -7.236402E-05,
+            "rotZ": 0.0262958109,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "Dad Joke",
+          "Description": "Grab one to generate a brand new joke!",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      ]
+    }
+  ]
+}

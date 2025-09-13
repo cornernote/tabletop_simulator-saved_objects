@@ -1,0 +1,77 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "c012f6",
+      "Name": "Custom_Token",
+      "Transform": {
+        "posX": 29.375,
+        "posY": 1.01,
+        "posZ": -1.88999581,
+        "rotX": 6.95924973E-06,
+        "rotY": 180.000046,
+        "rotZ": 1.1564124E-06,
+        "scaleX": 0.4068285,
+        "scaleY": 1.0,
+        "scaleZ": 0.4068285
+      },
+      "Nickname": "Cascade Enabler",
+      "Description": "[i]drop onto a deck to perform the following[/i]:\n[sup]\nExile cards from the top of library until you exile a nonland card whose converted mana cost is [b]equal or less[/b] than the [b]input amount[/b] (1 lower than the mana value of the spell with [i]Cascade[/i]). You may cast that card without paying its mana cost. Then put all cards exiled this way that weren't cast on the bottom of your library in a random order.[/sup]",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "https://c1.scryfall.com/file/scryfall-cards/art_crop/front/8/a/8afceb13-877a-4256-9ba6-851b6924ffd9.jpg",
+        "ImageSecondaryURL": "",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.0,
+        "CustomToken": {
+          "Thickness": 0.1,
+          "MergeDistancePixels": 5.0,
+          "StandUp": false,
+          "Stackable": false
+        }
+      },
+      "LuaScript": "function onload(saved_data)\r\n  CascadeCMC = 5\r\n  deckDir=-1\r\n  if saved_data ~= \"\" then\r\n    local loaded_data = JSON.decode(saved_data)\r\n    CascadeCMC = loaded_data[1]\r\n    deckDir = loaded_data[2]\r\n  end\r\n  self.createButton({\r\n    label=tostring(CascadeCMC),\r\n    click_function=\"add_subtract\",\r\n    tooltip=ttText,\r\n    function_owner=self,\r\n    position={0,0.2,0.15},\r\n    height=450,\r\n    width=450,\r\n    scale={1.5,1.5,1.5},\r\n    font_size=800,\r\n    font_color={1,1,1,90},\r\n    color={0,0,0,0},\r\n    tooltip='         CMC value to cascade for\\ntype # or left/right click to change'\r\n  })\r\n  Encoder=Global.getVar('Encoder')\r\n  keepGoing1=false\r\n  keepGoing2=false\r\n  cDeck=nil\r\n  if deckDir==1 then\r\n    lab='→'\r\n    tip='card extraction: [b]right[/b]'\r\n  else\r\n    lab='←'\r\n    tip='card extraction: [b]left[/b]'\r\n  end\r\n  self.createButton({\r\n    label=lab,\r\n    tooltip=tip,\r\n    click_function=\"changeDeckDir\",\r\n    function_owner=self,\r\n    position={-1.6,0.1,-1.3},\r\n    height=200,\r\n    width=400,\r\n    font_size=500,\r\n    font_color={1,1,1,90},\r\n    color={0,0,0,0},\r\n  })\r\nend\r\n\r\n\r\nfunction changeDeckDir()\r\n  if deckDir==nil then deckDir=-1 end\r\n  deckDir=deckDir*-1\r\n  if deckDir==1 then\r\n    lab='→'\r\n    tip='card extraction: [b]right[/b]'\r\n  else\r\n    lab='←'\r\n    tip='card extraction: [b]left[/b]'\r\n  end\r\n  self.editButton({index=1,label=lab,tooltip=tip})\r\n  updateSave()\r\nend\r\nfunction updateSave()\r\n  local data_to_save = {CascadeCMC,deckDir}\r\n  saved_data = JSON.encode(data_to_save)\r\n  self.script_state = saved_data\r\nend\r\nfunction add_subtract(_obj, _color, alt_click)\r\n  mod = alt_click and -1 or 1\r\n  new_value = math.min(math.max(CascadeCMC + mod, 0), 99)\r\n  if CascadeCMC ~= new_value then\r\n    CascadeCMC = new_value\r\n    updateVal()\r\n    updateSave()\r\n  end\r\nend\r\nfunction updateVal()\r\n  self.editButton({\r\n    index = 0,\r\n    label = tostring(CascadeCMC),\r\n    })\r\nend\r\nself.max_typed_number=99\r\nfunction onNumberTyped(col,int)\r\n  CascadeCMC = int\r\n  updateVal()\r\n  updateSave()\r\nend\r\n\r\n\r\nfunction groupCards(c)\r\n  if cDeck==nil then\r\n    cDeck=c\r\n  else\r\n    cDeck=cDeck.putObject(c)\r\n  end\r\n  keepGoing2=true\r\nend\r\n\r\nfunction onCollisionEnter(co)\r\n\tnowt=os.time()\r\n\tif prevt==nil then prevt=0 end\r\n\tif nowt-prevt<1 then return end\r\n\tprevt=nowt\r\n\tdeck = co.collision_object\r\n\tif deck.type == \"Deck\" then\r\n    nCards=0\r\n    for _,card in pairs(deck.getObjects()) do\r\n      nCards=nCards+1\r\n      cname=card.name:lower():gsub('%p','')\r\n      cdesc=card.description\r\n      cmc=getCMC(cname,cdesc)\r\n      if cmc~=nil and tonumber(cmc)<=CascadeCMC then\r\n        cardInd=i\r\n        break\r\n      end\r\n    end\r\n\r\n    castPos=deck.getPosition()+deck.getTransformRight():scale(deckDir*3.6)\r\n    targPos=deck.getPosition()+deck.getTransformForward():scale(-3.4)\r\n    local castPars={\r\n      origin=castPos,\r\n      direction = vector(0,0,1),\r\n      type = 3,\r\n      size = {4,4,2},\r\n      max_distance=0,\r\n    }\r\n    local castOutput = Physics.cast(castPars)\r\n    for _,castO in pairs(castOutput) do\r\n      local hitObj = castO.hit_object\r\n      if hitObj.type=='Card' or hitObj.type=='Deck' then\r\n        local hitObjPos=hitObj.getPosition()\r\n        local newObjPos=hitObjPos\r\n        newObjPos[3]=targPos[3]\r\n        hitObj.setPositionSmooth(newObjPos,false,true)\r\n      end\r\n    end\r\n    cascadingNow=true\r\n    for i=1,nCards do\r\n      Wait.time(function()\r\n        if i<nCards then\r\n          crot=deck.getRotation()\r\n          crot[3]=0\r\n          cpos=deck.getPosition()+deck.getTransformRight():scale(deckDir*2.4)\r\n          cpos[2]=2\r\n          deck.takeObject({position=cpos,rotation=crot,callback_function=groupCards})\r\n        else\r\n          crot=deck.getRotation()\r\n          crot[3]=0\r\n          cpos=deck.getPosition()+deck.getTransformRight():scale(deckDir*4.8)\r\n          cpos[2]=2\r\n          finalCard=deck.takeObject({position=cpos,rotation=crot})\r\n          Wait.condition(function()\r\n            cascadingNow=false\r\n            if finalCard==nil then return end\r\n            finalCard.highlightOn('Red',5)\r\n            -- reset encoder object data\r\n            if Encoder then\r\n              Encoder.call('APIencodeObject',{obj=finalCard})\r\n              Encoder.call('APIdisableEncoding',{obj=finalCard})\r\n            end\r\n            -- create buttons on card to accept or decline casting it\r\n            -- decline\r\n            local backpars={    -- background frame\r\n              label='', tooltip='', click_function = 'null',\r\n              position = {-0.5, 0.2, 2}, width = 500, height = 400, font_size = 400,\r\n              scale = {0.75,0.75,0.75}, rotation = {0,0,180},\r\n              color = {0.7,0.7,0.7}, font_color = {1, 1, 1}}\r\n            finalCard.createButton(backpars)\r\n            local forgpars=backpars\r\n            forgpars.label='✗'\r\n            forgpars.tooltip='[b]DO NOT CAST THE CARD[/b]\\nmove all the cascaded\\n'..\r\n                             'cards to the bottom of the\\nlibrary in random order'\r\n            forgpars.click_function='declineCascade'\r\n            forgpars.function_owner=self\r\n            forgpars.rotation = {0,0,0}\r\n            forgpars.font_color = {0.8,0,0}\r\n            forgpars.color = {0.16,0.16,0.16}\r\n            forgpars.hover_color = {0.4,0.4,0.4}\r\n            forgpars.scale = {0.67,0.67,0.67}\r\n            finalCard.createButton(forgpars)\r\n            -- accept\r\n            local backpars={    -- background frame\r\n              label='', tooltip='', click_function = 'null',\r\n              position = {0.5, 0.2, 2}, width = 500, height = 400, font_size = 400,\r\n              scale = {0.75,0.75,0.75}, rotation = {0,0,180},\r\n              color = {0.7,0.7,0.7}, font_color = {1, 1, 1}}\r\n            finalCard.createButton(backpars)\r\n            local forgpars=backpars\r\n            forgpars.label='✓'\r\n            forgpars.tooltip='[b]CAST THE CARD[/b]\\nmove all the other cascaded\\n'..\r\n                             'cards to the bottom of the\\nlibrary in random order'\r\n            forgpars.click_function='acceptCascade'\r\n            forgpars.function_owner=self\r\n            forgpars.rotation = {0,0,0}\r\n            forgpars.font_color = {0,0.6,0}\r\n            forgpars.color = {0.16,0.16,0.16}\r\n            forgpars.hover_color = {0.4,0.4,0.4}\r\n            forgpars.scale = {0.67,0.67,0.67}\r\n            finalCard.createButton(forgpars)\r\n          end, function() return finalCard==nil or finalCard.resting end)\r\n        end\r\n      end,i*0.1)\r\n    end\r\n    self.setPosition({0,0,500})\r\n    self.setLock(true)\r\n    Wait.time(function()\r\n      if self then\r\n        Wait.frames(function() self.destruct() end,1)\r\n      end\r\n      if finalCard then\r\n        acceptCascade(finalCard)\r\n      end\r\n    end,10)\r\n\tend\r\nend\r\n\r\nfunction acceptCascade(card)\r\n  finalCard=nil\r\n  if Encoder then\r\n    if Encoder.call('APIobjectExists',{obj=card}) then\r\n      Encoder.call('APIenableEncoding',{obj=card})\r\n    end\r\n  end\r\n  card.setGMNotes('')\r\n  card.clearButtons()\r\n  if cDeck then     -- put any other cascaded cards onto libBot\r\n    moveCDeckToBot(cDeck)\r\n  end\r\n  self.destruct()\r\nend\r\n\r\nfunction declineCascade(card)\r\n  finalCard=nil\r\n  if Encoder then\r\n    if Encoder.call('APIobjectExists',{obj=card}) then\r\n      Encoder.call('APIenableEncoding',{obj=card})\r\n    end\r\n  end\r\n  card.setGMNotes('')\r\n  card.clearButtons()\r\n  if cDeck then       -- add the card to other cascaded cards and then put all on libBot\r\n    card.setPositionSmooth(cDeck.getPosition()+vector(0,0.05,0),false,true)\r\n    Wait.frames(function() cDeck.putObject(card) end, 1)\r\n    Wait.time(function() moveCDeckToBot(cDeck) end, 1)\r\n  else                -- move just the one cards on libBot\r\n    local pos=deck.getPosition()\r\n    pos.y=0.96\r\n    local rot=card.getRotation()\r\n    rot.z=180\r\n    card.setRotationSmooth(rot,false,true)\r\n    Wait.time(function() card.setPositionSmooth(pos,false,true) end, 0.25)\r\n  end\r\n  self.destruct()\r\nend\r\n\r\nfunction moveCDeckToBot(cDeck)\r\n  if cDeck==nil then return end\r\n  dpos=deck.getPosition()\r\n  dpos[2]=1\r\n  drot=deck.getRotation()\r\n  drot[3]=180\r\n  cDeck.shuffle()\r\n  Wait.time(function()\r\n    cDeck.setRotationSmooth(drot,false,true)\r\n    cDeck.setPositionSmooth(dpos,false,true)\r\n  end,0.1)\r\n  deck.setPositionSmooth(deck.getPosition()+vector(0,2,0),false,true)\r\nend\r\n\r\nfunction onObjectEnterContainer(container, enter_object)\r\n  if cascadingNow and enter_object==cDeck then\r\n    cDeck=container\r\n  end\r\nend\r\nfunction getCMC(name,desc)\r\n  cmc=name:lower():match('(%d+) ?cmc')\r\n  if cmc==nil then\r\n    cmc=name:lower():match('cmc ?(%d+)')\r\n  end\r\n  if cmc==nil then\r\n    cmc=desc:lower():match('(%d+) ?cmc')\r\n  end\r\n  if cmc==nil then\r\n    cmc=desc:lower():match('cmc ?(%d+)')\r\n  end\r\n  isLand=name:lower():match('land')\r\n  if (cmc==nil or cmc=='0') and isLand then\r\n    cmc=nil\r\n  end\r\n  return cmc\r\nend",
+      "LuaScriptState": "[4,-1]",
+      "XmlUI": ""
+    }
+  ]
+}

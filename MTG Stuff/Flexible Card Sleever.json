@@ -1,0 +1,93 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "64be84",
+      "Name": "Custom_Token",
+      "Transform": {
+        "posX": 26.085,
+        "posY": 1.02010667,
+        "posZ": -13.77,
+        "rotX": 1.52668463E-07,
+        "rotY": -1.38934138E-05,
+        "rotZ": 0.00163236842,
+        "scaleX": 3.89,
+        "scaleY": 1.0,
+        "scaleZ": 3.89
+      },
+      "Nickname": "Flexible Card Sleever",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": false,
+      "Snap": false,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": false,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": false,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/1798649638831296487/C7A6CEF6CEC8FD0D578BCFA7428A8061F38530DB/",
+        "ImageSecondaryURL": "",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.0,
+        "CustomToken": {
+          "Thickness": 0.1,
+          "MergeDistancePixels": 15.0,
+          "StandUp": false,
+          "Stackable": false
+        }
+      },
+      "LuaScript": "-- Observations:\n-- * 'cde' stands for \"Card, Deck or Equivalent\"\n\n--------------------\n-- lua aux functions\n\nlocal function tableMergeShallow(lhs, rhs)\n  for key, value in pairs(rhs) do\n    lhs[key] = value\n  end\n  return lhs\nend\n\nlocal function isNonEmptyString(str)\n  return str and str ~= \"\" and type(str) == \"string\"\nend\n\n-------------------\n-- Global constants\n\nlocal SLEEVE_COPY_MODE_BACK = \"BackURL\"\nlocal SLEEVE_COPY_MODE_FRONT = \"FaceURL\"\nlocal SLEEVE_COPY_MODE_SIDE_UP = -1\n\nlocal MIRROR_MODE_BACK_TO_FRONT = 0\nlocal MIRROR_MODE_FRONT_TO_BACK = 1\n\nlocal COLOR_ERROR = {211, 9, 9}\nlocal COLOR_WARN = {202, 202, 22}\n\n--------------------\n-- tts aux functions\n\nlocal function getCdeAt(relative_position)\n  local world_position = self:positionToWorld(relative_position)\n  local hits = Physics.cast({\n    origin = world_position,\n    direction = {0, 1, 0},\n    max_distance = 0,\n    type = 3, -- box\n    size = {1, 1, 1},\n    debug = false,\n  })\n  for index_, hit in ipairs(hits) do\n    if hit.hit_object.type == \"Deck\" or hit.hit_object.type == \"Card\" then\n      return hit.hit_object\n    end\n  end\n  return nil\nend\n\nlocal function updateCustomDeckEntryBackFields(entry, url)\n  entry.BackURL = url\n  entry.UniqueBack = false\nend\n\nlocal function updateCustomDeckEntryFrontFields(entry, url)\n  entry.FaceURL = url\n  entry.NumWidth = 1\n  entry.NumHeight = 1\n  entry.BackIsHidden = true\n  entry.UniqueBack = false\nend\n\nlocal function updateCdeCustomDeckBackFields(cde_data, url)\n  if not cde_data.CustomDeck then\n    return\n  end\n  for key_, entry in pairs(cde_data.CustomDeck) do\n    updateCustomDeckEntryBackFields(entry, url)\n  end\nend\n\nlocal function updateCdeCustomDeckFrontFields(cde_data, url)\n  if not cde_data.CustomDeck then\n    return\n  end\n  for key_, entry in pairs(cde_data.CustomDeck) do\n    updateCustomDeckEntryFrontFields(entry, url)\n  end\nend\n\nlocal function updateCdeBacks(cde_data, url)\n  local cde_type_name = cde_data.Name\n  if cde_type_name == \"Card\" or cde_type_name == \"CardCustom\" then\n    updateCdeCustomDeckBackFields(cde_data, url) -- Single cards can have a CustomDeck field\n  elseif cde_type_name == \"Deck\" or cde_type_name == \"DeckCustom\" then\n    updateCdeCustomDeckBackFields(cde_data, url)\n    for key_, card in pairs(cde_data.ContainedObjects) do\n      updateCdeCustomDeckBackFields(card, url)\n    end\n  else\n    error(\"Invalid object of type: \" .. tostring(cde_type_name))\n  end\nend\n\nlocal function getSleeveUrlFromCdeData(cde_data, field)\n  local any_nonfirst_index = false\n  local any_invalid_field = false\n  local sleeve_url = nil\n  for key_, entry in pairs(cde_data.CustomDeck) do\n    local nonfirst_index = false\n    local invalid_field = false\n    if entry.NumWidth != 1 or entry.NumHeight != 1 then\n      if field == SLEEVE_COPY_MODE_FRONT or (entry.UniqueBack and field == SLEEVE_COPY_MODE_BACK) then\n        any_nonfirst_index = true\n        nonfirst_index = true\n      end\n    end\n    if not entry[field] then\n      any_invalid_field = true\n      invalid_field = true\n    end\n    if not (nonfirst_index or invalid_field) then\n      sleeve_url = entry[field]\n      break\n    end\n  end\n  if any_nonfirst_index then\n    log(\"Warning! Not supported. Some entry uses a non-first index.\")\n  end\n  if any_invalid_field then\n    log(\"Warning! Some entry has an invalid URL field.\")\n  end\n  if not sleeve_url then\n    printToAll(\"Error: Could not find any valid sleeve image URL.\", COLOR_ERROR)\n  end\n  return sleeve_url\nend\n\nlocal function getSleeveUrlFromCde(cde, copy_mode)\n  local cde_data = cde.getData()\n  if not cde_data.CustomDeck then\n    printToAll(\"Base sleeve does not have a 'CustomDeck' field.\", COLOR_ERROR)\n    return nil\n  end\n  local field = copy_mode\n  if field == SLEEVE_COPY_MODE_SIDE_UP then\n    field = ((cde.is_face_down and SLEEVE_COPY_MODE_BACK) or SLEEVE_COPY_MODE_FRONT)\n  end\n  return getSleeveUrlFromCdeData(cde_data, field)\nend\n\nlocal function getSleeveUrlFromCdeAt(position, copy_mode)\n  local cde = getCdeAt(position)\n  if not cde then\n    printToAll(\"Missing input sleeve card!\", COLOR_WARN)\n    return nil\n  end\n  return getSleeveUrlFromCde(cde, copy_mode)\nend\n\nlocal function sleeveCdeAt(position_pair, sleeve_url)\n  local icde = getCdeAt(position_pair.input)\n  if not icde then\n    printToAll(\"Missing input deck!\", COLOR_WARN)\n    return\n  end\n  local cde_data = icde.getData()\n  updateCdeBacks(cde_data, sleeve_url)\n  local spawn_positon = self:positionToWorld(position_pair.output)\n  local spawn_rotation = self.getRotation()\n  spawn_rotation.z = spawn_rotation.z + 180 -- flip\n  spawnObjectData({\n    data = cde_data,\n    position = spawn_positon,\n    rotation = spawn_rotation,\n  })\nend\n\nlocal function mirrorUpdateCustomDeckFieldsOneByOne(cde_data, mirror_mode)\n  -- Small jerry-rig: Mirror modes and fields inside entries are the same as the copy mode values\n  local field = mirror_mode -- NOTE: SIDE_UP mode unsupported\n  local update_card_func = nil\n  local update_entry_func = nil\n  if mirror_mode == SLEEVE_COPY_MODE_BACK then\n    update_entry_func = updateCustomDeckEntryFrontFields\n    update_card_func = updateCdeCustomDeckFrontFields\n  elseif mirror_mode == SLEEVE_COPY_MODE_FRONT then\n    update_entry_func = updateCustomDeckEntryBackFields\n    update_card_func = updateCdeCustomDeckBackFields\n  else\n    error(\"Invalid mirror mode: \" .. tostring(mirror_mode))\n    return\n  end\n  local cde_type_name = cde_data.Name\n  if cde_type_name == \"Card\" or cde_type_name == \"CardCustom\" then\n    local url = getSleeveUrlFromCdeData(cde_data, field)\n    update_card_func(cde_data, url)\n  elseif cde_type_name == \"Deck\" or cde_type_name == \"DeckCustom\" then\n    for key_, entry in pairs(cde_data.CustomDeck) do\n      local url = entry[field]\n      update_entry_func(entry, url)\n    end\n    for key_, card in pairs(cde_data.ContainedObjects) do\n      local url = getSleeveUrlFromCdeData(card, field)\n      update_card_func(card, url)\n    end\n  else\n    error(\"Invalid object of type: \" .. tostring(cde_type_name))\n  end\nend\n\nlocal function mirrorOneByOne(position_pair, mirror_mode)\n  local cde_item = getCdeAt(position_pair.input)\n  if not cde_item then\n    printToAll(\"Missing input deck!\", COLOR_WARN)\n    return\n  end\n  local cde_data = cde_item.getData()\n  mirrorUpdateCustomDeckFieldsOneByOne(cde_data, mirror_mode)\n  local spawn_position = self:positionToWorld(position_pair.output)\n  local spawn_rotation = cde_item.getRotation()\n  spawnObjectData({\n    data = cde_data,\n    position = spawn_position,\n    rotation = spawn_rotation,\n  })\nend\n\n-----------------------\n-- Assembling constants\n\nlocal INPUT_DECK_POSITION = {1.41, 0.5, 0}\nlocal INPUT_SLEEVE_POSITION = {0, 0.5, -0.74}\n\nlocal SPAWN_COPY_POSITION = {-1.41, 2, -0.74}\nlocal SPAWN_URL_POSITION = {-1.41, 2, 0.74}\nlocal SPAWN_MIRROR_FACES_POSITION = {1.41, 2, -0.95}\nlocal SPAWN_CUSTOM_CARD_POSITION = {2.8, 2, 0}\n\nlocal CUSTOM_CARD_FRONT_DEFAULT_URL = \"http://\"\nlocal CUSTOM_CARD_BACK_DEFAULT_URL = \"http://\"\n\n-------------\n-- Main state\n\nlocal input_sleeve_copy_mode = SLEEVE_COPY_MODE_BACK\nlocal input_sleeve_url = nil\n\n----------------------------\n-- Main assembling functions\n\nlocal function sleeveCopyGo()\n  local sleeve_url = getSleeveUrlFromCdeAt(INPUT_SLEEVE_POSITION, input_sleeve_copy_mode)\n  if not isNonEmptyString(sleeve_url) then\n    printToAll(\"Could not get the sleeve URL.\", COLOR_WARN)\n    return\n  end\n  local position_pair = {\n    input = INPUT_DECK_POSITION,\n    output = SPAWN_COPY_POSITION,\n  }\n  sleeveCdeAt(position_pair, sleeve_url)\nend\n\nlocal function sleeveUrlGo()\n  if not isNonEmptyString(input_sleeve_url) then\n    printToAll(\"No url set!\", COLOR_WARN)\n    return\n  end\n  local position_pair = {\n    input = INPUT_DECK_POSITION,\n    output = SPAWN_URL_POSITION,\n  }\n  sleeveCdeAt(position_pair, input_sleeve_url)\nend\n\nlocal function mirrorCdeGo(mirror_mode)\n  local position_pair = {\n    input = INPUT_DECK_POSITION,\n    output = SPAWN_MIRROR_FACES_POSITION,\n  }\n  mirrorOneByOne(position_pair, mirror_mode)\nend\n\nlocal function spawnCustomCardGo()\n  local spawn_position = self:positionToWorld(SPAWN_CUSTOM_CARD_POSITION)\n  local spawn_rotation = self.getRotation()\n  spawn_rotation.z = spawn_rotation.z + 180 -- flip\n  local custom_card = spawnObject({\n    type = \"CardCustom\",\n    position = spawn_position,\n    rotation = spawn_rotation,\n  })\n  custom_card.setCustomObject({\n    face = CUSTOM_CARD_FRONT_DEFAULT_URL,\n    back = CUSTOM_CARD_BACK_DEFAULT_URL,\n  })\nend\n\n--------------\n-- UI Triggers\n\nfunction onUiTestEvent(a_, b_, c_, d_, e_)\n  log(\"== onUiTestCb ==\")\n  log(a_)\n  log(b_)\n  log(c_)\n  log(d_)\n  log(e_)\n  log(\"================\")\nend\n\nfunction onUiSleeveCopyGoButtonClick()\n  sleeveCopyGo()\nend\n\nfunction onUiSleeveUrlGoButtonClick()\n  sleeveUrlGo()\nend\n\nfunction onUiMirrorBackToFrontButtonClick()\n  mirrorCdeGo(SLEEVE_COPY_MODE_BACK)\nend\n\nfunction onUiMirrorFrontToBackButtonClick()\n  mirrorCdeGo(SLEEVE_COPY_MODE_FRONT)\nend\n\nfunction onUiSpawnCustomCardButtonClick()\n  spawnCustomCardGo()\nend\n\nfunction onUiSleeveModeToggleBackClick()\n  input_sleeve_copy_mode = SLEEVE_COPY_MODE_BACK\nend\n\nfunction onUiSleeveModeToggleFrontClick()\n  input_sleeve_copy_mode = SLEEVE_COPY_MODE_FRONT\nend\n\nfunction onUiSleeveModeToggleSideUpClick()\n  input_sleeve_copy_mode = SLEEVE_COPY_MODE_SIDE_UP\nend\n\nfunction onUiCardBackUrlInputEndEdit(player_, input_str, id_)\n  input_sleeve_url = input_str\nend\n\n------------------\n-- Global Triggers\n\nfunction onLoad()\n  log(\"Flexible Card Sleever loaded\")\nend",
+      "LuaScriptState": "",
+      "XmlUI": "<Defaults>\n  <Text\n    navigation=\"None\"\n    color=\"#E9E8E7\"\n    resizeTextForBestFit=\"true\"\n    resizeTextMaxSize=\"1000\"\n  />\n  <Text\n    class=\"operator-txt\"\n    color=\"#b0b0b0\"\n    height=\"52\"\n    width=\"999\"\n    scale=\"0.5 0.5 0.5\"\n  />\n  <Text\n    class=\"radio-txt\"\n    textAlignment=\"UpperLeft\"\n    height=\"30\"\n    width=\"999\"\n    scale=\"0.5 0.5 0.5\"\n  />\n  <Text\n    class=\"deck-place\"\n    color=\"#b9b1cd\"\n    height=\"19\"\n    width=\"999\"\n    scale=\"0.5 0.5 0.5\"\n  />\n  <InputField\n    hoverClass=\"input_hover\"\n    lineType=\"SingleLine\"\n    navigation=\"None\"\n    placeholder=\" \"\n    textAlignment=\"MiddleLeft\"\n  />\n  <Toggle\n    navigation=\"None\"\n    textColor=\"#E9E8E7\"\n    resizeTextForBestFit=\"true\"\n    resizeTextMaxSize=\"1000\"\n    toggleWidth=\"11\"\n    toggleHeight=\"11\"\n  />\n  <Button\n    navigation=\"None\"\n    colors=\"#8c3131|#bf4343|#220000|rgba(0.78,0.78,0.78,0.5)\"\n    textColor=\"#E9E8E7\"\n    textOutline=\"#121212\"\n    textAlignment=\"MiddleCenter\"\n    resizeTextForBestFit=\"true\"\n    resizeTextMaxSize=\"1000\"\n  />\n  <!-- colors=\"#4d3131|#664141|#220000|rgba(0.78,0.78,0.78,0.5)\" -->\n  <!-- colors=\"#39314d|#4c4166|#220022|rgba(0.78,0.78,0.78,0.5)\" -->\n  <Button\n    class=\"sleeve-it-btn\"\n    height=\"55\"\n    width=\"75\"\n    scale=\"0.5 0.5 0.5\"\n  />\n  <Button\n    class=\"mirror-it-btn\"\n    height=\"60\"\n    width=\"60\"\n    scale=\"0.5 0.5 0.5\"\n  />\n</Defaults>\n\n<!--<Panel id=\"uiFlexibleCardSleeverPanel\" position=\"185 -130 -10\" rotation=\"180 180 0\" width=\"500\" height=\"400\" active=\"true\"></Panel>-->\n<Panel rotation=\"0 0 180\" position=\"0 0 -7\">\n\n  <Text class=\"deck-place\" offsetXY=\"-141.8 31.5\">Place Deck</Text>\n  <Text class=\"deck-place\" offsetXY=\"-141.8 22.5\">Here</Text>\n  <Text class=\"deck-place\" offsetXY=\"0 101\">Sleeve</Text>\n\n  <Text class=\"operator-txt\" offsetXY=\"-87 40\">+</Text>\n  <Text class=\"operator-txt\" offsetXY=\"-87 -40\">+</Text>\n  <Text class=\"operator-txt\" offsetXY=\"87 75\">=</Text>\n  <Text class=\"operator-txt\" offsetXY=\"87 -75\">=</Text>\n\n  <Button class=\"mirror-it-btn\" offsetXY=\"-157 -90\" onClick=\"onUiMirrorBackToFrontButtonClick\">Copy each card back to its front</Button>\n  <Button class=\"mirror-it-btn\" offsetXY=\"-127 -90\" onClick=\"onUiMirrorFrontToBackButtonClick\">Copy each card front to its back</Button>\n\n  <Button class=\"sleeve-it-btn\" offsetXY=\"87 97\" onClick=\"onUiSleeveCopyGoButtonClick\">Sleeve it!</Button>\n  <Button class=\"sleeve-it-btn\" offsetXY=\"87 -53\" onClick=\"onUiSleeveUrlGoButtonClick\">Sleeve it!</Button>\n\n  <Text offsetXY=\"-40 26\" class=\"radio-txt\">Use:</Text>\n  <Text offsetXY=\"21 25\" class=\"radio-txt\">Card back</Text>\n  <Text offsetXY=\"20 7\" class=\"radio-txt\">Card front</Text>\n  <Text offsetXY=\"52.7 -11\" class=\"radio-txt\">Whichever side is up</Text>\n  <ToggleGroup>\n    <Toggle offsetXY=\"-18 25\" id=\"uiSleeveModeToggleBack\" onClick=\"onUiSleeveModeToggleBackClick\" isOn=\"true\"/>\n    <Toggle offsetXY=\"-18 7\" id=\"uiSleeveModeToggleFront\" onClick=\"onUiSleeveModeToggleFrontClick\"/>\n    <Toggle offsetXY=\"-18 -11\" id=\"uiSleeveModeToggleSideUp\" onClick=\"onUiSleeveModeToggleSideUpClick\"/>\n  </ToggleGroup>\n\n  <Text offsetXY=\"0 -66\" height=\"20\" width=\"3000\">Card Back URL</Text>\n  <InputField\n    offsetXY=\"0 -86\"\n    id=\"uiCardBackUrlInput\"\n    onEndEdit=\"onUiCardBackUrlInputEndEdit\"\n    fontSize=\"16\"\n    placeholder=\"Enter image URL\"\n    height=\"40\"\n    width=\"340\"\n    scale=\"0.4 0.4 0.4\"\n  />\n\n</Panel>",
+      "AttachedSnapPoints": [
+        {
+          "Position": {
+            "x": 0.0003602806,
+            "y": 0.05000019,
+            "z": -0.7436989
+          }
+        },
+        {
+          "Position": {
+            "x": 1.41840982,
+            "y": 0.05000019,
+            "z": 0.000363066123
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "c80010",
+      "Name": "Card",
+      "Transform": {
+        "posX": 5.87499952,
+        "posY": 0.9831358,
+        "posZ": -11.6100006,
+        "rotX": -3.64385255E-09,
+        "rotY": 180.0,
+        "rotZ": -0.00163237017,
+        "scaleX": 4.040862,
+        "scaleY": 1.0,
+        "scaleZ": 4.040862
+      },
+      "Nickname": "Blank Card\nCard 0CMC",
+      "Description": "",
+      "GMNotes": "",
+      "Memo": "d3e7bc24-c2b0-4be3-b9d9-8a8d23b93bc7",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.713235259,
+        "g": 0.713235259,
+        "b": 0.713235259
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": true,
+      "Hands": true,
+      "CardID": 52993900,
+      "SidewaysCard": false,
+      "CustomDeck": {
+        "529939": {
+          "FaceURL": "https://preview.redd.it/the-elephant-in-the-room-v0-5860lur6hphb1.jpg?auto=webp&s=430577a3cdfe8d4fc29862d9f55b473aa67e0c12",
+          "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/1647720103762682461/35EF6E87970E2A5D6581E7D96A99F8A575B7A15F/",
+          "NumWidth": 1,
+          "NumHeight": 1,
+          "BackIsHidden": true,
+          "UniqueBack": false,
+          "Type": 0
+        }
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

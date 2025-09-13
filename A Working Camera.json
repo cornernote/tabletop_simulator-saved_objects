@@ -1,0 +1,183 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "ae96ea",
+      "Name": "Custom_Assetbundle_Bag",
+      "Transform": {
+        "posX": -10.0922012,
+        "posY": 2.16000152,
+        "posZ": -6.09770632,
+        "rotX": -2.12001254E-07,
+        "rotY": 180.001251,
+        "rotZ": 2.85456821E-07,
+        "scaleX": 0.6000003,
+        "scaleY": 0.6000003,
+        "scaleZ": 0.6000003
+      },
+      "Nickname": "A Working Camera",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/17246059642100987269/8893A10D659D5807397D4CEC2ED3B84A1DD42387/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 3,
+        "TypeIndex": 6,
+        "LoopingEffectIndex": 0
+      },
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "1d9161",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": -9.560456,
+            "posY": 3.49825048,
+            "posZ": -4.872683,
+            "rotX": -0.00198167679,
+            "rotY": 90.03003,
+            "rotZ": -0.00239085988,
+            "scaleX": 3.44999743,
+            "scaleY": 3.44999743,
+            "scaleZ": 3.44999743
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/12992444107676981209/132671024BFAE65D123AB9CC916B696FEFD9376D/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "function onLoad()\r\n    Timer.destroy('screenSpawnTimer')\r\n    self.clearContextMenu()\r\n    self.addContextMenuItem(\"Fix\", reset, false) -- false = show for all players\r\nend\r\n\r\nfunction reset(player_color)\r\n    copy({ self })\r\n    self.destruct()\r\n    Timer.create({\r\n        identifier = 'screenSpawnTimer',\r\n        function_name = 'timerTick',\r\n        function_owner = self,\r\n        parameters = { self.getPosition(), self.getRotation() },\r\n        delay = 0.01\r\n    })\r\nend\r\n\r\nfunction timerTick(param)\r\n    local pasted = paste({})\r\n    if pasted and #pasted > 0 then\r\n        pasted[1].setPosition(param[1])\r\n        pasted[1].setRotation(param[2])\r\n    end\r\nend",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        {
+          "GUID": "b87961",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": -12.1159363,
+            "posY": 3.32563066,
+            "posZ": 2.78083062,
+            "rotX": 3.5730618E-06,
+            "rotY": 179.978943,
+            "rotZ": 1.15782234E-06,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.5,
+            "g": 0.5,
+            "b": 0.5
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/9240320305959017005/AA46C6E21F2F68EA7CEC6CAC897B026EDA9BD273/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "function onLoad()\r\n    Timer.destroy('screenSpawnTimer')\r\n    self.clearContextMenu()\r\n    self.addContextMenuItem(\"Fix\", reset, false) -- false = show for all players\r\nend\r\n\r\nfunction reset(player_color)\r\n    copy({ self })\r\n    self.destruct()\r\n    Timer.create({\r\n        identifier = 'screenSpawnTimer',\r\n        function_name = 'timerTick',\r\n        function_owner = self,\r\n        parameters = { self.getPosition(), self.getRotation() },\r\n        delay = 0.01\r\n    })\r\nend\r\n\r\nfunction timerTick(param)\r\n    local pasted = paste({})\r\n    if pasted and #pasted > 0 then\r\n        pasted[1].setPosition(param[1])\r\n        pasted[1].setRotation(param[2])\r\n    end\r\nend",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      ]
+    }
+  ]
+}

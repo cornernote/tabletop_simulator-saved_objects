@@ -1,0 +1,85 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "2500d0",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": -4.82217836,
+        "posY": 1.58987725,
+        "posZ": 3.37387967,
+        "rotX": 319.032349,
+        "rotY": 41.366127,
+        "rotZ": 185.2651,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Annoying Owl",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 0.349609524,
+        "b": 0.00397048239
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": false,
+      "Snap": false,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": false,
+      "Tooltip": false,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/1870682326118592135/A7FAFA92272CDA016B55E5C22D0D5E9323ACFD85/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 0,
+        "TypeIndex": 1,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "local inner\r\n\r\nfunction onSave()\r\n    if inner ~= nil then\r\n        return JSON.encode({innerGUID = inner.guid})\r\n    end\r\nend\r\n\r\nfunction onLoad(scriptState)\r\n    --Remove abandoned inner mobility object\r\n    if scriptState ~= nil then\r\n        local toDelete = JSON.decode(scriptState)\r\n        if toDelete ~= nil and toDelete.innerGUID ~= nil then\r\n            local oldInner = getObjectFromGUID(toDelete.innerGUID)\r\n            if oldInner ~= nil then\r\n                oldInner.destruct()\r\n            end\r\n        end\r\n    end\r\n    --Spawn inner mobility object; wait to avoid issues with certain containers\r\n    Wait.time(spawnInner, 1)\r\nend\r\n\r\nfunction spawnInner()\r\n    inner = spawnObject({\r\n            type = \"Custom_Assetbundle\",\r\n            position = self.getPosition(),\r\n            sound = false,\r\n            callback_function = setInner\r\n    })\r\n    inner.setCustomObject({assetbundle = \"https://steamusercontent-a.akamaihd.net/ugc/1870681849506449071/9433157C60FF86C1AA598350DB85053510637354/\"})\r\n    Wait.time(check, 1, -1)\r\n    Wait.time(play, math.random(10, 120), -1)\r\nend\r\n\r\nfunction setInner()\r\n    inner.drag_selectable = false\r\n    inner.use_gravity = false\r\n    inner.tooltip = false\r\nend\r\n\r\nfunction check()\r\n    local height = self.getPosition().y\r\n    if height < -15 then\r\n        self.setPosition({0, 30, 0})\r\n    elseif height < 5 then\r\n        self.addForce(vector(0, 20, 0), 4)\r\n    end\r\nend\r\n\r\nfunction play()\r\n    self.AssetBundle.playTriggerEffect(0)\r\nend\r\n\r\nfunction onUpdate()\r\n    if inner ~= nil then\r\n        inner.setPosition(self.getPosition())\r\n    end\r\nend\r\n\r\nfunction onDestroy()\r\n    destroyInner()\r\nend\r\n\r\nfunction destroyInner()\r\n    if inner ~= nil then\r\n        destroyObject(inner)\r\n        inner = nil\r\n    end\r\nend\r\n\r\nfunction onObjectEnterContainer(container, object)\r\n    if object == self then\r\n        destroyInner()\r\n    end\r\nend\r\n",
+      "LuaScriptState": "{\"innerGUID\":\"833f5e\"}",
+      "XmlUI": "",
+      "PhysicsMaterial": {
+        "StaticFriction": 1.0,
+        "DynamicFriction": 0.7,
+        "Bounciness": 0.0,
+        "FrictionCombine": 0,
+        "BounceCombine": 0
+      },
+      "Rigidbody": {
+        "Mass": 1.0,
+        "Drag": 0.1,
+        "AngularDrag": 0.1,
+        "UseGravity": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1687 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "0b5015",
+      "Name": "Custom_Tile",
+      "Transform": {
+        "posX": -25.615,
+        "posY": 0.960000455,
+        "posZ": 0.81,
+        "rotX": 3.287581E-08,
+        "rotY": 179.988846,
+        "rotZ": 3.46469236E-08,
+        "scaleX": 2.0,
+        "scaleY": 1.0,
+        "scaleZ": 2.0
+      },
+      "Nickname": "Who goes first?",
+      "Description": "Candy Land [Fully Scripted]\n\nCreated by Ramun Flame",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": false,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "http://i.imgur.com/wVa97qR.png",
+        "ImageSecondaryURL": "https://steamusercontent-a.akamaihd.net/ugc/1022826318040461899/8F35CA3F21FBFDE50C8BB005B50C436FFA1A4338/",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.0,
+        "CustomTile": {
+          "Type": 0,
+          "Thickness": 0.2,
+          "Stackable": false,
+          "Stretch": true
+        }
+      },
+      "LuaScript": "--Candy Land [Fully Scripted] by Ramun Flame\r\n\r\nfunction onload()\r\n    speedTable  = {\r\n        {\"Slow\", 60, 120},\r\n        {\"Normal\", 30, 60},\r\n        {\"Fast\", 15, 30},\r\n        {\"Super\", 5, 10},\r\n        {\"Extreme\", 1, 2},\r\n        {\"Instant\", 0, 1}\r\n    }\r\n    \r\n    sizeTable  = {\r\n        {\"Ant\", 1},\r\n        {\"Mini\", 2},\r\n        {\"Small\", 4},\r\n        {\"Medium\", 8},\r\n        {\"Large\", 12},\r\n        {\"Larger\", 15},\r\n        {\"Huge\", 20},\r\n        {\"Whale\",25}\r\n    }\r\n    firstPlayerVersion = true\r\n    if firstPlayerVersion then\r\n        sizeIndex = 2\r\n        speedIndex = 5\r\n        autoTurn = true\r\n    else\r\n        sizeIndex = 4\r\n        speedIndex = 2\r\n        autoTurn = false\r\n    end\r\n    \r\n    self.setScale({sizeTable[sizeIndex][2],1,sizeTable[sizeIndex][2]})\r\n    speed = speedTable[speedIndex][2]\r\n    popupTime = speedTable[speedIndex][3]\r\n    autoGame = false\r\n    manual = false\r\n    \r\n    itemTable = {\r\n        {\"Ginderbread Man\", 9},\r\n        {\"Candy Cane\", 20},\r\n        {\"Jello\", 42},\r\n        {\"Peanut\", 69},\r\n        {\"Lollypop\", 92},\r\n        {\"Ice Cream\", 102},\r\n        {\"End\",134}\r\n    }\r\n    cardNames = {}\r\n\r\n    path = createBoard()\r\n    \r\n    self.createButton({--0\r\n        click_function = \"none\", function_owner = self,\r\n        label = \"AutoTurn\", position = {-0.35,0.3,-1.1},\r\n        width = 0, height = 0, font_size = 70, font_color={1, 1, 1}\r\n    })\r\n    self.createButton({--1\r\n        click_function = \"none\", function_owner = self,\r\n        label = \"AutoTurn\", position = {-0.35,0.3,-1.1},\r\n        width = 0, height = 0, font_size = 70\r\n    })\r\n    \r\n    local toggleText = \"OFF\"\r\n    if autoTurn then\r\n        toggleText = \"ON\"\r\n    end\r\n        \r\n    self.createButton({--2\r\n        click_function = \"autoSwitch\", function_owner = self,\r\n        label = toggleText, position = {0.1,0.3,-1.1},\r\n        width = 150, height = 70, font_size = 70, tooltip = \"Toggle AutoTurn: Will go to next turn automatically if turned on.\"\r\n    })\r\n    \r\n    self.createButton({--3\r\n        click_function = \"none\", function_owner = self,\r\n        label = \"AutoGame\", position = {-0.35,0.3,-1.3},\r\n        width = 0, height = 0, font_size = 70, font_color={1, 1, 1}\r\n    })\r\n    self.createButton({--4\r\n        click_function = \"none\", function_owner = self,\r\n        label = \"AutoGame\", position = {-0.35,0.3,-1.3},\r\n        width = 0, height = 0, font_size = 70\r\n    })\r\n    \r\n    local toggleRText = \"OFF\"\r\n    if autoGame then\r\n        toggleRText = \"ON\"\r\n    end\r\n        \r\n    self.createButton({--5\r\n        click_function = \"autoRSwitch\", function_owner = self,\r\n        label = toggleRText, position = {0.125,0.3,-1.3},\r\n        width = 150, height = 70, font_size = 70, tooltip = \"Toggle AutoGame: Will play again automatically when game ends if turned on.\"\r\n    })\r\n    \r\n    self.createButton({--6\r\n        click_function = \"none\", function_owner = self,\r\n        label = speedTable[speedIndex][1], position = {0.8,0.3,-1.1},\r\n        width = 0, height = 0, font_size = 70, font_color={1, 1, 1}\r\n    })\r\n    self.createButton({--7\r\n        click_function = \"none\", function_owner = self,\r\n        label = \"-\" .. speedTable[speedIndex][1] .. \"-\", position = {0.8,0.3,-1.1},\r\n        width = 0, height = 0, font_size = 70, tooltip = \"\"\r\n    })\r\n    \r\n    self.createButton({--8\r\n        click_function = \"decreaseSpeed\", function_owner = self,\r\n        label = \"<<\", position = {0.4,0.3,-1.1},\r\n        width = 100, height = 70, font_size = 70, tooltip = \"Decrease Game Speed\"\r\n    })\r\n    \r\n    self.createButton({--9\r\n        click_function = \"increaseSpeed\", function_owner = self,\r\n        label = \">>\", position = {1.2,0.3,-1.1},\r\n        width = 100, height = 70, font_size = 70, tooltip = \"Increase Game Speed\"\r\n    })\r\n    \r\n    self.createButton({--10\r\n        click_function = \"none\", function_owner = self,\r\n        label = sizeTable[sizeIndex][1], position = {0.8,0.3,-1.3},\r\n        width = 0, height = 0, font_size = 70, font_color={1, 1, 1}\r\n    })\r\n    self.createButton({--11\r\n        click_function = \"none\", function_owner = self,\r\n        label = \"-\" .. sizeTable[sizeIndex][1] .. \"-\", position = {0.8,0.3,-1.3},\r\n        width = 0, height = 0, font_size = 70\r\n    })\r\n    \r\n    self.createButton({--12\r\n        click_function = \"decreaseSize\", function_owner = self,\r\n        label = \"<-\", position = {0.4,0.3,-1.3},\r\n        width = 100, height = 70, font_size = 70, tooltip = \"Decrease Game Size\"\r\n    })\r\n    \r\n    self.createButton({--13\r\n        click_function = \"increaseSize\", function_owner = self,\r\n        label = \"->\", position = {1.2,0.3,-1.3},\r\n        width = 100, height = 70, font_size = 70, tooltip = \"Increase Game Size\"\r\n    })\r\n    \r\n    if firstPlayerVersion then\r\n        self.createButton({\r\n            click_function = \"spawnPieces\", function_owner = self,\r\n            label = \"Who goes\\nfirst?\", position = {0,0.3,0},\r\n            width = 1200, height = 700, font_size = 250, tooltip = \"Make sure all players are seated.\"\r\n        })\r\n    else\r\n        self.createButton({\r\n            click_function = \"spawnPieces\", function_owner = self,\r\n            label = \"Start Game\", position = {0,0.3,1.3},\r\n            width = 1200, height = 250, font_size = 200, tooltip = \"Make sure all players are seated.\"\r\n        })\r\n        self.createButton({\r\n            click_function = \"manualMode\", function_owner = self,\r\n            label = \"Manual Mode\", position = {0,0.3,1.7},\r\n            width = 800, height = 100, font_size = 100, tooltip = \"Spawn cards/pieces for current players, and play without scripts.\"\r\n        })\r\n    end\r\nend\r\n\r\nfunction none() end\r\n\r\nfunction autoSwitch()\r\n    if autoTurn then\r\n        autoTurn = false\r\n        self.editButton({index=2, label = \"OFF\"})\r\n    else\r\n        if currentTurn then\r\n            nextTurn()\r\n        end\r\n        autoTurn = true\r\n        self.editButton({index=2, label = \"ON\"})\r\n    end\r\nend\r\n\r\nfunction autoRSwitch()\r\n    if autoGame then\r\n        autoGame = false\r\n        self.editButton({index=5, label = \"OFF\"})\r\n    else\r\n        if gameEnd then\r\n            playAgain()\r\n        end\r\n        autoGame = true\r\n        self.editButton({index=5, label = \"ON\"})\r\n    end\r\nend\r\n\r\nfunction increaseSpeed()\r\n    speedIndex = speedIndex + 1\r\n    speed = speedTable[speedIndex][2]\r\n    popupTime = speedTable[speedIndex][3]\r\n    self.editButton({index=findButton(speedTable[speedIndex-1][1]), label = speedTable[speedIndex][1]})\r\n    self.editButton({index=findButton(\"-\" .. speedTable[speedIndex-1][1] .. \"-\"), label = \"-\" .. speedTable[speedIndex][1] .. \"-\"})\r\n    if speedIndex == tablelength(speedTable) then\r\n        self.editButton({index=findButton(\">>\"), label = \"\", height=0, width=0})\r\n    elseif speedIndex == 2 then\r\n        self.editButton({index=findButton(\"\"), label = \"<<\", height=70, width=100})\r\n    end\r\nend\r\n\r\nfunction decreaseSpeed()\r\n    speedIndex = speedIndex - 1\r\n    speed = speedTable[speedIndex][2]\r\n    popupTime = speedTable[speedIndex][3]\r\n    self.editButton({index=findButton(speedTable[speedIndex+1][1]), label = speedTable[speedIndex][1]})\r\n    self.editButton({index=findButton(\"-\" .. speedTable[speedIndex+1][1] .. \"-\"), label = \"-\" .. speedTable[speedIndex][1] .. \"-\"})\r\n    if speedIndex == 1 then\r\n        self.editButton({index=findButton(\"<<\"), label = \"\", height=0, width=0})\r\n    elseif speedIndex == tablelength(speedTable)-1 then\r\n        self.editButton({index=findButton(\"\"), label = \">>\", height=70, width=100})\r\n    end\r\nend\r\n\r\nfunction scaleAll()\r\n    resetPositions(true, true)\r\n    self.setScale({sizeTable[sizeIndex][2],1,sizeTable[sizeIndex][2]})\r\n    if playerList ~= nil then\r\n        local snappoints = self.getSnapPoints()\r\n        for i, player in ipairs(playerList) do\r\n            player.pawn.setScale(self.getScale()*0.022)\r\n            player.pawn.setCustomObject({thickness = self.getScale().x*0.022})\r\n        end\r\n    end\r\n    if deck ~= nil then\r\n        deck.setScale(self.getScale()*0.13)\r\n    end\r\n    if discard ~= nil then\r\n        discard.setScale(self.getScale()*0.13)\r\n    end\r\nend\r\n\r\nfunction resetPositions(decks, pawns)\r\n    local p = self.getPosition()\r\n    local s = self.getScale()\r\n    if pawns then\r\n        if playerList ~= nil then\r\n            local snappoints = self.getSnapPoints()\r\n            for i, player in ipairs(playerList) do\r\n                if player.space > 0 then\r\n                    player.pawn.setPosition(self.positionToWorld(snappoints[player.space].position))\r\n                    player.pawn.setRotation(snappoints[player.space].rotation)\r\n                else\r\n                    player.pawn.setPosition({(s.x*(-0.97-(0.04*(i-1))))+p.x, 2+(0.17*s.x)+p.y, (s.z*-0.92)+p.z})\r\n                    player.pawn.setRotation({90,270,0})\r\n                end\r\n            end\r\n        end\r\n    end\r\n    \r\n    if decks then\r\n        if deck ~= nil then\r\n            deckPos = {(s.x*-1.2)+p.x,p.y,(s.z*1.22)+p.z}\r\n            deck.setPosition(deckPos)\r\n            deck.setRotation({180,180,0})\r\n        end\r\n        if discard ~= nil then\r\n            discardPos = {(s.x*-0.85)+p.x,p.y,(s.z*1.22)+p.z}\r\n            discard.setPosition(discardPos)\r\n            discard.setRotation({0,180,0})\r\n        end\r\n    end\r\nend\r\n\r\nfunction onObjectDrop(colorName, obj)\r\n    if obj == self  then\r\n        resetPositions(true, false)\r\n    end \r\nend\r\n\r\nfunction increaseSize()\r\n    sizeIndex = sizeIndex + 1\r\n    scaleAll()\r\n    self.editButton({index=findButton(sizeTable[sizeIndex-1][1]), label = sizeTable[sizeIndex][1]})\r\n    self.editButton({index=findButton(\"-\" .. sizeTable[sizeIndex-1][1] .. \"-\"), label = \"-\" .. sizeTable[sizeIndex][1] .. \"-\"})\r\n    if sizeIndex == tablelength(sizeTable) then\r\n        self.editButton({index=findButton(\"->\"), label = \"-\", height=0, width=0})\r\n    elseif sizeIndex == 2 then\r\n        self.editButton({index=findButton(\"-\"), label = \"<-\", height=70, width=100})\r\n    end\r\nend\r\n\r\nfunction decreaseSize()\r\n    sizeIndex = sizeIndex - 1\r\n    scaleAll()\r\n    self.editButton({index=findButton(sizeTable[sizeIndex+1][1]), label = sizeTable[sizeIndex][1]})\r\n    self.editButton({index=findButton(\"-\" .. sizeTable[sizeIndex+1][1] .. \"-\"), label = \"-\" .. sizeTable[sizeIndex][1] .. \"-\"})\r\n    if sizeIndex == 1 then\r\n        self.editButton({index=findButton(\"<-\"), label = \"-\", height=0, width=0})\r\n    elseif sizeIndex == tablelength(sizeTable)-1 then\r\n        self.editButton({index=findButton(\"-\"), label = \"->\", height=70, width=100})\r\n    end\r\nend\r\n\r\nfunction deleteAllButtons()\r\n    for i = tablelength(self.getButtons()) - 1, 0, -1 do\r\n        self.removeButton(i)\r\n    end\r\nend\r\n\r\nfunction findButton(name)\r\n    for i, button in ipairs(self.getButtons()) do\r\n        if button.label == name then\r\n            return button.index\r\n        end\r\n    end\r\n    return false\r\nend\r\n\r\nfunction manualMode()\r\n    manual = true\r\n    deleteAllButtons()\r\n    spawnPieces()\r\nend\r\n\r\nfunction startGame()\r\n    gameEnd = false\r\n    totalTurns = 0\r\n    currentTurn = math.random(1, tablelength(playerList))\r\n    Wait.frames(function() createNextTurnButton() end, 60)\r\nend\r\n\r\nfunction spawnPieces()\r\n    menuCleanup()\r\n    cleanUp()\r\n    spawnDeck(deckFace, deckBack)\r\n    piecesLoading = 0\r\n    createPlayerList()\r\n    if manual == false then\r\n        Wait.frames(function() waitForLoading() end, 60)\r\n    end\r\nend\r\n\r\nfunction waitForLoading()\r\n    if piecesLoading == 0 then\r\n        Wait.frames(function() startGame() end, 60)\r\n    else\r\n        Wait.frames(function() waitForLoading() end, 60)\r\n    end\r\nend\r\n\r\nfunction createPlayerList()\r\n    local playerColors = {\r\n        {\"Red\", \"https://steamusercontent-a.akamaihd.net/ugc/156902491451109929/0EDF98992F964C668BE5691D86852B9556595819/\"},\r\n        {\"Orange\", \"https://steamusercontent-a.akamaihd.net/ugc/1022826195186145852/691FF11FB43CE5E731613D1A913E4F1A815692FA/\"},\r\n        {\"Yellow\", \"https://steamusercontent-a.akamaihd.net/ugc/156902491451103590/51AC1304BC9247521C05CDD65BF984EEC2B38D21/\"},\r\n        {\"Green\", \"https://steamusercontent-a.akamaihd.net/ugc/156902491451089663/B1D0D56E0A00DEE5C368AC97E833E7133918588F/\"},\r\n        {\"Teal\", \"https://steamusercontent-a.akamaihd.net/ugc/1022826195186142404/40CAD87129531A4F59E0242B33BA6FBFFDEF9C55/\"},\r\n        {\"Blue\", \"https://steamusercontent-a.akamaihd.net/ugc/156902491451102051/67B42061A5AEABF9B244DBDFF750AE05AFB72EF5/\"},\r\n        {\"Purple\", \"https://steamusercontent-a.akamaihd.net/ugc/156902491451104990/B9BB440FECE5DCDAA744CD3F7AFCF727DC385E35/\"},\r\n        {\"Pink\", \"https://steamusercontent-a.akamaihd.net/ugc/1049848592670955309/1694CC9B97E82176BA28431A4BB696603773056B/\"},\r\n        {\"White\", \"https://steamusercontent-a.akamaihd.net/ugc/1049848592670953406/C7DA925756009BE41C07710601377CCCACEE8013/\"},\r\n        {\"Brown\", \"https://steamusercontent-a.akamaihd.net/ugc/1022826195186147137/28DD76656FEB75956FC21C52BE06CF0CB666899B/\"}\r\n    }\r\n\r\n    playerList = {}\r\n    for _, player in ipairs(Player.getPlayers()) do\r\n        for i, color in ipairs(playerColors) do\r\n            if player.color == color[1] then\r\n                piecesLoading = piecesLoading + 1\r\n                createPlayer(color[1], color[2], player.steam_name)\r\n                break\r\n            end\r\n        end\r\n    end\r\nend\r\n\r\nfunction createPlayer(col, img, n)\r\n    local p = self.getPosition()\r\n    local s = self.getScale()\r\n    local player = {\r\n        name = n,\r\n        color = col, \r\n        space = 0,\r\n        turns = 0,\r\n        loseTurn = false\r\n    }\r\n    local pos = {(s.x*(-0.97-(0.04*tablelength(playerList))))+p.x, (s.x*0.17)+p.y, (s.z*-0.92)+p.z}\r\n    local var = spawnObject({ \r\n        type                = \"Custom_Token\",\r\n        position            = pos, \r\n        scale               = self.getScale()*0.022,\r\n        rotation            = {90,270,0}, \r\n        callback_function   = function(obj, player) obj.setName(n) piecesLoading = piecesLoading - 1 end\r\n    })\r\n    var.setCustomObject({image = img, thickness = self.getScale().x*1.1})\r\n    player.pawn = var\r\n    table.insert(playerList, player)\r\nend\r\n\r\nfunction tablelength(t)\r\n    local count = 0\r\n    for _ in pairs(t) do count = count + 1 end\r\n    return count\r\nend\r\n\r\nfunction createNextTurnButton()\r\n    if autoTurn then\r\n        nextTurn()\r\n        --setTurn(playerList[currentTurn].color)\r\n    else\r\n        local playerColor = playerList[currentTurn].color\r\n        local fontColor = \"White\"\r\n        if playerColor == \"White\" then\r\n            fontColor = \"Black\"\r\n        end\r\n        setTurn(playerList[currentTurn].color)\r\n        self.createButton({\r\n            click_function = \"nextTurn\", function_owner = self,\r\n            label = \"Take \" .. playerList[currentTurn].name .. \"'s Turn\", position = {0,0.3,1.2},\r\n            width = 1300, height = 100, font_size = 100, font_color = fontColor, color = playerColor\r\n        })\r\n    end\r\nend\r\n\r\nfunction createBoard()\r\n    local colorTable  = {\"Green\",\"Red\",\"Purple\",\"Yellow\",\"Blue\",\"Orange\"}\r\n    local board = {}\r\n    local value = 0\r\n    local offset = 0\r\n    \r\n    for i = 1, 134, 1 do \r\n        item = addItem(i)\r\n        if item then\r\n            board[i] = item\r\n            offset = offset + 1\r\n        else\r\n            value = (i-offset)%6 + 1\r\n            board[i] = colorTable[value]\r\n        end\r\n    end\r\n    \r\n    return board\r\nend\r\n\r\nfunction addItem(index)\r\n    for i, item in ipairs(itemTable) do\r\n        if index == item[2] then\r\n            return item[1]\r\n        end\r\n    end\r\nend\r\n\r\nfunction spawnDeck()\r\n    local faceImg = \"http://i.imgur.com/IGvZhkq.png\"\r\n    local backImg = \"http://i.imgur.com/aaSng6y.png\"\r\n    local p = self.getPosition()\r\n    local s = self.getScale()\r\n    \r\n    deck = spawnObject({ \r\n        type                = \"DeckCustom\",\r\n        position            = {(s.x*-1.2)+p.x,1.3+p.y,(s.z*1.22)+p.z}, \r\n        scale               = self.getScale()*0.13,\r\n        rotation            = {0,180,180}, \r\n        callback_function   = function(obj) nameCards(obj) obj.randomize() end\r\n    })\r\n    deck.setCustomObject({face = faceImg, back = backImg, number = 66})\r\nend\r\n\r\nfunction nameCards(object)\r\n    local deckContents = {\r\n        {\"Red Single\", 8},\r\n        {\"Red Double\", 10},\r\n        {\"Purple Single\", 18},\r\n        {\"Purple Double\", 20},\r\n        {\"Yellow Single\", 28},\r\n        {\"Yellow Double\", 30},\r\n        {\"Blue Single\", 38},\r\n        {\"Blue Double\", 40},\r\n        {\"Orange Single\", 48},\r\n        {\"Orange Double\", 50},\r\n        {\"Green Single\", 58},\r\n        {\"Green Double\", 60},\r\n        {\"Candy Cane\", 61},\r\n        {\"Ginderbread Man\", 62},\r\n        {\"Peanut\", 63},\r\n        {\"Lollypop\", 64},\r\n        {\"Jello\", 65},\r\n        {\"Ice Cream\", 66}\r\n    }\r\n    object.setName(\"Candy Deck\")\r\n    local t = 1\r\n    for i, card in ipairs(object.getObjects()) do\r\n        table.insert(cardNames,{card.guid,deckContents[t][1]})\r\n        if i == deckContents[t][2] then\r\n            t = t + 1\r\n        end\r\n    end\r\nend\r\n\r\nfunction getCardName(c)\r\n    for i, card in ipairs(cardNames) do\r\n        if c.guid == card[1] then\r\n            return card[2]\r\n        end\r\n    end\r\n    return \"Red Single[Error]\"\r\nend\r\n\r\nfunction drawCard()\r\n    local card = nil\r\n    local cardName = \"\"\r\n    if deck ~= nil then\r\n        if tablelength(deck.getObjects()) == 2 then\r\n            lastCard = deck.getObjects()[2].guid\r\n        end\r\n        card = deck.takeObject()\r\n        cardName = getCardName(card)\r\n        card.setName(cardName)\r\n        toDiscard(card, false)\r\n    else\r\n        card = getObjectFromGUID(lastCard)\r\n        cardName = getCardName(card)\r\n        card.setName(cardName)\r\n        toDiscard(card, true)\r\n    end\r\n    \r\n    return cardName\r\nend\r\n\r\nfunction toDiscard(object, shuffle)\r\n    local p = self.getPosition()\r\n    local s = self.getScale()\r\n    deckPos = {(s.x*-1.2)+p.x,p.y,(s.z*1.22)+p.z}\r\n    discardPos = {(s.x*-0.85)+p.x,p.y,(s.z*1.22)+p.z}\r\n    if discard ~= nil then\r\n        discard = group({discard, object})[1]\r\n        discard.setName(\"Candy Deck Discard\")\r\n        if shuffle then\r\n            shuffleDiscard()\r\n        end\r\n    else\r\n        discard = object\r\n    end\r\n    if discard ~= null then\r\n        discard.setPosition(discardPos)\r\n        discard.setRotation({0,180,0})\r\n    end\r\n    if deck ~= nil then\r\n        deck.setPosition(deckPos)\r\n        deck.setRotation({180,180,0})\r\n    end\r\nend\r\n\r\nfunction shuffleDiscard()\r\n    local p = self.getPosition()\r\n    local s = self.getScale()\r\n    local pos = {(s.x*-1.2)+p.x,1.3+p.y,(s.z*1.22)+p.z}\r\n    if deck ~= nil then\r\n        discard.setRotation({180,180,0})\r\n        deck = group({deck, discard})[1]\r\n    else\r\n        deck = discard\r\n    end\r\n    discard = nil\r\n    deck.setName(\"Candy Deck\")\r\n    deck.setRotation({180,180,0})\r\n    if speed > 1 then\r\n        deck.setPositionSmooth(pos, false, speed < 10)\r\n    else\r\n        deck.setPosition(pos)\r\n    end\r\n    deck.randomize()\r\nend\r\n\r\nfunction move(dest, player, direct)\r\n    local goTo = player.space\r\n    if direct then\r\n        goTo = dest\r\n    elseif player.space < dest then\r\n        goTo = goTo + 1\r\n    else\r\n        goTo = goTo - 1\r\n    end\r\n    local snappoints = self.getSnapPoints()\r\n    local pos = self.positionToWorld(snappoints[goTo].position)\r\n    pos.y = pos.y + (0.17 * self.getScale().x)\r\n    if speed > 1 then\r\n        player.pawn.setPositionSmooth(pos, false, speed < 10)\r\n        player.pawn.setRotationSmooth(snappoints[goTo].rotation, false, speed < 10)\r\n    else\r\n        player.pawn.setPosition(pos)\r\n        player.pawn.setRotation(snappoints[goTo].rotation)\r\n    end\r\n    player.space = goTo\r\n    if goTo ~= dest then\r\n        Wait.frames(function() move(dest,player) end, speed)\r\n    else\r\n        player.pawn.setRotationSmooth({0, snappoints[goTo].rotation.y + 180,0}, false, false)\r\n    end\r\nend\r\n\r\nfunction nextSpace(dest, cardName)\r\n    for j, item in ipairs(itemTable) do\r\n        if item[1] == cardName then\r\n            return item[2]\r\n        end\r\n    end\r\n    t = string.match(cardName, \"Single\")\r\n    for i, spc in ipairs(path) do\r\n        if string.match(cardName, spc) and i > dest then\r\n            if t then\r\n                return i\r\n            else\r\n                t = true\r\n            end\r\n        end\r\n    end\r\n    \r\n    return 134\r\nend\r\n\r\nfunction takeShortcuts(player)\r\n    if player.space == 5 then\r\n        broadcastToAll(player.name .. \" takes a shortcut through the Rainbow Trail!\", player.color)\r\n        move(59, player, true)\r\n        Wait.frames(function() createNextTurnButton() end, popupTime)\r\n    elseif player.space == 35 then\r\n        broadcastToAll(player.name .. \" takes a shortcut through the Gumdrop Pass!\", player.color)\r\n        move(45, player, true)\r\n        Wait.frames(function() createNextTurnButton() end, popupTime)\r\n    else\r\n        loseTurn(player)\r\n    end\r\nend\r\n\r\nfunction loseTurn(player)\r\n    if player.space == 46 or player.space == 86 or player.space == 117 then\r\n        broadcastToAll(player.name .. \" is stuck on a licorice space! Lose one turn...\", player.color)\r\n        player.loseTurn = true\r\n        Wait.frames(function() createNextTurnButton() end, popupTime)\r\n    else\r\n        createNextTurnButton()\r\n    end\r\nend\r\n\r\nfunction nextTurn()\r\n    if findButton(\"Take \" .. playerList[currentTurn].name .. \"'s Turn\") then\r\n        self.removeButton(findButton(\"Take \" .. playerList[currentTurn].name .. \"'s Turn\"))\r\n    end\r\n    takeTurn(playerList[currentTurn])\r\n    if currentTurn < tablelength(playerList) then\r\n        currentTurn = currentTurn + 1\r\n    else\r\n        currentTurn = 1\r\n    end\r\nend\r\n\r\nfunction takeTurn(player)\r\n    if player.loseTurn then\r\n        broadcastToAll(player.name .. \" is stuck on a licorice space! Skipping turn...\", player.color)\r\n        player.loseTurn = false\r\n        Wait.frames(function() createNextTurnButton() end, popupTime)\r\n    else\r\n        local cardName = drawCard()\r\n        local dest = nextSpace(player.space,cardName)\r\n        local spaces = dest-player.space\r\n        totalTurns = totalTurns + 1\r\n        player.turns = player.turns + 1\r\n        if spaces > 0 then\r\n            broadcastToAll(\"Turn \" .. totalTurns .. \" : \" .. player.name .. \" draws a \" .. cardName .. \" card to move forward \" .. spaces .. \" spaces.\", player.color)\r\n        else\r\n            spaces = spaces * -1\r\n            broadcastToAll(\"Turn \" .. totalTurns .. \" : \" .. player.name .. \" draws a \" .. cardName .. \" card to move backward \" .. spaces .. \" spaces.\", player.color)\r\n        end\r\n        move(dest, player, speed == 0)\r\n        local wait = (spaces * speed) + popupTime\r\n        if dest == 134 then\r\n            Wait.frames(function() playerWin(player) end, wait)\r\n        else\r\n            Wait.frames(function() takeShortcuts(player) end, wait)\r\n        end\r\n    end\r\nend\r\n\r\nfunction setTurn(color)\r\n    Turns.enable = true\r\n    Turns.turn_color = color\r\nend\r\n\r\nfunction playerWin(player)\r\n    setTurn(player.color)\r\n    broadcastToAll(player.name .. \" won the game in \" .. player.turns .. \" turns. Congratulations!\", player.color)\r\n    if autoGame then\r\n        Wait.frames(function() playAgain() end, 120)\r\n    else\r\n        gameEnd = true\r\n        self.createButton({\r\n            click_function = \"playAgain\", function_owner = self,\r\n            label = \"Play Again?\", position = {-0.65,0.3,1.2},\r\n            width = 650, height = 100, font_size = 100, tooltip = \"Play again with same players.\"\r\n        })\r\n        self.createButton({\r\n            click_function = \"spawnPieces\", function_owner = self,\r\n            label = \"New Game\", position = {0.7,0.3,1.2},\r\n            width = 600, height = 100, font_size = 100, tooltip = \"Check for seated players and start new game.\"\r\n        })\r\n    end\r\nend\r\n\r\nfunction playAgain()\r\n    local p = self.getPosition()\r\n    local s = self.getScale()\r\n    local pos = 0\r\n    local rot = {90,270,0}\r\n    menuCleanup()\r\n    if discard ~= nil then\r\n        shuffleDiscard()\r\n    end\r\n    for i, player in ipairs(playerList) do\r\n        player.space = 0\r\n        player.turns = 0\r\n        pos = {(s.x*(-0.97-(0.04*(i-1))))+p.x, (s.x*0.17)+p.y, (s.z*-0.92)+p.z}\r\n        if speed > 0 then\r\n            player.pawn.setPositionSmooth(pos, true, speed < 10)\r\n            player.pawn.setRotationSmooth(rot, true, speed < 10)\r\n        else\r\n            player.pawn.setPosition(pos)\r\n            player.pawn.setRotation(rot)\r\n        end\r\n    end\r\n    Wait.frames(function() startGame() end, 60)\r\nend\r\n\r\nfunction menuCleanup()\r\n    deleteButton(\"Play Again?\")\r\n    deleteButton(\"New Game\")\r\n    deleteButton(\"Start Game\")\r\n    deleteButton(\"Manual Mode\")\r\n    deleteButton(\"Who goes\\nfirst?\")\r\nend\r\n\r\nfunction deleteButton(name)\r\n    local buttonIndex = findButton(name)\r\n    if buttonIndex then\r\n        self.removeButton(buttonIndex)\r\n    end\r\nend\r\n\r\nfunction destroy(obj)\r\n    if obj ~= nil then\r\n        obj.destroy()\r\n    end\r\nend\r\n\r\nfunction cleanUp()\r\n    destroy(deck)\r\n    destroy(discard)\r\n    if playerList ~= nil then\r\n        for i, player in ipairs(playerList) do\r\n            destroy(player.pawn)\r\n        end\r\n    end\r\nend\r\n\r\nfunction onDestroy()\r\n    cleanUp()\r\nend",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "AttachedSnapPoints": [
+        {
+          "Position": {
+            "x": 0.845065534,
+            "y": 0.2000004,
+            "z": 0.9193293
+          },
+          "Rotation": {
+            "x": 87.88659,
+            "y": 359.97406,
+            "z": 270.0008
+          }
+        },
+        {
+          "Position": {
+            "x": 0.745425165,
+            "y": 0.2000003,
+            "z": 0.9135928
+          },
+          "Rotation": {
+            "x": 87.8829,
+            "y": 350.010468,
+            "z": 270.000366
+          }
+        },
+        {
+          "Position": {
+            "x": 0.657382965,
+            "y": 0.20000042,
+            "z": 0.876291931
+          },
+          "Rotation": {
+            "x": 87.88354,
+            "y": 320.0194,
+            "z": 269.999939
+          }
+        },
+        {
+          "Position": {
+            "x": 0.6014991,
+            "y": 0.200000346,
+            "z": 0.8000975
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 300.020752,
+            "z": 270.001373
+          }
+        },
+        {
+          "Position": {
+            "x": 0.5519355,
+            "y": 0.20000039,
+            "z": 0.712939858
+          },
+          "Rotation": {
+            "x": 87.8829,
+            "y": 309.97467,
+            "z": 269.993256
+          }
+        },
+        {
+          "Position": {
+            "x": 0.47608012,
+            "y": 0.200000331,
+            "z": 0.644416749
+          },
+          "Rotation": {
+            "x": 87.884,
+            "y": 324.9736,
+            "z": 269.992828
+          }
+        },
+        {
+          "Position": {
+            "x": 0.381889433,
+            "y": 0.200000316,
+            "z": 0.607566357
+          },
+          "Rotation": {
+            "x": 87.8829,
+            "y": 350.010468,
+            "z": 270.000366
+          }
+        },
+        {
+          "Position": {
+            "x": 0.278475136,
+            "y": 0.200000361,
+            "z": 0.59758
+          },
+          "Rotation": {
+            "x": 87.88567,
+            "y": 4.971894,
+            "z": 269.9994
+          }
+        },
+        {
+          "Position": {
+            "x": 0.170531243,
+            "y": 0.20000042,
+            "z": 0.613231242
+          },
+          "Rotation": {
+            "x": 87.88891,
+            "y": 15.0283957,
+            "z": 270.004456
+          }
+        },
+        {
+          "Position": {
+            "x": 0.06926423,
+            "y": 0.20000039,
+            "z": 0.6530194
+          },
+          "Rotation": {
+            "x": 87.884,
+            "y": 29.9668961,
+            "z": 269.999725
+          }
+        },
+        {
+          "Position": {
+            "x": -0.0117030516,
+            "y": 0.200000376,
+            "z": 0.710546
+          },
+          "Rotation": {
+            "x": 87.89188,
+            "y": 44.9684334,
+            "z": 269.9992
+          }
+        },
+        {
+          "Position": {
+            "x": -0.08919793,
+            "y": 0.200000376,
+            "z": 0.79034704
+          },
+          "Rotation": {
+            "x": 87.8841858,
+            "y": 49.9818459,
+            "z": 269.997284
+          }
+        },
+        {
+          "Position": {
+            "x": -0.161879808,
+            "y": 0.200000376,
+            "z": 0.855129838
+          },
+          "Rotation": {
+            "x": 87.89494,
+            "y": 40.0281639,
+            "z": 270.004517
+          }
+        },
+        {
+          "Position": {
+            "x": -0.249066442,
+            "y": 0.200000361,
+            "z": 0.9100876
+          },
+          "Rotation": {
+            "x": 87.8829,
+            "y": 29.9666862,
+            "z": 269.9996
+          }
+        },
+        {
+          "Position": {
+            "x": -0.345892,
+            "y": 0.200000331,
+            "z": 0.9414744
+          },
+          "Rotation": {
+            "x": 87.88567,
+            "y": 14.9704514,
+            "z": 270.000732
+          }
+        },
+        {
+          "Position": {
+            "x": -0.451226979,
+            "y": 0.20000039,
+            "z": 0.9564113
+          },
+          "Rotation": {
+            "x": 87.884,
+            "y": 5.0273,
+            "z": 270.005432
+          }
+        },
+        {
+          "Position": {
+            "x": -0.553664148,
+            "y": 0.2000003,
+            "z": 0.955852449
+          },
+          "Rotation": {
+            "x": 87.88307,
+            "y": 0.02653387,
+            "z": 270.0053
+          }
+        },
+        {
+          "Position": {
+            "x": -0.661229,
+            "y": 0.200000331,
+            "z": 0.9421262
+          },
+          "Rotation": {
+            "x": 87.88594,
+            "y": 324.9825,
+            "z": 269.998383
+          }
+        },
+        {
+          "Position": {
+            "x": -0.7428555,
+            "y": 0.2000003,
+            "z": 0.889960647
+          },
+          "Rotation": {
+            "x": 87.8841858,
+            "y": 315.024231,
+            "z": 270.0055
+          }
+        },
+        {
+          "Position": {
+            "x": -0.7824615,
+            "y": 0.200000331,
+            "z": 0.7937997
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 264.970917,
+            "z": 269.9934
+          }
+        },
+        {
+          "Position": {
+            "x": -0.731688857,
+            "y": 0.200000316,
+            "z": 0.715501547
+          },
+          "Rotation": {
+            "x": 87.8834457,
+            "y": 214.982864,
+            "z": 269.997864
+          }
+        },
+        {
+          "Position": {
+            "x": -0.6373056,
+            "y": 0.200000376,
+            "z": 0.686165452
+          },
+          "Rotation": {
+            "x": 87.88659,
+            "y": 189.981644,
+            "z": 269.996674
+          }
+        },
+        {
+          "Position": {
+            "x": -0.5319628,
+            "y": 0.200000316,
+            "z": 0.675274849
+          },
+          "Rotation": {
+            "x": 87.8828049,
+            "y": 179.983276,
+            "z": 269.9986
+          }
+        },
+        {
+          "Position": {
+            "x": -0.425529361,
+            "y": 0.200000271,
+            "z": 0.6807043
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 179.982574,
+            "z": 269.998
+          }
+        },
+        {
+          "Position": {
+            "x": -0.315022916,
+            "y": 0.200000346,
+            "z": 0.679711
+          },
+          "Rotation": {
+            "x": 87.8834457,
+            "y": 184.982712,
+            "z": 269.998
+          }
+        },
+        {
+          "Position": {
+            "x": -0.211606115,
+            "y": 0.200000286,
+            "z": 0.6659199
+          },
+          "Rotation": {
+            "x": 87.8833542,
+            "y": 194.982956,
+            "z": 269.997772
+          }
+        },
+        {
+          "Position": {
+            "x": -0.106153332,
+            "y": 0.200000316,
+            "z": 0.6244092
+          },
+          "Rotation": {
+            "x": 87.88464,
+            "y": 214.9822,
+            "z": 269.996857
+          }
+        },
+        {
+          "Position": {
+            "x": -0.04285978,
+            "y": 0.2000003,
+            "z": 0.5445999
+          },
+          "Rotation": {
+            "x": 87.88614,
+            "y": 249.972443,
+            "z": 269.993652
+          }
+        },
+        {
+          "Position": {
+            "x": -0.0367816836,
+            "y": 0.2000003,
+            "z": 0.443204343
+          },
+          "Rotation": {
+            "x": 87.88326,
+            "y": 289.974274,
+            "z": 269.993622
+          }
+        },
+        {
+          "Position": {
+            "x": -0.111246273,
+            "y": 0.200000361,
+            "z": 0.371548027
+          },
+          "Rotation": {
+            "x": 87.88456,
+            "y": 339.9733,
+            "z": 269.9928
+          }
+        },
+        {
+          "Position": {
+            "x": -0.222478852,
+            "y": 0.2000004,
+            "z": 0.369157851
+          },
+          "Rotation": {
+            "x": 87.88789,
+            "y": 10.0275183,
+            "z": 270.00473
+          }
+        },
+        {
+          "Position": {
+            "x": -0.324470848,
+            "y": 0.200000376,
+            "z": 0.4062152
+          },
+          "Rotation": {
+            "x": 87.8929,
+            "y": 25.0282612,
+            "z": 270.004578
+          }
+        },
+        {
+          "Position": {
+            "x": -0.417935669,
+            "y": 0.200000361,
+            "z": 0.459915161
+          },
+          "Rotation": {
+            "x": 87.88567,
+            "y": 30.0285816,
+            "z": 270.004944
+          }
+        },
+        {
+          "Position": {
+            "x": -0.513549149,
+            "y": 0.200000331,
+            "z": 0.5016364
+          },
+          "Rotation": {
+            "x": 87.89133,
+            "y": 25.0281754,
+            "z": 270.004333
+          }
+        },
+        {
+          "Position": {
+            "x": -0.6100688,
+            "y": 0.2000003,
+            "z": 0.545066535
+          },
+          "Rotation": {
+            "x": 87.8925247,
+            "y": 20.02974,
+            "z": 270.006165
+          }
+        },
+        {
+          "Position": {
+            "x": -0.7115038,
+            "y": 0.200000376,
+            "z": 0.5683839
+          },
+          "Rotation": {
+            "x": 87.89216,
+            "y": 10.0274563,
+            "z": 270.0049
+          }
+        },
+        {
+          "Position": {
+            "x": -0.8149518,
+            "y": 0.2000003,
+            "z": 0.5623116
+          },
+          "Rotation": {
+            "x": 87.8834457,
+            "y": 344.974457,
+            "z": 269.993622
+          }
+        },
+        {
+          "Position": {
+            "x": -0.9051279,
+            "y": 0.200000256,
+            "z": 0.509621561
+          },
+          "Rotation": {
+            "x": 87.88678,
+            "y": 315.025055,
+            "z": 270.005646
+          }
+        },
+        {
+          "Position": {
+            "x": -0.9600869,
+            "y": 0.200000316,
+            "z": 0.426802248
+          },
+          "Rotation": {
+            "x": 87.8828049,
+            "y": 290.030945,
+            "z": 270.005035
+          }
+        },
+        {
+          "Position": {
+            "x": -0.9670448,
+            "y": 0.2000003,
+            "z": 0.321731716
+          },
+          "Rotation": {
+            "x": 87.88474,
+            "y": 259.970184,
+            "z": 269.992676
+          }
+        },
+        {
+          "Position": {
+            "x": -0.9241855,
+            "y": 0.2000003,
+            "z": 0.23282297
+          },
+          "Rotation": {
+            "x": 87.88622,
+            "y": 224.981262,
+            "z": 269.99704
+          }
+        },
+        {
+          "Position": {
+            "x": -0.836412549,
+            "y": 0.2000003,
+            "z": 0.174713746
+          },
+          "Rotation": {
+            "x": 87.88326,
+            "y": 189.9824,
+            "z": 269.9973
+          }
+        },
+        {
+          "Position": {
+            "x": -0.7326319,
+            "y": 0.200000271,
+            "z": 0.1819621
+          },
+          "Rotation": {
+            "x": 87.88364,
+            "y": 164.9835,
+            "z": 269.9995
+          }
+        },
+        {
+          "Position": {
+            "x": -0.6332332,
+            "y": 0.2000004,
+            "z": 0.218474567
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 159.982773,
+            "z": 269.999084
+          }
+        },
+        {
+          "Position": {
+            "x": -0.5277552,
+            "y": 0.2000004,
+            "z": 0.2552004
+          },
+          "Rotation": {
+            "x": 87.8833542,
+            "y": 174.982819,
+            "z": 269.998444
+          }
+        },
+        {
+          "Position": {
+            "x": -0.42166248,
+            "y": 0.200000346,
+            "z": 0.245994359
+          },
+          "Rotation": {
+            "x": 87.8877,
+            "y": 194.982681,
+            "z": 269.997955
+          }
+        },
+        {
+          "Position": {
+            "x": -0.324684232,
+            "y": 0.200000361,
+            "z": 0.199849635
+          },
+          "Rotation": {
+            "x": 87.88511,
+            "y": 214.981659,
+            "z": 269.997
+          }
+        },
+        {
+          "Position": {
+            "x": -0.234426618,
+            "y": 0.200000376,
+            "z": 0.1376647
+          },
+          "Rotation": {
+            "x": 87.88474,
+            "y": 214.9834,
+            "z": 269.998718
+          }
+        },
+        {
+          "Position": {
+            "x": -0.141036645,
+            "y": 0.200000376,
+            "z": 0.0773587748
+          },
+          "Rotation": {
+            "x": 87.90407,
+            "y": 209.982178,
+            "z": 269.997467
+          }
+        },
+        {
+          "Position": {
+            "x": -0.0435793437,
+            "y": 0.2000004,
+            "z": 0.0405683778
+          },
+          "Rotation": {
+            "x": 87.8833542,
+            "y": 194.982956,
+            "z": 269.997772
+          }
+        },
+        {
+          "Position": {
+            "x": 0.0641837046,
+            "y": 0.200000346,
+            "z": 0.0249120239
+          },
+          "Rotation": {
+            "x": 87.88299,
+            "y": 179.982849,
+            "z": 269.9981
+          }
+        },
+        {
+          "Position": {
+            "x": 0.168408558,
+            "y": 0.200000316,
+            "z": 0.03584737
+          },
+          "Rotation": {
+            "x": 87.88752,
+            "y": 169.982391,
+            "z": 269.997955
+          }
+        },
+        {
+          "Position": {
+            "x": 0.272569418,
+            "y": 0.200000316,
+            "z": 0.07228816
+          },
+          "Rotation": {
+            "x": 87.88827,
+            "y": 154.98317,
+            "z": 269.9995
+          }
+        },
+        {
+          "Position": {
+            "x": 0.364098161,
+            "y": 0.200000361,
+            "z": 0.1342829
+          },
+          "Rotation": {
+            "x": 87.8903046,
+            "y": 139.981674,
+            "z": 269.997742
+          }
+        },
+        {
+          "Position": {
+            "x": 0.445664644,
+            "y": 0.2000003,
+            "z": 0.2138062
+          },
+          "Rotation": {
+            "x": 87.88752,
+            "y": 130.3259,
+            "z": 269.998535
+          }
+        },
+        {
+          "Position": {
+            "x": 0.506661057,
+            "y": 0.200000256,
+            "z": 0.295028716
+          },
+          "Rotation": {
+            "x": 87.88808,
+            "y": 125.421043,
+            "z": 269.9978
+          }
+        },
+        {
+          "Position": {
+            "x": 0.566132367,
+            "y": 0.200000331,
+            "z": 0.376946658
+          },
+          "Rotation": {
+            "x": 87.88364,
+            "y": 127.201042,
+            "z": 269.998352
+          }
+        },
+        {
+          "Position": {
+            "x": 0.6389239,
+            "y": 0.20000039,
+            "z": 0.451747626
+          },
+          "Rotation": {
+            "x": 87.88438,
+            "y": 138.609772,
+            "z": 269.99826
+          }
+        },
+        {
+          "Position": {
+            "x": 0.72185117,
+            "y": 0.2000003,
+            "z": 0.5030621
+          },
+          "Rotation": {
+            "x": 87.88438,
+            "y": 156.096069,
+            "z": 269.998779
+          }
+        },
+        {
+          "Position": {
+            "x": 0.817394257,
+            "y": 0.200000286,
+            "z": 0.53433913
+          },
+          "Rotation": {
+            "x": 87.88622,
+            "y": 169.267746,
+            "z": 269.9977
+          }
+        },
+        {
+          "Position": {
+            "x": 0.9189828,
+            "y": 0.200000376,
+            "z": 0.5393526
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 181.286362,
+            "z": 269.9981
+          }
+        },
+        {
+          "Position": {
+            "x": 1.01458144,
+            "y": 0.200000331,
+            "z": 0.5236968
+          },
+          "Rotation": {
+            "x": 87.884,
+            "y": 192.153229,
+            "z": 269.998016
+          }
+        },
+        {
+          "Position": {
+            "x": 1.11140382,
+            "y": 0.200000361,
+            "z": 0.488105863
+          },
+          "Rotation": {
+            "x": 87.8877,
+            "y": 209.875671,
+            "z": 269.996155
+          }
+        },
+        {
+          "Position": {
+            "x": 1.19083667,
+            "y": 0.200000361,
+            "z": 0.42124176
+          },
+          "Rotation": {
+            "x": 87.88299,
+            "y": 232.278839,
+            "z": 269.9969
+          }
+        },
+        {
+          "Position": {
+            "x": 1.23558187,
+            "y": 0.200000361,
+            "z": 0.333342224
+          },
+          "Rotation": {
+            "x": 87.8855743,
+            "y": 260.202667,
+            "z": 269.992859
+          }
+        },
+        {
+          "Position": {
+            "x": 1.23679316,
+            "y": 0.200000361,
+            "z": 0.233355328
+          },
+          "Rotation": {
+            "x": 87.88668,
+            "y": 284.9334,
+            "z": 269.994171
+          }
+        },
+        {
+          "Position": {
+            "x": 1.18570316,
+            "y": 0.20000039,
+            "z": 0.147575378
+          },
+          "Rotation": {
+            "x": 87.8911362,
+            "y": 320.853577,
+            "z": 269.9923
+          }
+        },
+        {
+          "Position": {
+            "x": 1.09249592,
+            "y": 0.20000039,
+            "z": 0.114100009
+          },
+          "Rotation": {
+            "x": 87.88659,
+            "y": 356.802368,
+            "z": 269.995331
+          }
+        },
+        {
+          "Position": {
+            "x": 0.991974652,
+            "y": 0.200000316,
+            "z": 0.125378937
+          },
+          "Rotation": {
+            "x": 87.89197,
+            "y": 10.0289888,
+            "z": 270.005676
+          }
+        },
+        {
+          "Position": {
+            "x": 0.8933559,
+            "y": 0.200000271,
+            "z": 0.153449729
+          },
+          "Rotation": {
+            "x": 87.88364,
+            "y": 17.0182381,
+            "z": 270.005554
+          }
+        },
+        {
+          "Position": {
+            "x": 0.797447145,
+            "y": 0.200000361,
+            "z": 0.17999509
+          },
+          "Rotation": {
+            "x": 87.88364,
+            "y": 14.0604725,
+            "z": 270.005157
+          }
+        },
+        {
+          "Position": {
+            "x": 0.6977056,
+            "y": 0.2000003,
+            "z": 0.19209291
+          },
+          "Rotation": {
+            "x": 87.88438,
+            "y": 356.06,
+            "z": 269.9942
+          }
+        },
+        {
+          "Position": {
+            "x": 0.606665969,
+            "y": 0.200000271,
+            "z": 0.14993161
+          },
+          "Rotation": {
+            "x": 87.887146,
+            "y": 303.454285,
+            "z": 269.993164
+          }
+        },
+        {
+          "Position": {
+            "x": 0.5874661,
+            "y": 0.2000004,
+            "z": 0.0508694425
+          },
+          "Rotation": {
+            "x": 87.8872452,
+            "y": 254.089783,
+            "z": 269.993042
+          }
+        },
+        {
+          "Position": {
+            "x": 0.6565775,
+            "y": 0.200000286,
+            "z": -0.0269185714
+          },
+          "Rotation": {
+            "x": 87.8834457,
+            "y": 212.115616,
+            "z": 269.997
+          }
+        },
+        {
+          "Position": {
+            "x": 0.746767938,
+            "y": 0.2000003,
+            "z": -0.0765170753
+          },
+          "Rotation": {
+            "x": 87.88854,
+            "y": 212.031631,
+            "z": 269.997437
+          }
+        },
+        {
+          "Position": {
+            "x": 0.8149537,
+            "y": 0.200000286,
+            "z": -0.159744889
+          },
+          "Rotation": {
+            "x": 87.88604,
+            "y": 251.245087,
+            "z": 269.993164
+          }
+        },
+        {
+          "Position": {
+            "x": 0.806887448,
+            "y": 0.2000003,
+            "z": -0.25852862
+          },
+          "Rotation": {
+            "x": 87.88817,
+            "y": 297.262665,
+            "z": 269.992859
+          }
+        },
+        {
+          "Position": {
+            "x": 0.736179352,
+            "y": 0.200000361,
+            "z": -0.333173841
+          },
+          "Rotation": {
+            "x": 87.88307,
+            "y": 334.137054,
+            "z": 269.9928
+          }
+        },
+        {
+          "Position": {
+            "x": 0.63006717,
+            "y": 0.200000376,
+            "z": -0.360419244
+          },
+          "Rotation": {
+            "x": 87.884,
+            "y": 356.80127,
+            "z": 269.9939
+          }
+        },
+        {
+          "Position": {
+            "x": 0.523850262,
+            "y": 0.200000286,
+            "z": -0.354093522
+          },
+          "Rotation": {
+            "x": 87.90342,
+            "y": 7.992059,
+            "z": 270.00293
+          }
+        },
+        {
+          "Position": {
+            "x": 0.422887564,
+            "y": 0.200000361,
+            "z": -0.327818841
+          },
+          "Rotation": {
+            "x": 87.89197,
+            "y": 20.9998417,
+            "z": 270.0027
+          }
+        },
+        {
+          "Position": {
+            "x": 0.3250162,
+            "y": 0.200000346,
+            "z": -0.2827299
+          },
+          "Rotation": {
+            "x": 87.88678,
+            "y": 25.0927143,
+            "z": 270.0049
+          }
+        },
+        {
+          "Position": {
+            "x": 0.229093045,
+            "y": 0.200000331,
+            "z": -0.230836183
+          },
+          "Rotation": {
+            "x": 87.88827,
+            "y": 28.8148956,
+            "z": 270.006317
+          }
+        },
+        {
+          "Position": {
+            "x": 0.13474454,
+            "y": 0.200000316,
+            "z": -0.177474216
+          },
+          "Rotation": {
+            "x": 87.88456,
+            "y": 29.2054253,
+            "z": 270.0059
+          }
+        },
+        {
+          "Position": {
+            "x": 0.0360334255,
+            "y": 0.200000286,
+            "z": -0.129444733
+          },
+          "Rotation": {
+            "x": 87.88511,
+            "y": 25.4195213,
+            "z": 270.004944
+          }
+        },
+        {
+          "Position": {
+            "x": -0.06477237,
+            "y": 0.200000271,
+            "z": -0.08648694
+          },
+          "Rotation": {
+            "x": 87.88919,
+            "y": 19.4034863,
+            "z": 270.006042
+          }
+        },
+        {
+          "Position": {
+            "x": -0.169224516,
+            "y": 0.200000346,
+            "z": -0.05720646
+          },
+          "Rotation": {
+            "x": 87.89234,
+            "y": 15.2594261,
+            "z": 270.005432
+          }
+        },
+        {
+          "Position": {
+            "x": -0.27486676,
+            "y": 0.200000316,
+            "z": -0.0302451532
+          },
+          "Rotation": {
+            "x": 87.88548,
+            "y": 12.612174,
+            "z": 270.0056
+          }
+        },
+        {
+          "Position": {
+            "x": -0.384951234,
+            "y": 0.200000376,
+            "z": -0.0120480182
+          },
+          "Rotation": {
+            "x": 87.88438,
+            "y": 10.2149591,
+            "z": 270.005219
+          }
+        },
+        {
+          "Position": {
+            "x": -0.49173367,
+            "y": 0.200000316,
+            "z": 0.00169616018
+          },
+          "Rotation": {
+            "x": 87.88252,
+            "y": 6.368149,
+            "z": 270.004852
+          }
+        },
+        {
+          "Position": {
+            "x": -0.599577665,
+            "y": 0.200000361,
+            "z": 0.0060000876
+          },
+          "Rotation": {
+            "x": 87.8887253,
+            "y": 2.10150552,
+            "z": 270.0036
+          }
+        },
+        {
+          "Position": {
+            "x": -0.7083172,
+            "y": 0.2000004,
+            "z": -0.00193484838
+          },
+          "Rotation": {
+            "x": 87.884,
+            "y": 354.603729,
+            "z": 269.993927
+          }
+        },
+        {
+          "Position": {
+            "x": -0.813081264,
+            "y": 0.2000003,
+            "z": -0.0246263985
+          },
+          "Rotation": {
+            "x": 87.88326,
+            "y": 344.954,
+            "z": 269.993439
+          }
+        },
+        {
+          "Position": {
+            "x": -0.901681,
+            "y": 0.20000039,
+            "z": -0.0726218149
+          },
+          "Rotation": {
+            "x": 87.8834457,
+            "y": 327.106781,
+            "z": 269.993378
+          }
+        },
+        {
+          "Position": {
+            "x": -0.972531855,
+            "y": 0.200000331,
+            "z": -0.148974955
+          },
+          "Rotation": {
+            "x": 87.88372,
+            "y": 297.5236,
+            "z": 269.993835
+          }
+        },
+        {
+          "Position": {
+            "x": -0.993124366,
+            "y": 0.200000346,
+            "z": -0.2510157
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 264.8128,
+            "z": 269.9931
+          }
+        },
+        {
+          "Position": {
+            "x": -0.9566023,
+            "y": 0.200000331,
+            "z": -0.348583549
+          },
+          "Rotation": {
+            "x": 87.88576,
+            "y": 231.908859,
+            "z": 269.997559
+          }
+        },
+        {
+          "Position": {
+            "x": -0.877620637,
+            "y": 0.200000316,
+            "z": -0.412947863
+          },
+          "Rotation": {
+            "x": 87.8829,
+            "y": 209.982513,
+            "z": 269.997467
+          }
+        },
+        {
+          "Position": {
+            "x": -0.789899468,
+            "y": 0.200000331,
+            "z": -0.476819783
+          },
+          "Rotation": {
+            "x": 87.88678,
+            "y": 234.72934,
+            "z": 269.998474
+          }
+        },
+        {
+          "Position": {
+            "x": -0.7505688,
+            "y": 0.200000316,
+            "z": -0.575576663
+          },
+          "Rotation": {
+            "x": 87.8855743,
+            "y": 252.867188,
+            "z": 270.005
+          }
+        },
+        {
+          "Position": {
+            "x": -0.7059093,
+            "y": 0.200000316,
+            "z": -0.6695971
+          },
+          "Rotation": {
+            "x": 87.88252,
+            "y": 223.550659,
+            "z": 269.99765
+          }
+        },
+        {
+          "Position": {
+            "x": -0.6059456,
+            "y": 0.200000346,
+            "z": -0.704928637
+          },
+          "Rotation": {
+            "x": 87.88307,
+            "y": 179.334381,
+            "z": 269.998383
+          }
+        },
+        {
+          "Position": {
+            "x": -0.5042499,
+            "y": 0.200000331,
+            "z": -0.680380166
+          },
+          "Rotation": {
+            "x": 87.88919,
+            "y": 150.11409,
+            "z": 270.006226
+          }
+        },
+        {
+          "Position": {
+            "x": -0.4279207,
+            "y": 0.200000271,
+            "z": -0.6029249
+          },
+          "Rotation": {
+            "x": 87.88511,
+            "y": 122.569519,
+            "z": 269.997375
+          }
+        },
+        {
+          "Position": {
+            "x": -0.3818281,
+            "y": 0.200000376,
+            "z": -0.508775234
+          },
+          "Rotation": {
+            "x": 87.88299,
+            "y": 115.696289,
+            "z": 269.997772
+          }
+        },
+        {
+          "Position": {
+            "x": -0.331172258,
+            "y": 0.200000346,
+            "z": -0.4104327
+          },
+          "Rotation": {
+            "x": 87.88326,
+            "y": 119.454765,
+            "z": 269.99823
+          }
+        },
+        {
+          "Position": {
+            "x": -0.26968047,
+            "y": 0.2000003,
+            "z": -0.320756465
+          },
+          "Rotation": {
+            "x": 87.88548,
+            "y": 132.600723,
+            "z": 269.998169
+          }
+        },
+        {
+          "Position": {
+            "x": -0.178833827,
+            "y": 0.200000346,
+            "z": -0.2605249
+          },
+          "Rotation": {
+            "x": 87.88789,
+            "y": 160.885635,
+            "z": 269.997925
+          }
+        },
+        {
+          "Position": {
+            "x": -0.07104462,
+            "y": 0.200000316,
+            "z": -0.248740956
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 188.800491,
+            "z": 269.998566
+          }
+        },
+        {
+          "Position": {
+            "x": 0.0319291,
+            "y": 0.200000346,
+            "z": -0.2785273
+          },
+          "Rotation": {
+            "x": 87.88974,
+            "y": 208.189255,
+            "z": 269.9968
+          }
+        },
+        {
+          "Position": {
+            "x": 0.122438341,
+            "y": 0.200000376,
+            "z": -0.331792474
+          },
+          "Rotation": {
+            "x": 87.88307,
+            "y": 213.894028,
+            "z": 269.9975
+          }
+        },
+        {
+          "Position": {
+            "x": 0.21392718,
+            "y": 0.200000256,
+            "z": -0.392283767
+          },
+          "Rotation": {
+            "x": 87.88539,
+            "y": 214.517822,
+            "z": 269.997375
+          }
+        },
+        {
+          "Position": {
+            "x": 0.3044505,
+            "y": 0.200000271,
+            "z": -0.4543042
+          },
+          "Rotation": {
+            "x": 87.88307,
+            "y": 29.47549,
+            "z": 270.005737
+          }
+        },
+        {
+          "Position": {
+            "x": 0.408782,
+            "y": 0.200000316,
+            "z": -0.485038668
+          },
+          "Rotation": {
+            "x": 87.88734,
+            "y": 192.976151,
+            "z": 269.99823
+          }
+        },
+        {
+          "Position": {
+            "x": 0.5131527,
+            "y": 0.200000376,
+            "z": -0.495675981
+          },
+          "Rotation": {
+            "x": 87.88252,
+            "y": 181.5369,
+            "z": 269.9982
+          }
+        },
+        {
+          "Position": {
+            "x": 0.6189932,
+            "y": 0.200000346,
+            "z": -0.484735519
+          },
+          "Rotation": {
+            "x": 87.887146,
+            "y": 173.76619,
+            "z": 269.9972
+          }
+        },
+        {
+          "Position": {
+            "x": 0.7238634,
+            "y": 0.200000316,
+            "z": -0.468662024
+          },
+          "Rotation": {
+            "x": 87.88734,
+            "y": 173.435837,
+            "z": 269.998627
+          }
+        },
+        {
+          "Position": {
+            "x": 0.8251011,
+            "y": 0.200000286,
+            "z": -0.452610552
+          },
+          "Rotation": {
+            "x": 87.88511,
+            "y": 177.044769,
+            "z": 269.998718
+          }
+        },
+        {
+          "Position": {
+            "x": 0.924654067,
+            "y": 0.200000361,
+            "z": -0.450042665
+          },
+          "Rotation": {
+            "x": 87.89123,
+            "y": 189.4037,
+            "z": 269.997528
+          }
+        },
+        {
+          "Position": {
+            "x": 1.024365,
+            "y": 0.2000003,
+            "z": -0.474062
+          },
+          "Rotation": {
+            "x": 87.88622,
+            "y": 205.639755,
+            "z": 269.9974
+          }
+        },
+        {
+          "Position": {
+            "x": 1.107647,
+            "y": 0.200000316,
+            "z": -0.527836561
+          },
+          "Rotation": {
+            "x": 87.88891,
+            "y": 226.709274,
+            "z": 269.998566
+          }
+        },
+        {
+          "Position": {
+            "x": 1.16263318,
+            "y": 0.200000316,
+            "z": -0.6145175
+          },
+          "Rotation": {
+            "x": 87.88354,
+            "y": 253.518356,
+            "z": 270.0063
+          }
+        },
+        {
+          "Position": {
+            "x": 1.16709721,
+            "y": 0.200000316,
+            "z": -0.7171719
+          },
+          "Rotation": {
+            "x": 87.8834457,
+            "y": 282.414276,
+            "z": 270.004883
+          }
+        },
+        {
+          "Position": {
+            "x": 1.12748015,
+            "y": 0.200000331,
+            "z": -0.815402269
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 305.5702,
+            "z": 270.005829
+          }
+        },
+        {
+          "Position": {
+            "x": 1.05358791,
+            "y": 0.200000271,
+            "z": -0.883419454
+          },
+          "Rotation": {
+            "x": 87.885025,
+            "y": 328.364624,
+            "z": 270.0044
+          }
+        },
+        {
+          "Position": {
+            "x": 0.9575176,
+            "y": 0.200000256,
+            "z": -0.920278847
+          },
+          "Rotation": {
+            "x": 87.8903046,
+            "y": 350.910278,
+            "z": 270.005432
+          }
+        },
+        {
+          "Position": {
+            "x": 0.8559901,
+            "y": 0.2000003,
+            "z": -0.918600142
+          },
+          "Rotation": {
+            "x": 87.88391,
+            "y": 187.941772,
+            "z": 270.004669
+          }
+        },
+        {
+          "Position": {
+            "x": 0.7589462,
+            "y": 0.200000376,
+            "z": -0.898045242
+          },
+          "Rotation": {
+            "x": 87.89402,
+            "y": 23.1020489,
+            "z": 270.004639
+          }
+        },
+        {
+          "Position": {
+            "x": 0.6670197,
+            "y": 0.200000346,
+            "z": -0.852653563
+          },
+          "Rotation": {
+            "x": 87.8827057,
+            "y": 35.317,
+            "z": 270.0054
+          }
+        },
+        {
+          "Position": {
+            "x": 0.583588541,
+            "y": 0.200000346,
+            "z": -0.792512834
+          },
+          "Rotation": {
+            "x": 87.89383,
+            "y": 37.4246445,
+            "z": 270.006134
+          }
+        },
+        {
+          "Position": {
+            "x": 0.4995016,
+            "y": 0.200000316,
+            "z": -0.7345633
+          },
+          "Rotation": {
+            "x": 87.8994141,
+            "y": 31.0804138,
+            "z": 270.006
+          }
+        },
+        {
+          "Position": {
+            "x": 0.407479137,
+            "y": 0.2000003,
+            "z": -0.6836702
+          },
+          "Rotation": {
+            "x": 87.88734,
+            "y": 24.9946022,
+            "z": 270.00528
+          }
+        },
+        {
+          "Position": {
+            "x": 0.3128421,
+            "y": 0.200000271,
+            "z": -0.6444415
+          },
+          "Rotation": {
+            "x": 87.8901138,
+            "y": 17.8904724,
+            "z": 270.004883
+          }
+        }
+      ]
+    }
+  ]
+}

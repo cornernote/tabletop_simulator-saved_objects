@@ -1,0 +1,85 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "972de5",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": 8.694997,
+        "posY": 0.9696119,
+        "posZ": 11.6100006,
+        "rotX": 3.14974955E-06,
+        "rotY": 6.844996E-06,
+        "rotZ": 0.00163327844,
+        "scaleX": 0.250000417,
+        "scaleY": 0.250000417,
+        "scaleZ": 0.250000417
+      },
+      "Nickname": "Chocolate Frosty",
+      "Description": "[HIDDEN???} \n\nStay frosty, my friends. ;)",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": true,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/1037464359659951867/A683D2A2DE0C1FF5CD67ADC243FC2E8A6464E1DF/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1037464359659958655/3BFB03E49F0AA95F9870980FBA95500AFCEC7DB6/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 3,
+        "TypeIndex": 0,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "SpecularIntensity": 0.5,
+          "SpecularSharpness": 2.76666665,
+          "FresnelStrength": 0.0
+        },
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

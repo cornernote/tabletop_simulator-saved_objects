@@ -1,0 +1,72 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "ff908c",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": 28.9050274,
+        "posY": 0.970186949,
+        "posZ": -14.8497381,
+        "rotX": 4.61931859E-06,
+        "rotY": 180.012253,
+        "rotZ": -0.00163568882,
+        "scaleX": 2.50000048,
+        "scaleY": 2.50000048,
+        "scaleZ": 2.50000048
+      },
+      "Nickname": "Switch Thing",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.5441177,
+        "g": 0.5441177,
+        "b": 0.5441177
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/918039896437272371/A44FE3FDA54F85E7C23EB5174BF71955C14BF21D/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 0,
+        "TypeIndex": 0,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "function onload()\r\n  self.createButton({\r\n\t   label=\"\", click_function=\"queueAnimation\", function_owner=self,\r\n     position={0,1,0.55}, height=150, width=150, font_size=240, rotation={0,0,0}, color={1,1,1,0}\r\n   })\r\nend\r\n\r\nfunction queueAnimation()\r\n  self.AssetBundle.playTriggerEffect(0)\r\nend\r\n",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

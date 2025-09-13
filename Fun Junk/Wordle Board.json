@@ -1,0 +1,71 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "149703",
+      "Name": "Custom_Board",
+      "Transform": {
+        "posX": -10.5749159,
+        "posY": 0.976809144,
+        "posZ": -0.265626639,
+        "rotX": -1.07052419E-05,
+        "rotY": 179.996124,
+        "rotZ": 2.68355361E-05,
+        "scaleX": 0.250000417,
+        "scaleY": 0.250000417,
+        "scaleZ": 0.250000417
+      },
+      "Nickname": "Wordle Board",
+      "Description": "Fully scripted Wordle board.\nV 1.7\n\nWorkshop page at https://steamcommunity.com/sharedfiles/filedetails/?id=2777782837\n\nCreated by David",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/1861681192330390326/B39FA717B0CAA7129F206E2968F330B77FBAC1F3/",
+        "ImageSecondaryURL": "",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.757142842
+      },
+      "LuaScript": "xs = 1.42\nys = 1.47\nxd = -6.45\nyd = 4.3\nkeyboard = {\n    {'q',0,0},\n    {'w',0,1},\n    {'e',0,2},\n    {'r',0,3},\n    {'t',0,4},\n    {'y',0,5},\n    {'u',0,6},\n    {'i',0,7},\n    {'o',0,8},\n    {'p',0,9},\n    {'a',1,0.5},\n    {'s',1,1.5},\n    {'d',1,2.5},\n    {'f',1,3.5},\n    {'g',1,4.5},\n    {'h',1,5.5},\n    {'j',1,6.5},\n    {'k',1,7.5},\n    {'l',1,8.5},\n    {'z',2,1.5},\n    {'x',2,2.5},\n    {'c',2,3.5},\n    {'v',2,4.5},\n    {'b',2,5.5},\n    {'n',2,6.5},\n    {'m',2,7.5}\n}\nenterKey = {2,0.07}\nbackspaceKey = {2,8.9}\nresetButton = {3,6}\nwhite = {1,1,1}\nyellow = {1,0.77,0}\ngreen = {0,1,0}\nred = {1,0,0}\n\nanswer = nil\ncurrentWord = {}\ncurrentWordLen = 0\nguesses = {}\nguessCount = 0\nseed = \"\"\nstartWord = \"\"\nfin = false\n\nwordBank = nil\nwordKeys = {}\n\nfunction onLoad()\n    WebRequest.get(\"https://davidy22.github.io/api/words.json\", function(a) webRequestCallback(a) end)\n    renderKeyboard()\nend\n\nfunction renderCleanup()\n    local buttons = self.getButtons()\n    for k = #buttons, 1, -1 do\n        if #buttons <= 28 + guessCount * 5 then\n            break\n        end\n        self.removeButton(buttons[k].index)\n        table.remove(buttons)\n    end\nend\n\nfunction renderKeyboard()\n    for i, key in ipairs(keyboard) do\n        self.createButton({\n            click_function = \"keypress\" .. key[1],\n            function_owner = self,\n            font_size = 400,\n            width = 500,\n            height = 600,\n            color = {0,0,0,1},\n            font_color = {1,1,1},\n            position = {xs*key[3]+xd,1,ys*key[2]+yd},\n            label = string.upper(key[1]),\n            scale = {1.32,1,1}\n        })\n    end\n    self.createButton({\n        click_function = \"enter\",\n        function_owner = self,\n        font_size = 300,\n        width = 920,\n        height = 600,\n        color = {0,0,0,1},\n        font_color = {1,1,1},\n        position = {xs*enterKey[2]+xd,1,ys*enterKey[1]+yd},\n        label = \"Enter\",\n        scale = {1.32,1,1}\n    })\n    self.createButton({\n        click_function = \"backspace\",\n        function_owner = self,\n        font_size = 300,\n        width = 890,\n        height = 600,\n        color = {0,0,0,1},\n        font_color = {1,1,1},\n        position = {xs*backspaceKey[2]+xd,1,ys*backspaceKey[1]+yd},\n        label = \"Back\",\n        scale = {1.32,1,1}\n    })\nend\n\n\nfunction renderWord(word)\n    local letterCounts = {}\n    for i = 1, 5 do\n        if string.sub(word, i, i) == string.sub(answer, i, i) then\n            self.createButton({\n                click_function = \"blank\",\n                function_owner = self,\n                font_size = 550,\n                width = 800,\n                height = 800,\n                color = green,\n                font_color = {0,0,0},\n                position = {xs*i*1.8-1+xd,1,ys*guessCount*1.2 - 11+yd},\n                label = string.upper(string.sub(word, i, i)),\n                scale = {1.32,1,1}\n            })\n        else\n            if letterCounts[string.sub(answer, i, i)] == nil then\n                letterCounts[string.sub(answer, i, i)] = 1\n            else\n                letterCounts[string.sub(answer, i, i)] = letterCounts[string.sub(answer, i, i)] + 1\n            end\n        end\n    end\n    for i = 1, 5 do\n        if string.sub(word, i, i) ~= string.sub(answer, i, i) then\n            if letterCounts[string.sub(word, i, i)] == nil then\n                self.createButton({\n                    click_function = \"blank\",\n                    function_owner = self,\n                    font_size = 550,\n                    width = 800,\n                    height = 800,\n                    color = {0,0,0,1},\n                    font_color = {1,1,1},\n                    position = {xs*i*1.8-1+xd,1,ys*guessCount*1.2 - 11+yd},\n                    label = string.upper(string.sub(word, i, i)),\n                    scale = {1.32,1,1}\n                })\n                if string.find(answer, string.sub(word, i, i)) == nil then\n                    for j = 0, 25 do\n                        if keyboard[j+1][1] == string.sub(word, i, i) then\n                            self.editButton({index=j, color = {0.5,0.5,0.5,1}})\n                            break\n                        end\n                    end\n                end\n            else\n                letterCounts[string.sub(word, i, i)] = letterCounts[string.sub(word, i, i)] - 1\n                if letterCounts[string.sub(word, i, i)] == 0 then letterCounts[string.sub(word, i, i)] = nil end\n                self.createButton({\n                    click_function = \"blank\",\n                    function_owner = self,\n                    font_size = 550,\n                    width = 800,\n                    height = 800,\n                    color = yellow,\n                    font_color = {0,0,0},\n                    position = {xs*i*1.8-1+xd,1,ys*guessCount*1.2 - 11+yd},\n                    label = string.upper(string.sub(word, i, i)),\n                    scale = {1.32,1,1}\n                })\n            end\n        end\n    end\nend\n\n\nfunction renderCurrent()\n    for i = 1, #currentWord do\n        self.createButton({\n            click_function = \"blank\",\n            function_owner = self,\n            font_size = 550,\n            width = 800,\n            height = 800,\n            color = {0,0,0,1},\n            font_color = {1,1,1},\n            position = {xs*i*1.8-1+xd,1,ys*guessCount*1.2 - 11+yd},\n            label = string.upper(currentWord[i]),\n            scale = {1.32,1,1}\n        })\n    end\nend\n\n\nfunction webRequestCallback(webReturn)\n    wordBank = JSON.decode(webReturn.text)[1]\n    for k, v in pairs(wordBank) do\n        table.insert(wordKeys, k)\n    end\n    reset()\nend\n\nfunction checkWord(word)\n    if word == answer then\n        self.setColorTint(green)\n        renderCleanup()\n        renderWord(word)\n        createReset()\n    elseif wordBank[word] == nil then\n        self.setColorTint(red)\n        Wait.frames(function() self.setColorTint(white) end, 80)\n    else\n        table.insert(guesses, word)\n        renderCleanup()\n        renderWord(word)\n        guessCount = guessCount + 1\n        currentWord = {}\n        currentWordLen = 0\n        if guessCount == 6 then\n            self.setColorTint(red)\n            createReset()\n            self.createButton({\n                click_function = \"blank\",\n                function_owner = self,\n                font_size = 300,\n                width = 2300,\n                height = 600,\n                color = {0.1,0.15,0.3,1},\n                font_color = {1,1,0.9},\n                position = {xs*resetButton[2]+xd-6,1,ys*resetButton[1]+yd},\n                label = \"Word was \" .. answer,\n                scale = {1.32,1,1}\n            })\n        else\n            self.setColorTint(yellow)\n            Wait.frames(function() self.setColorTint(white) end, 80)\n        end\n    end\nend\n\nfunction createReset()\n    fin = true\n    self.createButton({\n        click_function = \"reset\",\n        function_owner = self,\n        font_size = 300,\n        width = 910,\n        height = 600,\n        color = {0.1,0.15,0.3,1},\n        font_color = {1,1,0.9},\n        position = {xs*resetButton[2]+xd,1,ys*resetButton[1]+yd},\n        label = \"Reset\",\n        scale = {1.32,1,1}\n    })\nend\n\nfunction reset()\n    self.setColorTint(white)\n    guesses = {}\n    currentWord = {}\n    currentWordLen = 0\n    guessCount = 0\n    self.clearButtons()\n    renderKeyboard()\n    answer = wordKeys[math.random(1, #wordKeys)]\n    fin = false\nend\n\n\nfunction blank() end\n\n\nfunction enter()\n    if LOCK then return end\n    LOCK = true\n    Wait.time(function() LOCK = false end, 0.1)\n\n    checkWord(table.concat(currentWord))\nend\n\n\nfunction backspace()\n    if LOCK or fin then return end\n    LOCK = true\n    Wait.time(function() LOCK = false end, 0.1)\n\n    if currentWordLen > 0 then\n        currentWordLen = currentWordLen - 1\n        table.remove(currentWord)\n        local buttons = self.getButtons()\n        self.removeButton(buttons[#buttons].index)\n    end\nend\n\nfunction keypress(letter)\n    if LOCK or fin then return end\n    LOCK = true\n    Wait.time(function() LOCK = false end, 0.1)\n\n    if currentWordLen < 5 and guessCount < 6 then\n        table.insert(currentWord, letter)\n        currentWordLen = currentWordLen + 1\n        \n        self.createButton({\n            click_function = \"blank\",\n            function_owner = self,\n            font_size = 550,\n            width = 800,\n            height = 800,\n            color = {0,0,0,1},\n            font_color = {1,1,1},\n            position = {xs*#currentWord*1.8-1+xd,1,ys*guessCount*1.2 - 11+yd},\n            label = string.upper(letter),\n            scale = {1.32,1,1}\n        })\n    end\nend\n\nfunction updateButtonText(ply, text)\n    seed = text\n    if seed == \"\" then\n        self.UI.setAttribute(\"submit\", \"text\", \"Reset\")\n    else\n        self.UI.setAttribute(\"submit\", \"text\", \"Set Seed\")\n    end\nend\n\nfunction setSeed()\n    if seed ~= \"\" then\n        math.randomseed(tonumber(seed))\n    else\n        math.randomseed(os.time())\n    end\n    reset()\n    self.setColorTint(green)\n    Wait.frames(function() self.setColorTint(white) end, 60)\nend\n\nfunction updateSetWordText(ply, text)\n    startWord = text\nend\n\nfunction setWord()\n    startWord = startWord:lower()\n    if wordBank[startWord] == nil then\n        self.setColorTint(red)\n        Wait.frames(function() self.setColorTint(white) end, 80)\n    else\n        reset()\n        answer = startWord\n        self.setColorTint(green)\n        Wait.frames(function() self.setColorTint(white) end, 60)\n    end\nend\n\nfunction keypressq() keypress(\"q\") end\nfunction keypressw() keypress(\"w\") end\nfunction keypresse() keypress(\"e\") end\nfunction keypressr() keypress(\"r\") end\nfunction keypresst() keypress(\"t\") end\nfunction keypressy() keypress(\"y\") end\nfunction keypressu() keypress(\"u\") end\nfunction keypressi() keypress(\"i\") end\nfunction keypresso() keypress(\"o\") end\nfunction keypressp() keypress(\"p\") end\nfunction keypressa() keypress(\"a\") end\nfunction keypresss() keypress(\"s\") end\nfunction keypressd() keypress(\"d\") end\nfunction keypressf() keypress(\"f\") end\nfunction keypressg() keypress(\"g\") end\nfunction keypressh() keypress(\"h\") end\nfunction keypressj() keypress(\"j\") end\nfunction keypressk() keypress(\"k\") end\nfunction keypressl() keypress(\"l\") end\nfunction keypressz() keypress(\"z\") end\nfunction keypressx() keypress(\"x\") end\nfunction keypressc() keypress(\"c\") end\nfunction keypressv() keypress(\"v\") end\nfunction keypressb() keypress(\"b\") end\nfunction keypressn() keypress(\"n\") end\nfunction keypressm() keypress(\"m\") end\n",
+      "LuaScriptState": "",
+      "XmlUI": "<InputField width=\"900\" height=\"200\" position=\"0 -400 30\" rotation=\"0 180 180\" onValueChanged=\"updateButtonText()\" active=\"true\" characterLimit=\"11\" textAlignment=\"middleCenter\" contentType=\"IntegerNumber\" fontSize=\"130\" placeholder=\"Seed\" preferredHeight=\"50\"></InputField>\n<Button id=\"submit\" fontStyle=\"Bold\" outline=\"#000000\" onclick=\"setSeed()\" position=\"0 -180 30\" color=\"Blue\" width=\"400\" height=\"80\" rotation=\"0 180 180\" fontSize =\"900\" resizeTextForBestFit=\"true\" scale = \"2 2 2\">Reset</Button>\n\n<InputField width=\"900\" height=\"200\" position=\"0 50 30\" rotation=\"0 180 180\" onValueChanged=\"updateSetWordText()\" active=\"true\" characterLimit=\"5\" textAlignment=\"middleCenter\" fontSize=\"130\" placeholder=\"Word\" preferredHeight=\"50\"></InputField>\n<Button id=\"submitWord\" fontStyle=\"Bold\" outline=\"#000000\" onclick=\"setWord()\" position=\"0 270 30\" color=\"Blue\" width=\"400\" height=\"80\" rotation=\"0 180 180\" fontSize =\"900\" resizeTextForBestFit=\"true\" scale = \"2 2 2\">Set starting word</Button>"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "48f4f5",
+      "Name": "BlockSquare",
+      "Transform": {
+        "posX": 16.6849957,
+        "posY": 1.06983876,
+        "posZ": 8.910001,
+        "rotX": 1.63784671E-06,
+        "rotY": 180.0,
+        "rotZ": -0.00163240894,
+        "scaleX": 2.3,
+        "scaleY": 0.2,
+        "scaleZ": 3.2
+      },
+      "Nickname": "Deck Pricer",
+      "Description": "Fetches a price estimate from Scryfall for your deck.\nIndividual card prices will be saved to your Notebook tab",
+      "GMNotes": "",
+      "Memo": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.117610611,
+        "g": 0.117610611,
+        "b": 0.196043879
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "LuaScript": "--By Madwand\nmod_name='Deck Pricer'\nversion='[i]3.1[/i]'\n\nfunction onLoad()\n  local txt = 'Fetches a price estimate from Scryfall for your deck.\\n'..\n              'Individual card prices will be saved to your Notebook tab'\n  self.setDescription(txt)\n  self.setName(mod_name)\n\n  sScale=self.getScale()\n\n  bpars={ click_function='click',\n          function_owner=self,\n          label='Place Deck',\n          position={0,0.5,0.65},\n          scale={0.5/sScale[1],0.5/sScale[2],0.5/sScale[3]},\n          color={0.1,0.1,0.1},\n          font_color={1,1,1},\n          width=3500,\n          height=750,\n          font_size=500,\n          tooltip='' }\n  self.createButton(bpars)\n\n  bpars={ click_function='click',\n          function_owner=self,\n          label='Deck\\nPricer',\n          position={0,0.5,0},\n          scale={0.5/sScale[1],0.5/sScale[2],0.5/sScale[3]},\n          color={0.1,0.1,0.1,1},\n          font_color={1,1,1,1},\n          width=0,\n          height=0,\n          font_size=600,\n          tooltip='' }\n  self.createButton(bpars)\n\nend\n\nfunction click(o,pc,a)\n  if getObjectFromGUID(self.getGMNotes())~=nil then\n    getDeckPrices(getObjectFromGUID(self.getGMNotes()),pc)\n    self.setGMNotes('')\n    self.editButton({\n      index=0,\n      label='Place Deck'\n    })\n  end\nend\n\nfunction onCollisionEnter(info)\n  if info==nil then return end\n  if info.collision_object.type=='Deck' then\n    local g = info.collision_object.getGUID()\n    self.setGMNotes(g)\n    self.editButton({\n      index=0,\n      label='Fetch Deck Price'\n    })\n  end\nend\n\n-- function onCollisionExit(info)\n--   if info.collision_object.type=='Deck' then\n--     self.setGMNotes('')\n--     self.editButton({\n--       index=0,\n--       label='Place Deck'\n--     })\n--   end\n-- end\n\n\nfunction getDeckPrices(deck,ply)\n  if deck==nil then return end\n  if deck.type~='Deck' then return end\n  local col=stringColorToRGB(ply)\n  col[4]=100\n  local colHex='['..Color[ply]:toHex()..']'\n  deckData = deck.getData()\n  local deckUSD=0\n  local deckTix=0\n  local data={}\n  local gameChangerCount = 0\n  local formatLegalities = {}\n  local legalFormats = {\n    \"standard\", \"future\", \"historic\", \"timeless\", \"gladiator\", \"pioneer\",\n    \"explorer\", \"modern\", \"legacy\", \"pauper\", \"vintage\", \"penny\", \"commander\",\n    \"oathbreaker\", \"standardbrawl\", \"brawl\", \"alchemy\", \"paupercommander\",\n    \"duel\", \"oldschool\", \"premodern\", \"predh\"\n  }\n  for _,fmt in ipairs(legalFormats) do\n    formatLegalities[fmt] = true\n  end\n\n  local bpars={click_function='null',label='fetching data\\nfrom scryfall',\n    width=0,height=0,scale={0.3,0.3,0.3},font_size=500,\n    position={0,6,0},rotation={0,0,0},color={0,0,0,0},font_color=col}\n  self.createButton(bpars)\n\n  ncards=0\n  nprocessed=0\n  local delay = 0\n  for i,card in ipairs(deckData.ContainedObjects) do\n    ncards=ncards+1\n    if card.Nickname == nil or card.Nickname == \"\" then\n      broadcastToAll(\"error for card #\"..i..\": \"..' [i]no name on card = no way to fetch data[/i]',{1,0.6,0.6})\n      nprocessed=nprocessed+1\n    else\n      local name = card.Nickname:gsub('\\n.*',''):gsub('%[.-%]','')\n      local encoded = encodeString(name)\n      local requestUrl = \"https://api.scryfall.com/cards/search?q=name:\" .. encoded .. \"+cheapest:usd\"\n\n      Wait.time(function()\n        WebRequest.get(requestUrl, function(webReturn)\n          local json = JSON.decode(webReturn.text)\n          local card = json and json.data and json.data[1]\n          if card then\n            local usd = tonumber(card.prices.usd)\n            local tix = tonumber(card.prices.tix)\n            if card.game_changer == true then\n              gameChangerCount = gameChangerCount + 1\n            end\n            if card.legalities then\n              for fmt, status in pairs(card.legalities) do\n                if formatLegalities[fmt] and status ~= \"legal\" then\n                  formatLegalities[fmt] = false\n                end\n              end\n            end\n            if usd ~= nil then deckUSD = deckUSD + usd end\n            if tix ~= nil then deckTix = deckTix + tix end\n            table.insert(data, {name, usd, tix})\n          else\n            broadcastToAll(\"No data for card: \" .. name, {1,0.6,0.6})\n          end\n          nprocessed=nprocessed+1\n        end)\n      end, delay)\n      delay = delay + 0.05\n    end\n  end\n\n  Wait.condition(\n    function()\n      self.removeButton(2)\n      local legalIn = {}\n      for fmt, legal in pairs(formatLegalities) do\n        if legal then table.insert(legalIn, fmt) end\n      end\n\n      table.sort(legalIn)\n      local legalStr = table.concat(legalIn, \", \")\n      broadcastToAll(colHex..ply..\"[-] deck legal in: \"..legalStr, {0.75,0.75,0.75})\n\n      local deckTotalLine = colHex..ply..'[-] deck total: $'..colHex..deckUSD..'[-] Tix: '..colHex..deckTix\n      if formatLegalities[\"commander\"] then\n        deckTotalLine = deckTotalLine .. \" Game changers: \"..gameChangerCount\n      end\n      broadcastToAll(deckTotalLine, {0.75,0.75,0.75})\n\n      lister(data,ply)\n    end,\n    function() return ncards == nprocessed end,\n    20,\n    function()\n      broadcastToAll('Scryfall data fetch timed out :(',{0.75,0.75,0.75})\n      self.removeButton(2)\n    end\n  )\nend\n\n\n\nfunction lister(deck, pColor)\n  local pc = pColor\n\n  -- Group duplicates by name\n  local grouped = {}\n  for _, v in ipairs(deck) do\n    local name = v[1]\n    local usd = tonumber(v[2]) or 0\n    local tix = tonumber(v[3]) or 0\n    if not grouped[name] then\n      grouped[name] = {count = 1, usd = usd, tix = tix}\n    else\n      grouped[name].count = grouped[name].count + 1\n      grouped[name].usd = grouped[name].usd + usd\n      grouped[name].tix = grouped[name].tix + tix\n    end\n  end\n\n  -- Convert to list and sort by total USD value descending\n  local sorted = {}\n  for name, info in pairs(grouped) do\n    table.insert(sorted, {name, info.count, info.usd, info.tix})\n  end\n  table.sort(sorted, function(a, b) return a[3] > b[3] end)\n\n  -- Build notebook body\n  local list = ''\n  local wasnil = false\n  for _, entry in ipairs(sorted) do\n    local name, count, usd, tix = table.unpack(entry)\n    local usdText = usd > 0 and string.format(\"$%.2f\", usd) or \"--\"\n    local tixText = tix > 0 and string.format(\"%.2f\", tix) or \"--\"\n    list = list .. count .. \" \" .. name .. \" \" .. usdText .. \" tix: \" .. tixText .. \"\\n\"\n    if usdText == \"--\" or tixText == \"--\" then wasnil = true end\n  end\n\n  if wasnil then\n    list = list .. \"'--' indicates no Scryfall data was available\"\n  end\n\n  -- Remove old tab\n  local tabs = getNotebookTabs()\n  for _, tab in pairs(tabs) do\n    if tab.color == pColor then\n      removeNotebookTab(tab.index)\n    end\n  end\n\n  -- Add new tab after short delay\n  Wait.time(function()\n    addNotebookTab({ title = pColor, body = list, color = pColor })\n    Player[pc].broadcast(\"Deck list and prices in Notebook Tab: \" .. pColor)\n  end, 0.3)  -- increased from 0.1 for better reliability\nend\n\n\nfunction tonum(obj)\n  if obj==nil then return 0 end\n  return tonumber(obj)\nend\n\n\nfunction tostr(obj)\n  if obj==nil then return '--' end\n  return obj\nend\n\n-- Replace common accented characters with plain ASCII equivalents\nlocal normalizeMap = {\n  ['À']='A',['Á']='A',['Â']='A',['Ã']='A',['Ä']='A',['Å']='A',\n  ['à']='a',['á']='a',['â']='a',['ã']='a',['ä']='a',['å']='a',\n  ['Ç']='C',['ç']='c',\n  ['È']='E',['É']='E',['Ê']='E',['Ë']='E',\n  ['è']='e',['é']='e',['ê']='e',['ë']='e',\n  ['Ì']='I',['Í']='I',['Î']='I',['Ï']='I',\n  ['ì']='i',['í']='i',['î']='i',['ï']='i',\n  ['Ñ']='N',['ñ']='n',\n  ['Ò']='O',['Ó']='O',['Ô']='O',['Õ']='O',['Ö']='O',\n  ['ò']='o',['ó']='o',['ô']='o',['õ']='o',['ö']='o',\n  ['Ù']='U',['Ú']='U',['Û']='U',['Ü']='U',\n  ['ù']='u',['ú']='u',['û']='u',['ü']='u',\n  ['Ý']='Y',['ý']='y',['ÿ']='y',\n  ['Ž']='Z',['ž']='z',['Š']='S',['š']='s'\n}\n\nlocal function normalizeLatin(str)\n  return (str:gsub(\"[%z\\1-\\127\\194-\\244][\\128-\\191]*\", function(c)\n    return normalizeMap[c] or c\n  end))\nend\n\nfunction encodeString(str)\n  local plain = normalizeLatin(str)\n  return plain:gsub(\"([^%w%-_%.~])\", function(c)\n    return string.format(\"%%%02X\", string.byte(c))\n  end)\nend",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "AttachedSnapPoints": [
+        {
+          "Position": {
+            "x": 2.32195774E-07,
+            "y": 0.5000001,
+            "z": 1.25119172E-07
+          }
+        }
+      ]
+    }
+  ]
+}

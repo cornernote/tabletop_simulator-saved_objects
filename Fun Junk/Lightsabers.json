@@ -1,0 +1,280 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "940ed3",
+      "Name": "Bag",
+      "Transform": {
+        "posX": 28.9050255,
+        "posY": 0.7851531,
+        "posZ": -5.67,
+        "rotX": -3.855779E-06,
+        "rotY": -0.000786665652,
+        "rotZ": 0.00163359067,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Lightsabers",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.7058823,
+        "g": 0.366520882,
+        "b": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "e76af1",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": 16.348465,
+            "posY": 3.567586,
+            "posZ": 5.11451864,
+            "rotX": -0.00274350285,
+            "rotY": 0.0161015615,
+            "rotZ": 359.52533,
+            "scaleX": 0.250000417,
+            "scaleY": 0.250000417,
+            "scaleZ": 0.250000417
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.07352855,
+            "g": 0.8849899,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": false,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "http://chry.me/up/lightsaber_blue.unity3d",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 2,
+            "TypeIndex": 3,
+            "LoopingEffectIndex": 1
+          },
+          "LuaScript": "function onload()\r\n held = 0\r\nend\r\n\r\nfunction onPickedUp()\r\n held = 1\r\n self.AssetBundle.playLoopingEffect(0)\r\nend\r\n\r\nfunction onDropped()\r\n held = 0\r\n self.AssetBundle.playLoopingEffect(1)\r\nend\r\n\r\nfunction onCollisionEnter()\r\n if held == 1 then\r\n   self.AssetBundle.playTriggerEffect(0)\r\n else\r\n end\r\nend\r\n",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        {
+          "GUID": "87d10e",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": 16.2783146,
+            "posY": 3.56692672,
+            "posZ": 4.328024,
+            "rotX": 359.9649,
+            "rotY": 359.9729,
+            "rotZ": 359.605347,
+            "scaleX": 0.250000417,
+            "scaleY": 0.250000417,
+            "scaleZ": 0.250000417
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.5655171,
+            "g": 1.0,
+            "b": 0.07352861
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": false,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "http://chry.me/up/lightsaber_green.unity3d",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 2,
+            "TypeIndex": 3,
+            "LoopingEffectIndex": 1
+          },
+          "LuaScript": "function onload()\r\n held = 0\r\nend\r\n\r\nfunction onPickedUp()\r\n held = 1\r\n self.AssetBundle.playLoopingEffect(0)\r\nend\r\n\r\nfunction onDropped()\r\n held = 0\r\n self.AssetBundle.playLoopingEffect(1)\r\nend\r\n\r\nfunction onCollisionEnter()\r\n if held == 1 then\r\n   self.AssetBundle.playTriggerEffect(0)\r\n else\r\n end\r\nend\r\n",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        {
+          "GUID": "dcc294",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": 16.4193,
+            "posY": 3.56740642,
+            "posZ": 5.68744564,
+            "rotX": 0.0155347772,
+            "rotY": 0.00748754339,
+            "rotZ": 359.516022,
+            "scaleX": 0.250000417,
+            "scaleY": 0.250000417,
+            "scaleZ": 0.250000417
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 0.8896553,
+            "b": 0.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": false,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "http://chry.me/up/lightsaber_orange.unity3d",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 2,
+            "TypeIndex": 3,
+            "LoopingEffectIndex": 1
+          },
+          "LuaScript": "function onload()\r\n held = 0\r\nend\r\n\r\nfunction onPickedUp()\r\n held = 1\r\n self.AssetBundle.playLoopingEffect(0)\r\nend\r\n\r\nfunction onDropped()\r\n held = 0\r\n self.AssetBundle.playLoopingEffect(1)\r\nend\r\n\r\nfunction onCollisionEnter()\r\n if held == 1 then\r\n   self.AssetBundle.playTriggerEffect(0)\r\n else\r\n end\r\nend\r\n",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        },
+        {
+          "GUID": "360cf4",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": 16.5587673,
+            "posY": 3.566209,
+            "posZ": 6.23677063,
+            "rotX": 0.0250669774,
+            "rotY": 0.031720683,
+            "rotZ": 359.540833,
+            "scaleX": 0.250000417,
+            "scaleY": 0.250000417,
+            "scaleZ": 0.250000417
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.393101752
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": false,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "http://chry.me/up/lightsaber_red.unity3d",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 2,
+            "TypeIndex": 3,
+            "LoopingEffectIndex": 1
+          },
+          "LuaScript": "function onload()\r\n held = 0\r\nend\r\n\r\nfunction onPickedUp()\r\n held = 1\r\n self.AssetBundle.playLoopingEffect(0)\r\nend\r\n\r\nfunction onDropped()\r\n held = 0\r\n self.AssetBundle.playLoopingEffect(1)\r\nend\r\n\r\nfunction onCollisionEnter()\r\n if held == 1 then\r\n   self.AssetBundle.playTriggerEffect(0)\r\n else\r\n end\r\nend\r\n",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      ]
+    }
+  ]
+}

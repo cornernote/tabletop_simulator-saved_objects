@@ -1,0 +1,87 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "c32a4a",
+      "Name": "Custom_Model_Bag",
+      "Transform": {
+        "posX": 40.4415,
+        "posY": 0.818170249,
+        "posZ": 29.4465389,
+        "rotX": -3.777644E-06,
+        "rotY": 90.0000153,
+        "rotZ": -8.819774E-08,
+        "scaleX": 0.8,
+        "scaleY": 0.8,
+        "scaleZ": 0.8
+      },
+      "Nickname": "Tech Storage Chest",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": false,
+      "Snap": false,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Number": 0,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/1016068215330101465/82125E89D770DB629D2CDE1DCC4973AF3BB287C9/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1016068215330101912/A41B857951944D7613A4D75817523E1FFFB57117/",
+        "NormalURL": "",
+        "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/1016068215330104681/D42A70A94DFE2955324E11E33FAB7CFB47DB1B9D/",
+        "Convex": true,
+        "MaterialIndex": 1,
+        "TypeIndex": 6,
+        "CastShadows": true
+      },
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "Rigidbody": {
+        "Mass": 0.95,
+        "Drag": 0.1,
+        "AngularDrag": 0.1,
+        "UseGravity": true
+      }
+    }
+  ]
+}
