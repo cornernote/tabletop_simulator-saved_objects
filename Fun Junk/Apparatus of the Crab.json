@@ -1,0 +1,85 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "1023e3",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": -4.4118166,
+        "posY": -5.907399,
+        "posZ": -1.31288373,
+        "rotX": 3.859495E-06,
+        "rotY": 180.0107,
+        "rotZ": -3.77711285E-06,
+        "scaleX": 0.775000155,
+        "scaleY": 0.775000155,
+        "scaleZ": 0.775000155
+      },
+      "Nickname": "Apparatus of the Crab",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.527873456,
+        "g": 0.324634165,
+        "b": 0.324634165
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/1769319688939192976/1CC71FD1D8A4C817944D5A552FD05905C1BA6695/",
+        "DiffuseURL": "",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 0,
+        "TypeIndex": 1,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 0.4895461,
+            "g": 0.311297685,
+            "b": 0.311297685
+          },
+          "SpecularIntensity": 0.1,
+          "SpecularSharpness": 2.0,
+          "FresnelStrength": 0.4
+        },
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}
