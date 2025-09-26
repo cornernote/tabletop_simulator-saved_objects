@@ -1,0 +1,77 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "8dad6a",
+      "Name": "Custom_Tile",
+      "Transform": {
+        "posX": 5.87179443E-08,
+        "posY": 0.960000157,
+        "posZ": 1.63479257E-08,
+        "rotX": 1.02112529E-06,
+        "rotY": 180.003433,
+        "rotZ": 1.35847742E-07,
+        "scaleX": 3.445388,
+        "scaleY": 1.0,
+        "scaleZ": 3.445388
+      },
+      "Nickname": "",
+      "Description": "MemeBoard",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "https://i.imgur.com/udUVAp3.jpg",
+        "ImageSecondaryURL": "https://i.imgur.com/YuxYkwP.jpg",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.0,
+        "CustomTile": {
+          "Type": 0,
+          "Thickness": 0.200000152,
+          "Stackable": false,
+          "Stretch": true
+        }
+      },
+      "LuaScript": "scaleMultiplier=1.8\r\nclickedTime=0\r\nfunction onLoad(save_state)\r\n    --self.interactable=false\r\n\r\n    params = {\r\n           click_function = \"onClick\",\r\n           function_owner = self,\r\n           label          = \"\",\r\n           position       = {0, 0.05, 0.7},\r\n           rotation       = {0, 0, 0},\r\n           width          = 300,\r\n           height         = 150,\r\n           font_size      = 25,\r\n           color          = {0.1, 0.1,0.1},\r\n           tooltip        = \"Meme me\",\r\n       }\r\n       self.createButton(params)\r\n\r\nend\r\n\r\nfunction onClick(obj, color, alt_click)\r\n    if(os.time()-clickedTime>3)then\r\n        printToAll(\"Generating meme. Please Wait...\", {1, 0.670, 0.121})\r\n        clickedTime=os.time()\r\n        scale=self.getScale().z/scaleMultiplier;\r\n        rot=self.getRotation()\r\n        selfPos=self.positionToWorld({0,2,-0.15})\r\n\r\n        spawnParams = {\r\n            type = \"Custom_Tile\",\r\n            position          = selfPos,\r\n            rotation          = rot,\r\n            scale             = {scale,3,scale},\r\n            sound             = false,\r\n            snap_to_grid      = true,\r\n            locked=false\r\n        }\r\n        WebRequest.get(\"https://meme-api.com/gimme\", function(a) webRequestCallback(a) end)\r\n        --makeMeme(\"https://memeshappen.com/media/created/2018/04/When-shes-the-queen--Of-your-double-wide-trailer-.jpg\")\r\n    else\r\n        num = round(3-(os.time()-clickedTime),1)\r\n        printToAll(\"Please Wait for \"..num..\" seconds\", {0.827, 0.364, 0.352})\r\n    end\r\n\r\nend\r\n\r\nfunction onRandomize(player_color)\r\n    print(\"ok\")\r\nend\r\n\r\nfunction webRequestCallback(webReturn)\r\n    decoded = JSON.decode(webReturn.text)\r\n    makeMeme(decoded['url'])\r\nend\r\n\r\nfunction makeMeme(url)\r\n    if(string.sub(url,-4)==\"jpeg\" or string.sub(url,-4)==\".jpg\" or string.sub(url,-4)==\".png\" or string.sub(url,-4)==\"webm\" or string.sub(url,-4)==\".mp4\" or string.sub(url,-4)==\".m4v\" or string.sub(url,-4)==\".mov\" or string.sub(url,-4)==\"rawt\")then\r\n        meme = spawnObject(spawnParams)\r\n        meme.setCustomObject({image = url,thickness=0.01})\r\n        meme.setLock(false)\r\n        meme = meme.reload()\r\n        printToAll(\"Your meme is ready.\", {0.564, 0.862, 0.415})\r\n    else\r\n        WebRequest.get(\"https://meme-api.com/gimme\", function(a) webRequestCallback(a) end)\r\n    end\r\nend\r\n\r\nfunction round(num, numDecimalPlaces)\r\n  local mult = 10^(numDecimalPlaces or 0)\r\n  return math.floor(num * mult + 0.5) / mult\r\nend\r\n",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

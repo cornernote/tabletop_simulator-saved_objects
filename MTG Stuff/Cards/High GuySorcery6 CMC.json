@@ -1,0 +1,78 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "7ca6bc",
+      "Name": "Card",
+      "Transform": {
+        "posX": 17.625,
+        "posY": 0.983470559,
+        "posZ": -11.6100006,
+        "rotX": 1.46697978E-08,
+        "rotY": 180.0,
+        "rotZ": -0.001632327,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "High Guy\r\nSorcery\r\n6 CMC",
+      "Description": "Split second (As long as this spell is on the stack, players can't cast spells or abilityes that aren't mana abilities.)\r\nTarget horse draw 25 cars and give wing to the target fish. If it's raining outside, don't forget to take some sunglesses.\r\nIf the opponents laugh before you read this line, he pr they lose the game.\r\n[b]2/0[/b]",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.713235259,
+        "g": 0.713235259,
+        "b": 0.713235259
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": true,
+      "Hands": true,
+      "CardID": 52994801,
+      "SidewaysCard": false,
+      "CustomDeck": {
+        "529948": {
+          "FaceURL": "https://pm1.aminoapps.com/6046/6e0ab617aea773c4b687b853b93c31fba1d00e11_hq.jpg",
+          "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/1647720103762682461/35EF6E87970E2A5D6581E7D96A99F8A575B7A15F/",
+          "NumWidth": 1,
+          "NumHeight": 1,
+          "BackIsHidden": false,
+          "UniqueBack": false,
+          "Type": 0
+        }
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

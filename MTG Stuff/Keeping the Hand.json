@@ -1,0 +1,77 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "deb799",
+      "Name": "Custom_Tile",
+      "Transform": {
+        "posX": 8.22499,
+        "posY": 1.16959834,
+        "posZ": 7.29000044,
+        "rotX": -1.29661839E-06,
+        "rotY": 9.565393E-07,
+        "rotZ": 180.001633,
+        "scaleX": 1.05966258,
+        "scaleY": 1.0,
+        "scaleZ": 1.05966258
+      },
+      "Nickname": "Keeping the Hand",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "http://cdn.shopify.com/s/files/1/0752/4221/t/8/assets/logo.png?16782324219290407283",
+        "ImageSecondaryURL": "https://c1.iggcdn.com/indiegogo-media-prod-cld/image/upload/c_fill,f_auto,h_630,w_1200/v1502420390/t6wsso9orawe4dot9zjs.jpg",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.0,
+        "CustomTile": {
+          "Type": 0,
+          "Thickness": 0.2,
+          "Stackable": false,
+          "Stretch": true
+        }
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "148a41",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": -0.148431987,
+        "posY": 1.3917439,
+        "posZ": -1.37541807,
+        "rotX": 3.26479017E-06,
+        "rotY": 180.000076,
+        "rotZ": 3.12438942E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.8,
+        "g": 0.8,
+        "b": 0.8
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/1751317022181597183/DCBD9F40A9BAA9C1E90DCF4E89DE1DCAF16CD4BF/",
+        "AssetbundleSecondaryURL": "https://steamusercontent-a.akamaihd.net/ugc/1751317022181566863/D7C77C46EC45A3C635F425122157750E10C25850/",
+        "MaterialIndex": 0,
+        "TypeIndex": 1,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "e56ff7",
+      "Name": "Card",
+      "Transform": {
+        "posX": 14.3399992,
+        "posY": 0.983377,
+        "posZ": -11.6099958,
+        "rotX": -2.4782E-08,
+        "rotY": 180.0,
+        "rotZ": -0.00163222977,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "I Never Negotiate With Terrorists",
+      "Description": "White",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": true,
+      "Hands": true,
+      "CardID": 52993700,
+      "SidewaysCard": false,
+      "CustomDeck": {
+        "529937": {
+          "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/2015970603924854528/66A6B927A6763BFA1B64EFC9881006D062C0B108/",
+          "BackURL": "https://ih0.redbubble.net/image.504004386.2489/raf,750x1000,075,t,101010:01c5ca27c6.u6.jpg",
+          "NumWidth": 1,
+          "NumHeight": 1,
+          "BackIsHidden": true,
+          "UniqueBack": false,
+          "Type": 0
+        }
+      },
+      "LuaScript": "mod_name, version = 'I Never Negotiate With Terrorists', 1\r\nself.setName(mod_name)\r\n\r\nmessages = {\"Not a snowball's chance in hell!\", \"No fucking way!\", \"Go to hell, no!\",\r\n            \"You must be out of your damn mind!\", \"I'd rather eat shit!\", \"Not on your fucking life!\",\r\n            \"As if, asshole!\", \"Get the hell outta here!\", \"Fuck no!\", \"You're bullshiting me, right?\",\r\n            \"Hell to the fuck no!\", \"No bloody way!\", \"You're taking the piss, right?\", \"Bugger off, no!\",\r\n            \"Not if you were the last dick on Earth!\", \"That's a fucking joke, right?\",\r\n            \"I wouldn't do that for all the boobs in the world!\", \"No fucking chance in hell!\",\r\n            \"That's a hard fucking no!\", \"Fuck off with that shit!\", \"Absolutely not!\", \"Over my dead body!\",\r\n            \"Not on your life!\", \"Not in a million years!\", \"You've got to be joking!\", \"Not on your nelly!\",\r\n            \"Not in this lifetime!\", \"Are you out of your mind?\", \"No way, Jose!\", \"You must be dreaming!\",\r\n            \"I'd rather eat nails!\", \"You're out of your tree!\", \"Not for all the tea in China!\",\r\n            \"Not if you were the last person on Earth!\", \"Fat chance!\", \"Not on my watch!\",\r\n            \"I wouldn't touch that with a ten-foot pole!\", \"You're barking up the wrong tree!\", \"Get outta here!\",\r\n            \"No can do!\", \"I'd rather stick needles in my eyes!\", \"When pigs fly!\", \"Hell would freeze over first!\",\r\n            \"I'd rather walk on hot coals!\", \"You can forget about it!\", \"I'd rather suck a dick!\",\r\n            \"I wouldn't do it if you paid me!\", \"In your dreams!\", \"That's a hard pass!\", \"That'll be the day!\",\r\n            \"I'd rather be stuck in a lift with a pissed off porcupine!\", \"Not if it was the last option on Earth!\",\r\n            \"I'd rather get a root canal!\", \"Talk to the hand 'cause the face ain't listening!\",\r\n            \"When hell freezes over!\", \"I'd rather juggle flaming swords!\", \"Not on my worst day!\", \"As if!\",\r\n            \"I'd rather wrestle a gator!\", \"Forget it, asshole!\"}\r\n-- function none(o,c,a)if \r\n-- function onPlayerTurn(p)self.setDescription(p.color)end\r\nfunction onPickedUp(player_color)\r\n    self.setDescription(player_color)\r\nend\r\nfunction onDrop(c)\r\n    local color = self.getDescription()\r\n    self.setColorTint(color)\r\n    -- Player[color].broadcast\r\n    broadcastToAll(messages[math.random(0, #messages - 1)], stringColorToRGB(c))\r\nend\r\n",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "Rigidbody": {
+        "Mass": 0.598098755,
+        "Drag": 0.1,
+        "AngularDrag": 0.1,
+        "UseGravity": true
+      }
+    }
+  ]
+}

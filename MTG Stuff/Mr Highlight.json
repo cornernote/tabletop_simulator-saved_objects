@@ -1,0 +1,372 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "4a4568",
+      "Name": "Bag",
+      "Transform": {
+        "posX": 7.0428,
+        "posY": 0.7749655,
+        "posZ": -2.019689,
+        "rotX": -2.06606455E-06,
+        "rotY": -1.84094934E-05,
+        "rotZ": 4.62071648E-06,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Mr Highlight",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.7058823,
+        "g": 0.366520882,
+        "b": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "57e117",
+          "Name": "Custom_Tile",
+          "Transform": {
+            "posX": 7.302544,
+            "posY": 3.02103281,
+            "posZ": -2.498197,
+            "rotX": 1.79208,
+            "rotY": 180.015762,
+            "rotZ": 1.00411928,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "Adds or Removes highlight from an object. Place object onto this tool to add/remove highlighting.",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.872047961,
+            "g": 0.839090347,
+            "b": 0.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomImage": {
+            "ImageURL": "https://i.imgur.com/CiBNsrB.jpg",
+            "ImageSecondaryURL": "https://i.imgur.com/SD5XRef.jpg",
+            "ImageScalar": 1.0,
+            "WidthScale": 0.0,
+            "CustomTile": {
+              "Type": 2,
+              "Thickness": 0.6000003,
+              "Stackable": false,
+              "Stretch": true
+            }
+          },
+          "LuaScript": "--Runs on save to record save data\nfunction onSave()\n    saved_data = JSON.encode(highlightData)\n    --saved_data = \"\" --Uncomment this line+save if you need to erase savedata\n    return saved_data\nend\n\n--Runs on load\nfunction onload(saved_data)\n    --Loads info from memory\n    if saved_data ~= \"\" then\n        highlightData = JSON.decode(saved_data)\n    else\n        highlightData = {}\n    end\n\n    --Apply highlights from save data\n    for guid, tint in pairs(highlightData) do\n        local obj = getObjectFromGUID(guid)\n        if obj ~= nil then\n            obj.highlightOn(tint)\n        else\n            highlightData[guid] = nil\n        end\n    end\n\n    Timer.create({\n        identifier=\"MrHighlight_Unit_\"..self.getGUID(),\n        function_name=\"maintainHighlight\", function_owner=self,\n        delay=1, repetitions=0\n    })\nend\n\n--Monitor tool's collisitions to add/remove highlight\nfunction onCollisionEnter(collision_info)\n    local obj = collision_info.collision_object\n    if obj.getPosition().y > self.getPosition().y then\n        if getHighlightToggle() then\n            local selfTint = self.getColorTint()\n            --Addd highlight and save to memory\n            obj.highlightOn(selfTint)\n            highlightData[obj.getGUID()] = {selfTint.r, selfTint.g, selfTint.b}\n        else\n            --Remove highlight and remove from memory\n            obj.highlightOff()\n            highlightData[obj.getGUID()] = nil\n        end\n    end\nend\n\n--Uses rotation to determine if tool is set to add or remove highlight\nfunction getHighlightToggle()\n    if self.getRotationValue() == \"MrHighlight: [00ff00]Add[-]\" then\n        return true\n    elseif self.getRotationValue() == \"MrHighlight: [ff0000]Remove[-]\" then\n        return false\n    else\n        error(\"Rotation value name not found in getHighlightToggle.\")\n    end\nend\n\n--Reapplies a highlight if a unit went into a bag\nfunction maintainHighlight()\n    for guid, tint in pairs(highlightData) do\n        local obj = getObjectFromGUID(guid)\n        if obj ~= nil then\n            obj.highlightOn(tint)\n        end\n    end\nend\n\n--Kills repeating timer if object is destroyed\nfunction onDestroy()\n    Timer.destroy(\"MrHighlight_Unit_\"..self.getGUID())\nend\n",
+          "LuaScriptState": "{\"008136\":[0.168567597866058,0.228917807340622,0.632404208183289],\"0f167e\":[0.168567568063736,0.2289177775383,0.632404208183289],\"23683f\":[0.168567568063736,0.2289177775383,0.632404208183289],\"492c92\":[0.168567568063736,0.2289177775383,0.632404208183289],\"7471b1\":[0.168567597866058,0.228917807340622,0.632404208183289],\"7a4a3d\":[0.168567568063736,0.2289177775383,0.632404208183289]}",
+          "XmlUI": "",
+          "RotationValues": [
+            {
+              "Value": "MrHighlight: [00ff00]Add[-]",
+              "Rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+              }
+            },
+            {
+              "Value": "MrHighlight: [ff0000]Remove[-]",
+              "Rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 180.0
+              }
+            }
+          ]
+        },
+        {
+          "GUID": "5b1e35",
+          "Name": "Custom_Tile",
+          "Transform": {
+            "posX": -1.25703633,
+            "posY": 3.00250649,
+            "posZ": 3.04061913,
+            "rotX": 1.46049189E-07,
+            "rotY": 180.000046,
+            "rotZ": 6.10154639E-05,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "Adds or Removes highlight from an object. Place object onto this tool to add/remove highlighting.",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.0,
+            "g": 0.134453744,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomImage": {
+            "ImageURL": "https://i.imgur.com/CiBNsrB.jpg",
+            "ImageSecondaryURL": "https://i.imgur.com/SD5XRef.jpg",
+            "ImageScalar": 1.0,
+            "WidthScale": 0.0,
+            "CustomTile": {
+              "Type": 2,
+              "Thickness": 0.6000003,
+              "Stackable": false,
+              "Stretch": true
+            }
+          },
+          "LuaScript": "--Runs on save to record save data\nfunction onSave()\n    saved_data = JSON.encode(highlightData)\n    --saved_data = \"\" --Uncomment this line+save if you need to erase savedata\n    return saved_data\nend\n\n--Runs on load\nfunction onload(saved_data)\n    --Loads info from memory\n    if saved_data ~= \"\" then\n        highlightData = JSON.decode(saved_data)\n    else\n        highlightData = {}\n    end\n\n    --Apply highlights from save data\n    for guid, tint in pairs(highlightData) do\n        local obj = getObjectFromGUID(guid)\n        if obj ~= nil then\n            obj.highlightOn(tint)\n        else\n            highlightData[guid] = nil\n        end\n    end\n\n    Timer.create({\n        identifier=\"MrHighlight_Unit_\"..self.getGUID(),\n        function_name=\"maintainHighlight\", function_owner=self,\n        delay=1, repetitions=0\n    })\nend\n\n--Monitor tool's collisitions to add/remove highlight\nfunction onCollisionEnter(collision_info)\n    local obj = collision_info.collision_object\n    if obj.getPosition().y > self.getPosition().y then\n        if getHighlightToggle() then\n            local selfTint = self.getColorTint()\n            --Addd highlight and save to memory\n            obj.highlightOn(selfTint)\n            highlightData[obj.getGUID()] = {selfTint.r, selfTint.g, selfTint.b}\n        else\n            --Remove highlight and remove from memory\n            obj.highlightOff()\n            highlightData[obj.getGUID()] = nil\n        end\n    end\nend\n\n--Uses rotation to determine if tool is set to add or remove highlight\nfunction getHighlightToggle()\n    if self.getRotationValue() == \"MrHighlight: [00ff00]Add[-]\" then\n        return true\n    elseif self.getRotationValue() == \"MrHighlight: [ff0000]Remove[-]\" then\n        return false\n    else\n        error(\"Rotation value name not found in getHighlightToggle.\")\n    end\nend\n\n--Reapplies a highlight if a unit went into a bag\nfunction maintainHighlight()\n    for guid, tint in pairs(highlightData) do\n        local obj = getObjectFromGUID(guid)\n        if obj ~= nil then\n            obj.highlightOn(tint)\n        end\n    end\nend\n\n--Kills repeating timer if object is destroyed\nfunction onDestroy()\n    Timer.destroy(\"MrHighlight_Unit_\"..self.getGUID())\nend\n",
+          "LuaScriptState": "{\"008136\":[0.168567597866058,0.228917807340622,0.632404208183289],\"0f167e\":[0.168567568063736,0.2289177775383,0.632404208183289],\"23683f\":[0.168567568063736,0.2289177775383,0.632404208183289],\"492c92\":[0.168567568063736,0.2289177775383,0.632404208183289],\"7471b1\":[0.168567597866058,0.228917807340622,0.632404208183289],\"7a4a3d\":[0.168567568063736,0.2289177775383,0.632404208183289]}",
+          "XmlUI": "",
+          "RotationValues": [
+            {
+              "Value": "MrHighlight: [00ff00]Add[-]",
+              "Rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+              }
+            },
+            {
+              "Value": "MrHighlight: [ff0000]Remove[-]",
+              "Rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 180.0
+              }
+            }
+          ]
+        },
+        {
+          "GUID": "99e14b",
+          "Name": "Custom_Tile",
+          "Transform": {
+            "posX": -0.0728264,
+            "posY": 3.00250673,
+            "posZ": -0.22924836,
+            "rotX": 4.269816E-05,
+            "rotY": 180.0,
+            "rotZ": 6.160526E-05,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "Adds or Removes highlight from an object. Place object onto this tool to add/remove highlighting.",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomImage": {
+            "ImageURL": "https://i.imgur.com/CiBNsrB.jpg",
+            "ImageSecondaryURL": "https://i.imgur.com/SD5XRef.jpg",
+            "ImageScalar": 1.0,
+            "WidthScale": 0.0,
+            "CustomTile": {
+              "Type": 2,
+              "Thickness": 0.6000003,
+              "Stackable": false,
+              "Stretch": true
+            }
+          },
+          "LuaScript": "--Runs on save to record save data\nfunction onSave()\n    saved_data = JSON.encode(highlightData)\n    --saved_data = \"\" --Uncomment this line+save if you need to erase savedata\n    return saved_data\nend\n\n--Runs on load\nfunction onload(saved_data)\n    --Loads info from memory\n    if saved_data ~= \"\" then\n        highlightData = JSON.decode(saved_data)\n    else\n        highlightData = {}\n    end\n\n    --Apply highlights from save data\n    for guid, tint in pairs(highlightData) do\n        local obj = getObjectFromGUID(guid)\n        if obj ~= nil then\n            obj.highlightOn(tint)\n        else\n            highlightData[guid] = nil\n        end\n    end\n\n    Timer.create({\n        identifier=\"MrHighlight_Unit_\"..self.getGUID(),\n        function_name=\"maintainHighlight\", function_owner=self,\n        delay=1, repetitions=0\n    })\nend\n\n--Monitor tool's collisitions to add/remove highlight\nfunction onCollisionEnter(collision_info)\n    local obj = collision_info.collision_object\n    if obj.getPosition().y > self.getPosition().y then\n        if getHighlightToggle() then\n            local selfTint = self.getColorTint()\n            --Addd highlight and save to memory\n            obj.highlightOn(selfTint)\n            highlightData[obj.getGUID()] = {selfTint.r, selfTint.g, selfTint.b}\n        else\n            --Remove highlight and remove from memory\n            obj.highlightOff()\n            highlightData[obj.getGUID()] = nil\n        end\n    end\nend\n\n--Uses rotation to determine if tool is set to add or remove highlight\nfunction getHighlightToggle()\n    if self.getRotationValue() == \"MrHighlight: [00ff00]Add[-]\" then\n        return true\n    elseif self.getRotationValue() == \"MrHighlight: [ff0000]Remove[-]\" then\n        return false\n    else\n        error(\"Rotation value name not found in getHighlightToggle.\")\n    end\nend\n\n--Reapplies a highlight if a unit went into a bag\nfunction maintainHighlight()\n    for guid, tint in pairs(highlightData) do\n        local obj = getObjectFromGUID(guid)\n        if obj ~= nil then\n            obj.highlightOn(tint)\n        end\n    end\nend\n\n--Kills repeating timer if object is destroyed\nfunction onDestroy()\n    Timer.destroy(\"MrHighlight_Unit_\"..self.getGUID())\nend\n",
+          "LuaScriptState": "{\"008136\":[0.168567597866058,0.228917807340622,0.632404208183289],\"0f167e\":[0.168567568063736,0.2289177775383,0.632404208183289],\"23683f\":[0.168567568063736,0.2289177775383,0.632404208183289],\"492c92\":[0.168567568063736,0.2289177775383,0.632404208183289],\"7471b1\":[0.168567597866058,0.228917807340622,0.632404208183289],\"7a4a3d\":[0.168567568063736,0.2289177775383,0.632404208183289]}",
+          "XmlUI": "",
+          "RotationValues": [
+            {
+              "Value": "MrHighlight: [00ff00]Add[-]",
+              "Rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+              }
+            },
+            {
+              "Value": "MrHighlight: [ff0000]Remove[-]",
+              "Rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 180.0
+              }
+            }
+          ]
+        },
+        {
+          "GUID": "487319",
+          "Name": "Custom_Tile",
+          "Transform": {
+            "posX": 3.01682544,
+            "posY": 3.00250483,
+            "posZ": -2.700137,
+            "rotX": -3.61287639E-05,
+            "rotY": 180.0,
+            "rotZ": -4.84998745E-05,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "Adds or Removes highlight from an object. Place object onto this tool to add/remove highlighting.",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomImage": {
+            "ImageURL": "https://i.imgur.com/CiBNsrB.jpg",
+            "ImageSecondaryURL": "https://i.imgur.com/SD5XRef.jpg",
+            "ImageScalar": 1.0,
+            "WidthScale": 0.0,
+            "CustomTile": {
+              "Type": 2,
+              "Thickness": 0.6000003,
+              "Stackable": false,
+              "Stretch": true
+            }
+          },
+          "LuaScript": "--Runs on save to record save data\nfunction onSave()\n    saved_data = JSON.encode(highlightData)\n    --saved_data = \"\" --Uncomment this line+save if you need to erase savedata\n    return saved_data\nend\n\n--Runs on load\nfunction onload(saved_data)\n    --Loads info from memory\n    if saved_data ~= \"\" then\n        highlightData = JSON.decode(saved_data)\n    else\n        highlightData = {}\n    end\n\n    --Apply highlights from save data\n    for guid, tint in pairs(highlightData) do\n        local obj = getObjectFromGUID(guid)\n        if obj ~= nil then\n            obj.highlightOn(tint)\n        else\n            highlightData[guid] = nil\n        end\n    end\n\n    Timer.create({\n        identifier=\"MrHighlight_Unit_\"..self.getGUID(),\n        function_name=\"maintainHighlight\", function_owner=self,\n        delay=1, repetitions=0\n    })\nend\n\n--Monitor tool's collisitions to add/remove highlight\nfunction onCollisionEnter(collision_info)\n    local obj = collision_info.collision_object\n    if obj.getPosition().y > self.getPosition().y then\n        if getHighlightToggle() then\n            local selfTint = self.getColorTint()\n            --Addd highlight and save to memory\n            obj.highlightOn(selfTint)\n            highlightData[obj.getGUID()] = {selfTint.r, selfTint.g, selfTint.b}\n        else\n            --Remove highlight and remove from memory\n            obj.highlightOff()\n            highlightData[obj.getGUID()] = nil\n        end\n    end\nend\n\n--Uses rotation to determine if tool is set to add or remove highlight\nfunction getHighlightToggle()\n    if self.getRotationValue() == \"MrHighlight: [00ff00]Add[-]\" then\n        return true\n    elseif self.getRotationValue() == \"MrHighlight: [ff0000]Remove[-]\" then\n        return false\n    else\n        error(\"Rotation value name not found in getHighlightToggle.\")\n    end\nend\n\n--Reapplies a highlight if a unit went into a bag\nfunction maintainHighlight()\n    for guid, tint in pairs(highlightData) do\n        local obj = getObjectFromGUID(guid)\n        if obj ~= nil then\n            obj.highlightOn(tint)\n        end\n    end\nend\n\n--Kills repeating timer if object is destroyed\nfunction onDestroy()\n    Timer.destroy(\"MrHighlight_Unit_\"..self.getGUID())\nend\n",
+          "LuaScriptState": "{\"008136\":[0.168567597866058,0.228917807340622,0.632404208183289],\"0f167e\":[0.168567568063736,0.2289177775383,0.632404208183289],\"23683f\":[0.168567568063736,0.2289177775383,0.632404208183289],\"492c92\":[0.168567568063736,0.2289177775383,0.632404208183289],\"7471b1\":[0.168567597866058,0.228917807340622,0.632404208183289],\"7a4a3d\":[0.168567568063736,0.2289177775383,0.632404208183289]}",
+          "XmlUI": "",
+          "RotationValues": [
+            {
+              "Value": "MrHighlight: [00ff00]Add[-]",
+              "Rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 0.0
+              }
+            },
+            {
+              "Value": "MrHighlight: [ff0000]Remove[-]",
+              "Rotation": {
+                "x": 0.0,
+                "y": 180.0,
+                "z": 180.0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

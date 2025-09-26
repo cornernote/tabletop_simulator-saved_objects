@@ -1,0 +1,78 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "962526",
+      "Name": "CardCustom",
+      "Transform": {
+        "posX": -10.5749149,
+        "posY": 0.9736049,
+        "posZ": 2.43,
+        "rotX": 3.32839335E-07,
+        "rotY": 0.000288770272,
+        "rotZ": 1.889297E-08,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.713235259,
+        "g": 0.713235259,
+        "b": 0.713235259
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": true,
+      "Hands": true,
+      "CardID": 60833900,
+      "SidewaysCard": false,
+      "CustomDeck": {
+        "608339": {
+          "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/18351937794537866450/E85A9396B5EDA3CB0BE0EF48600BE510D7BBDB1D/",
+          "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/11688733220798512280/48D371CC8B7ECD1FFB013DAA900A882D602B9CBC/",
+          "NumWidth": 1,
+          "NumHeight": 1,
+          "BackIsHidden": true,
+          "UniqueBack": false,
+          "Type": 0
+        }
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

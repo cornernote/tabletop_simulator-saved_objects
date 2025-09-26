@@ -1,0 +1,85 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "bd5317",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": -4.171623,
+        "posY": 1.49550486,
+        "posZ": 2.01157951,
+        "rotX": 0.0168757252,
+        "rotY": 180.000717,
+        "rotZ": 0.07997335,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Aigis Toaster",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/2051988692749605364/F538DFBBD7FD660C2AB59F993EEBA85DD0087356/",
+        "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/2051988692749605823/9FAE8C9A180CC59FFA8206714F408B482C7B28E8/",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 3,
+        "TypeIndex": 1,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "SpecularIntensity": 0.0,
+          "SpecularSharpness": 2.0,
+          "FresnelStrength": 0.0
+        },
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

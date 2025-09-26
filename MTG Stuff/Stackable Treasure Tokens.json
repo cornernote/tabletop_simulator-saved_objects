@@ -1,0 +1,154 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "3dacb3",
+      "Name": "Custom_Model_Infinite_Bag",
+      "Transform": {
+        "posX": -17.625,
+        "posY": 1.77825987,
+        "posZ": -0.8100001,
+        "rotX": -5.661249E-06,
+        "rotY": 89.99994,
+        "rotZ": -1.21487483E-06,
+        "scaleX": 0.92999965,
+        "scaleY": 0.92999965,
+        "scaleZ": 0.92999965
+      },
+      "Nickname": "Stackable Treasure Tokens",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.9999998,
+        "g": 0.992160261,
+        "b": 0.9999998
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "CustomMesh": {
+        "MeshURL": "https://www.dropbox.com/scl/fi/jroy8lc52cvle726s1mhj/chest.obj?rlkey=rlm3nl8o8jswivm1t3y658vtn&st=d4kyam96&dl=1",
+        "DiffuseURL": "https://www.dropbox.com/scl/fi/klirtavsqjc7zbw1hy152/normal.png?rlkey=d6no1fuhadoe09rarc6tq9vjr&st=bntkka5y&dl=1",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 3,
+        "TypeIndex": 7,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "SpecularIntensity": 0.4,
+          "SpecularSharpness": 4.0,
+          "FresnelStrength": 0.1
+        },
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "f6389c",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": -0.754478335,
+            "posY": 6.238415,
+            "posZ": -8.634968,
+            "rotX": 0.000406260951,
+            "rotY": 179.979492,
+            "rotZ": 5.244042E-05,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "Treasure Token",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/785232317732446633/3FB803D1AC674D9FE83B04E18BC96AC151F9F84C/",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/785232317732447533/3923539EFDAE026E63FB86E31335AC0BBC4D960D/",
+            "NormalURL": "https://steamusercontent-a.akamaihd.net/ugc/785232317732448705/F895A1D3ED423A556A545489EA58B470563D0111/",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 2,
+            "TypeIndex": 5,
+            "CustomShader": {
+              "SpecularColor": {
+                "r": 1.0,
+                "g": 0.89515233,
+                "b": 0.545098066
+              },
+              "SpecularIntensity": 0.9,
+              "SpecularSharpness": 7.0,
+              "FresnelStrength": 0.0
+            },
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      ]
+    }
+  ]
+}
