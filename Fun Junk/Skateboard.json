@@ -1,0 +1,141 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "c9d529",
+      "Name": "Custom_Assetbundle_Infinite_Bag",
+      "Transform": {
+        "posX": 15.275,
+        "posY": 1.41677988,
+        "posZ": -1.8900001,
+        "rotX": 0.0,
+        "rotY": 1.17911925E-09,
+        "rotZ": 224.999985,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.5019608,
+        "g": 0.5019608,
+        "b": 0.5019608
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": true,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/1767119556052895584/C0A290092E804FEE5BE796DBD7BFFB1C92CE32EC/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 0,
+        "TypeIndex": 7,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "49d21b",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": -25.03846,
+            "posY": 8.441479,
+            "posZ": 1.065075,
+            "rotX": 46.013073,
+            "rotY": 89.87178,
+            "rotZ": 174.553055,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "Skateboard",
+          "Description": "Set physics to \"Full\"!\r\n\r\nControls:\r\n8 = move forwards, kickflip\r\n5 = ollie, kickflip\r\n4= turn left, shoveit\r\n6= turn right, shoveit\r",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/1767119556052895584/C0A290092E804FEE5BE796DBD7BFFB1C92CE32EC/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 1,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "-- push defines the amount of forward force\r\npush=2.5\r\n-- maxspeed defines maximum speed\r\nmaxspeed=15\r\n--steer defines the angle of steering\r\nsteer=2.5\r\n--pop defines the angle at which the skateboard is popped for ollies\r\npop=60\r\n--ollie defines the amount of ollie\r\nollie=12.5\r\n--level defines the angle of board leveling\r\nlevel=5\r\n--kickflip defines the amount of kickflip torque\r\nkickflip=1\r\n--shoveit defines the amount of shoveit torque\r\nshoveit=5\r\n--defines values to avoid scripting errors\r\nyaw=0\r\nleft=false\r\nright=false\r\nup=false\r\ndown=false\r\nfunction onPickUp(player_color)\r\n  -- tints the skateboard the color of the player\r\n  self.setColorTint(Color.fromString(player_color))\r\n  -- defines the player as the skater, who controls the skateboard\r\n  skater=(player_color)\r\n  --maintains Y rotation as yaw to avoid false bails\r\n  yaw=self.getRotation().y\r\nend\r\nfunction onDrop(player_color)\r\n  -- tints the skateboard the color of the player\r\n  self.setColorTint(Color.fromString(player_color))\r\n  -- defines the player as the skater, who controls the skateboard\r\n  skater=(player_color)\r\n  --maintains Y rotation as yaw to avoid false bails\r\n  yaw=self.getRotation().y\r\nend\r\nfunction onCollisionStay()\r\n  --determines if the skateboard landed forwards\r\n  if yaw<self.getRotation().y+90 and yaw>self.getRotation().y-90\r\n  or yaw>self.getRotation().y+270 or yaw<self.getRotation().y-270\r\n  then ground=true\r\n    --defines speed\r\n    speed = math.sqrt((math.abs(self.getVelocity().x^2))+\r\n    (math.abs(self.getVelocity().z^2)))\r\n    --maintains Y rotation as yaw to avoid false bails\r\n    yaw=self.getRotation().y\r\n    --Corrects the forward direction of the board after a shoveit\r\n  elseif ground==false then ground=true\r\n    self.setRotation({\r\n      x=-self.getRotation().x,\r\n      y=self.getRotation().y+180,\r\n      z=-self.getRotation().z, })\r\n      --if the board is tilted left on the ground\r\n    elseif ground==true and self.getRotation().z>270\r\n      and self.getRotation().z<360-level then\r\n        --level the board\r\n        self.setRotation({\r\n          x=self.getRotation().x,\r\n          y=self.getRotation().y,\r\n          z=self.getRotation().z+level, })\r\n          --if the board is tilted right on the ground\r\n        elseif ground==true and self.getRotation().z<90\r\n          and self.getRotation().z>level then\r\n            --level the board\r\n            self.setRotation({\r\n              x=self.getRotation().x,\r\n              y=self.getRotation().y,\r\n              z=self.getRotation().z-level, })\r\n              --if the board is very close to level, force it to be level\r\n            elseif ground==true\r\n              then self.setRotation({\r\n                x=self.getRotation().x,\r\n                y=self.getRotation().y,\r\n                z=0, })\r\n              end\r\n              function onFixedUpdate()\r\n                --defines speed\r\n                speed = math.sqrt((math.abs(self.getVelocity().x^2))+\r\n                (math.abs(self.getVelocity().z^2)))\r\n                --if the board is pointed up in the air\r\n                if ground==false and self.getRotation().x>270\r\n                and self.getRotation().x<360-level then\r\n                  --level the board\r\n                  self.setRotation({\r\n                    x=self.getRotation().x+level,\r\n                    y=self.getRotation().y,\r\n                    z=self.getRotation().z, })\r\n                    --if the board is pointed down in the air\r\n                  elseif ground==false and self.getRotation().x<90\r\n                    and self.getRotation().x>level then\r\n                      --level the board\r\n                      self.setRotation({\r\n                        x=self.getRotation().x-level,\r\n                        y=self.getRotation().y,\r\n                        z=self.getRotation().z, })\r\n                        --if the board is very close to level, force it to be level\r\n                      elseif ground==false\r\n                        then self.setRotation({\r\n                          x=0,\r\n                          y=self.getRotation().y,\r\n                          z=self.getRotation().z, })\r\n                          --while up is held on the ground and down is not\r\n                        elseif up==true and down==false and ground==true\r\n                          -- if moving below max speed add forward force\r\n                          and speed<maxspeed\r\n                          then self.addForce({\r\n                            x = self.getTransformForward().x * push,\r\n                            y = self.getTransformForward().y * push,\r\n                            z = self.getTransformForward().z * push, })\r\n                            -- when steering left\r\n                          elseif ground==true and left==true and right==false then\r\n                            --add counterclockwise rotation to steer\r\n                            self.setRotation({self.getRotation().x,self.getRotation().y-steer,0})\r\n                            -- when steering right\r\n                          elseif ground==true and right==true and left==false\r\n                            -- add clockwise rotation to steer\r\n                            then self.setRotation({self.getRotation().x,self.getRotation().y+steer,0})\r\n                            end\r\n                          end\r\n                          function onCollisionExit()\r\n                            --determines if the skateboard is not touching the ground\r\n                            ground=false\r\n                            --remembers yaw for shoveits and bails\r\n                            yaw=self.getRotation().y\r\n                            --Stabalize rotation\r\n                            self.setAngularVelocity({0,0,0})\r\n                          end\r\n                          function onScriptingButtonDown(index, player_color)\r\n                            --When Numpad 8 is pressed with skateboard on ground\r\n                            if ground==true and index==8 and player_color==skater then\r\n                              -- adds forward push to the skateboard for forward movement\r\n                              up=true\r\n                              --when numpad 5 is pressed with skateboard on ground\r\n                              --and not steering\r\n                            elseif ground==true and left==false and right==false\r\n                              and index==5 and player_color==skater\r\n                              --tilt the skateboard upwards for an ollie.\r\n                              then self.setRotation({\r\n                                x = -pop,\r\n                                y = self.getRotation().y,\r\n                                z = 0,} )\r\n                                --moves the skateboard upwards to avoid collision problems\r\n                                self.setPosition({\r\n                                  self.getPosition().x,\r\n                                  self.getPosition().y+1,\r\n                                  self.getPosition().z,})\r\n                                  -- adds forward push to the skateboard for ollies\r\n                                  self.addForce({\r\n                                    x = self.getTransformForward().x * ollie,\r\n                                    y = self.getTransformForward().y * ollie,\r\n                                    z = self.getTransformForward().z * ollie, })\r\n                                    down=true\r\n                                    --when numpad 4 is pressed send signal to steer left\r\n                                  elseif ground==true and index==4 and player_color==skater then left=true\r\n                                    --when numpad 6 is pressed send signal to steer right\r\n                                  elseif ground==true and index==6 and player_color==skater then right=true\r\n                                    -- when numpad 4 is pressed with the skateboard off the ground\r\n                                  elseif ground==false and index==4 and player_color==skater\r\n                                    -- add counterclockwise yaw torque to shoveit\r\n                                    then self.addTorque({\r\n                                      x = self.getTransformUp().x * -shoveit,\r\n                                      y = self.getTransformUp().y * -shoveit,\r\n                                      z = self.getTransformUp().z * -shoveit, } )\r\n                                      -- when numpad 6 is pressed with the skateboard off the ground\r\n                                    elseif ground==false and index==6 and player_color==skater\r\n                                      -- add clockwise yaw torque to shoveit\r\n                                      then self.addTorque({\r\n                                        x = self.getTransformUp().x * shoveit,\r\n                                        y = self.getTransformUp().y * shoveit,\r\n                                        z = self.getTransformUp().z * shoveit, } )\r\n                                        -- when numpad 5 is pressed with the skateboard off the ground\r\n                                      elseif ground==false and index==5 and player_color==skater\r\n                                        -- add counterclockwise roll torque to kickflip if in air\r\n                                        then self.addTorque({\r\n                                          x = self.getTransformForward().x * -kickflip,\r\n                                          y = self.getTransformForward().y * -kickflip,\r\n                                          z = self.getTransformForward().z * -kickflip, } )\r\n                                          --when numpad 8 is pressed with the skateboard off the ground\r\n                                        elseif ground==false and index==8 and player_color==skater\r\n                                          -- add counterclockwise roll torque to kickflip\r\n                                          then self.addTorque({\r\n                                            x = self.getTransformForward().x * kickflip,\r\n                                            y = self.getTransformForward().y * kickflip,\r\n                                            z = self.getTransformForward().z * kickflip, } )\r\n                                          end\r\n                                        end\r\n                                      end\r\n                                      function onScriptingButtonUp(index, player_color)\r\n                                        --stops steering and moving forward on button release\r\n                                        if index==4 and player_color==skater then left=false\r\n                                        elseif index==6 and player_color==skater then right=false\r\n                                        elseif index==8 and player_color==skater then up=false\r\n                                        elseif index==5 and player_color==skater then down=false\r\n                                        end\r\n                                      end\r\n",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "PhysicsMaterial": {
+            "StaticFriction": 0.0,
+            "DynamicFriction": 0.0,
+            "Bounciness": 0.0,
+            "FrictionCombine": 0,
+            "BounceCombine": 0
+          },
+          "Rigidbody": {
+            "Mass": 1.0,
+            "Drag": 0.1,
+            "AngularDrag": 0.1,
+            "UseGravity": true
+          }
+        }
+      ]
+    }
+  ]
+}

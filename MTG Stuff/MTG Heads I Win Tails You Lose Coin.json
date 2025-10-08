@@ -1,0 +1,248 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "33aa99",
+      "Name": "Custom_Model_Infinite_Bag",
+      "Transform": {
+        "posX": 40.0338364,
+        "posY": 1.04378641,
+        "posZ": -3.37329245,
+        "rotX": -2.19215735E-06,
+        "rotY": 90.0,
+        "rotZ": 1.82104577E-06,
+        "scaleX": 2.001992,
+        "scaleY": 0.167572722,
+        "scaleZ": 2.00199175
+      },
+      "Nickname": "MTG Heads I Win, Tails You Lose Coin",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": false,
+      "Snap": false,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": false,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "CustomMesh": {
+        "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/1666858152071990826/9AD455F2CBAEC01B2CBCDDB8B6DC4CE48D14B545/",
+        "DiffuseURL": "",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 0,
+        "TypeIndex": 7,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "18e97b",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": -46.0672951,
+            "posY": 1.30691528,
+            "posZ": -5.1020546,
+            "rotX": 0.00630757259,
+            "rotY": 359.968048,
+            "rotZ": 179.99614,
+            "scaleX": 0.825000346,
+            "scaleY": 0.825000346,
+            "scaleZ": 0.825000346
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/zigbd6yhds77bz2/coin33.obj?dl=1",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1869553503277924406/7C55B7877F10ED21DBBB7DF67C8134777FE8A9FE/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 2,
+            "TypeIndex": 3,
+            "CustomShader": {
+              "SpecularColor": {
+                "r": 0.735294163,
+                "g": 0.735294163,
+                "b": 0.735294163
+              },
+              "SpecularIntensity": 0.0,
+              "SpecularSharpness": 7.0,
+              "FresnelStrength": 0.0
+            },
+            "CastShadows": true
+          },
+          "LuaScript": "local side , text , plr = '' , '' , 'Black'\r\nlocal timesRolled , randomized = 0 , false\r\n\r\nfunction onObjectRandomize( Object , player_color )\r\n if Object.getGUID() == self.getGUID() then\r\n  if player_color ~= plr then\r\n   changePlayer(player_color)\r\n  end\r\n  if not randomized then\r\n   randomized = true\r\n   startLuaCoroutine(self, 'whileDrop')\r\n  end\r\n end\r\nend\r\n\r\nfunction whileDrop()\r\n while not self.resting do\r\n  coroutine.yield(0) -- Always yield 0 to resume\r\n end\r\n randomized = false\r\n printDiceFace()\r\n coroutine.yield(1) -- Yield anything other than 0 to break out\r\nend\r\n\r\nfunction printDiceFace()\r\n local value = self.getValue()\r\n --You can customize the message per Value\r\n if value == 1 then\r\n  side = ' flipped the coin and got heads!'\n elseif value == 2 then\n  side = ' flipped the coin and got tails!'\n else\r\n --Or Remove the If block to make a generic message about what value they rolled\r\n  side = ' made noise in corridor '..value\r\n end\r\n text = plr..side\r\n printToAll(text, self.getColorTint())\r\n --For if you need to know how many times a player has rolled the dice (optional)\r\n timesRolled = timesRolled + 1\r\nend\r\n\r\nfunction changePlayer(new)\r\n plr = new\r\n timesRolled = 0\r\n --This changes the color of the Dice to whom ever rolled it\r\n local rgb = stringColorToRGB(plr)\r\n local color = {rgb[\"r\"], rgb[\"g\"], rgb[\"b\"]}\r\r\nend",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "RotationValues": [
+            {
+              "Value": "Tails",
+              "Rotation": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 180.0
+              }
+            },
+            {
+              "Value": "Heads",
+              "Rotation": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      ],
+      "ChildObjects": [
+        {
+          "GUID": "18e97b",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": -1.63835985E-08,
+            "posY": -0.0687224,
+            "posZ": -5.432675E-11,
+            "rotX": 1.567408E-13,
+            "rotY": 1.40906E-06,
+            "rotZ": -4.46986041E-06,
+            "scaleX": 0.5024191,
+            "scaleY": 6.00240469,
+            "scaleZ": 0.5024191
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": true,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/zigbd6yhds77bz2/coin33.obj?dl=1",
+            "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/1869553503277924406/7C55B7877F10ED21DBBB7DF67C8134777FE8A9FE/",
+            "NormalURL": "",
+            "ColliderURL": "",
+            "Convex": true,
+            "MaterialIndex": 2,
+            "TypeIndex": 3,
+            "CustomShader": {
+              "SpecularColor": {
+                "r": 0.735294163,
+                "g": 0.735294163,
+                "b": 0.735294163
+              },
+              "SpecularIntensity": 0.0,
+              "SpecularSharpness": 7.0,
+              "FresnelStrength": 0.0
+            },
+            "CastShadows": true
+          },
+          "LuaScript": "local side , text , plr = '' , '' , 'Black'\r\nlocal timesRolled , randomized = 0 , false\r\n\r\nfunction onObjectRandomize( Object , player_color )\r\n if Object.getGUID() == self.getGUID() then\r\n  if player_color ~= plr then\r\n   changePlayer(player_color)\r\n  end\r\n  if not randomized then\r\n   randomized = true\r\n   startLuaCoroutine(self, 'whileDrop')\r\n  end\r\n end\r\nend\r\n\r\nfunction whileDrop()\r\n while not self.resting do\r\n  coroutine.yield(0) -- Always yield 0 to resume\r\n end\r\n randomized = false\r\n printDiceFace()\r\n coroutine.yield(1) -- Yield anything other than 0 to break out\r\nend\r\n\r\nfunction printDiceFace()\r\n local value = self.getValue()\r\n --You can customize the message per Value\r\n if value == 1 then\r\n  side = ' flipped the coin and got heads!'\n elseif value == 2 then\n  side = ' flipped the coin and got tails!'\n else\r\n --Or Remove the If block to make a generic message about what value they rolled\r\n  side = ' made noise in corridor '..value\r\n end\r\n text = plr..side\r\n printToAll(text, self.getColorTint())\r\n --For if you need to know how many times a player has rolled the dice (optional)\r\n timesRolled = timesRolled + 1\r\nend\r\n\r\nfunction changePlayer(new)\r\n plr = new\r\n timesRolled = 0\r\n --This changes the color of the Dice to whom ever rolled it\r\n local rgb = stringColorToRGB(plr)\r\n local color = {rgb[\"r\"], rgb[\"g\"], rgb[\"b\"]}\r\r\nend",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "RotationValues": [
+            {
+              "Value": "Tails",
+              "Rotation": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 180.0
+              }
+            },
+            {
+              "Value": "Heads",
+              "Rotation": {
+                "x": 0.0,
+                "y": 90.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

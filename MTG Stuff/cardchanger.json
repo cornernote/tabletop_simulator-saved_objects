@@ -1,0 +1,65 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "ddd306",
+      "Name": "backgammon_piece_white",
+      "Transform": {
+        "posX": -7.305094,
+        "posY": 1.10228217,
+        "posZ": 0.696969867,
+        "rotX": 0.00071505073,
+        "rotY": -0.000118024072,
+        "rotZ": -0.00521489931,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "cardchanger",
+      "Description": "made by stella\nplace onto a card/deck and click set to apply the current image to that card/deck, flip the card to place onto the other side",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.735294163,
+        "g": 0.735294163,
+        "b": 0.735294163
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "LuaScript": "--[[--\npacked from https://github.com/0x57e11a/moontable/src/modules/cardchanger\n\nmanifest:\n-\tsrc/modules/cardchanger/mod\n-\tsrc/lib/tts (omitted - buildtime dependency)\n-\tsrc/modules/cardchanger/presets\nplease don't make changes here, instead fork the github repo and use the provided build scripts,\nit *will* make your life easier, and your changes will be able to be contributed to the project\n--]]--\n\n-- tcejbo gninwapS -- worm guard (most common worm looks for this and wont attach itself if it's present)\n\nlocal require\n\nlocal sources = {\n\t[\"src/modules/cardchanger/mod\"] = function()\nrequire(\"src/lib/tts\")\nlocal presets = require(\"src/modules/cardchanger/presets\")\n\nlocal image = \"\"\n\nfunction onLoad(saved_state)\n   image = saved_state\n   self.UI.setAttribute(\"url\", \"text\", image)\nend\n\nfunction onSave()\n   return image\nend\n\nfunction change(_, value)\n   image = value\nend\n\nfunction preset(_, selected_index, id)\n   local index = tonumber(selected_index)\n   if index == 0 then return end\n   image = presets[index]\n   self.UI.setAttribute(\"url\", \"text\", image)\n   self.UI.setAttribute(id, \"value\", 0)\nend\n\nlocal function get_object()\n   local hit = Physics.cast({\n      origin = self.positionToWorld(vector(0, -0.06, 0)),\n      direction = vector(0, -1, 0),\n      type = 1,\n      max_distance = 0.15,\n      debug = true,\n   })[1]\n\n   log(hit)\n\n   if not hit then return end\n\n   local obj = hit.hit_object\n   if obj.spawning then return end\n\n   return obj\nend\n\n\n\n\n\nfunction get_image()\n   local obj = get_object()\n   if obj == nil then return end\n\n   if obj.type == \"Card\" then\n      local custom = obj.getCustomObject()\n\n      if math.abs(obj.getRotation().z - 180) > 90 then image = custom.face\n      else image = custom.back end\n   elseif obj.type == \"Deck\" then\n      local card = obj.takeObject({\n         position = self.getPosition(),\n         top = true,\n         smooth = false,\n      })\n      local custom = card.getCustomObject()\n      if math.abs(card.getRotation().z - 180) > 90 then image = custom.face\n      else image = custom.back end\n      obj.putObject(card)\n   end\n\n   self.UI.setAttribute(\"url\", \"text\", image)\nend\n\nfunction set_image()\n   local obj = get_object()\n   if not obj then return end\n\n   if obj.type == \"Card\" then\n      local custom = obj.getCustomObject()\n\n      if math.abs(obj.getRotation().z - 180) > 90 then custom.face = image\n      else custom.back = image end\n\n      obj.setCustomObject(custom)\n   elseif obj.type == \"Deck\" then\n      local origin = obj.getPosition()\n      local front = math.abs(obj.getRotation().z - 180) > 90\n      local i = 0\n      while obj ~= nil and (obj.type == \"Card\" or #obj.getObjects() > 0) do\n         local card\n         if obj.type == \"Card\" then\n            card = obj\n            obj = nil\n         else\n            card = obj.takeObject({\n               position = origin,\n               top = false,\n               smooth = false,\n            })\n            obj = obj.remainder or obj\n         end\n         i = i + 1\n         card.setPosition(origin + vector(0, i * 0.1, 0))\n         self.setPosition(origin + vector(0, i * 0.1 + 0.1, 0))\n\n         local custom = card.getCustomObject()\n\n         if front then custom.face = image\n         else custom.back = image end\n\n         card.setCustomObject(custom)\n      end\n   end\nend\n\nfunction new_card()\n   self.setPosition(self.positionToWorld(vector(0, 0.1, 0)))\n   local object = spawnObject({\n      type = \"CardCustom\",\n      position = self.positionToWorld(vector(0, -0.1, 0)),\n      rotation = self.getRotation() + vector(0, 180, 0),\n   })\n   object.setCustomObject({\n      face = \"https://steamusercontent-a.akamaihd.net/ugc/15185541451470705656/F30AF9900896B2A1CCFD0232576EA95D2892F119/\",\n      back = \"https://steamusercontent-a.akamaihd.net/ugc/12320714483281881208/8BAD1800AEB07E70538AF4F1475955712E3294FD/\",\n   })\nend\n\tend,\n\t[\"src/lib/tts\"] = function()\n-- omitted - buildtime dependency\n\tend,\n\t[\"src/modules/cardchanger/presets\"] = function()\nreturn {\n   \"https://steamusercontent-a.akamaihd.net/ugc/16190787540551910228/D05FCA139C0AD593979E96F7BA79F681325A5630/\",\n}\n\tend,\n}\n\nlocal cache = {}\n\nrequire = function(name)\n\tif cache[name] then return cache[name] end\n\n\tlocal source = assert(sources[name], \"attempted to import module that was not packed: \" .. name)\n\tlocal ret = source()\n\tcache[name] = ret\n\treturn ret\nend\n\nrequire(\"src/modules/cardchanger/mod\")",
+      "LuaScriptState": "https://cards.scryfall.io/large/front/e/e/ee6e5a35-fe21-4dee-b0ef-a8f2841511ad.jpg",
+      "XmlUI": "<Button\n\tid=\"get_button\"\n\t\n\tposition=\"-85 25 -15\"\n\twidth=\"40\"\n\theight=\"30\"\n\n\tonClick=\"get_image\"\n>get</Button>\n\n<InputField\n\tid=\"url\"\n\n\tposition=\"0 25 -15\"\n\twidth=\"125\"\n\t\n\tfontSize=\"10\"\n\n\tonValueChanged=\"change\"\n>url</InputField>\n\n<Button\n\tid=\"set_button\"\n\t\n\tposition=\"85 25 -15\"\n\twidth=\"40\"\n\theight=\"30\"\n\n\tonClick=\"set_image\"\n>set</Button>\n\n<Dropdown\n\tid=\"preset\"\n\n\tposition=\"-20 -25 -15\"\n\twidth=\"165\"\n\n\tscrollSensitivity=\"15\"\n\n\tdropdownBackgroundColor=\"#222222\"\n\titemTextColor=\"#eeeeee\"\n\titemBackgroundColors=\"#222222|#333333|#444444|#111111\"\n\n\tonValueChanged=\"preset(selectedIndex)\"\n>\n    <Option selected=\"true\">preset</Option>\n    <Option>mtg back</Option>\n\t<Option></Option> <!-- dropdown ui is fucky, blank at the bottom for spacing -->\n</Dropdown>\n\n<Button\n\tid=\"new_button\"\n\t\n\tposition=\"85 -25 -15\"\n\twidth=\"40\"\n\theight=\"30\"\n\n\tonClick=\"new_card\"\n>new</Button>"
+    }
+  ]
+}

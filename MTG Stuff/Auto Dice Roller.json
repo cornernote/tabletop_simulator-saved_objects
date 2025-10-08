@@ -1,0 +1,91 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "2bf9a8",
+      "Name": "Custom_Model_Bag",
+      "Transform": {
+        "posX": 35.485,
+        "posY": 0.875539541,
+        "posZ": -0.8099999,
+        "rotX": 1.50237543E-06,
+        "rotY": 3.36394032E-06,
+        "rotZ": -2.042179E-06,
+        "scaleX": 0.974999964,
+        "scaleY": 0.974999964,
+        "scaleZ": 0.974999964
+      },
+      "Nickname": "Auto Dice Roller",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.9999998,
+        "g": 0.992160261,
+        "b": 0.9999998
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Number": 0,
+      "CustomMesh": {
+        "MeshURL": "https://dl.dropboxusercontent.com/s/7on5z1dzkmmoicx/kirby6.obj",
+        "DiffuseURL": "http://i.imgur.com/c8NK8DO.jpg",
+        "NormalURL": "",
+        "ColliderURL": "",
+        "Convex": true,
+        "MaterialIndex": 2,
+        "TypeIndex": 6,
+        "CustomShader": {
+          "SpecularColor": {
+            "r": 0.7372549,
+            "g": 0.7372549,
+            "b": 0.7372549
+          },
+          "SpecularIntensity": 0.9,
+          "SpecularSharpness": 7.0,
+          "FresnelStrength": 0.5555555
+        },
+        "CastShadows": true
+      },
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "--[[    Holy Roller: by MrStump\r\n\r\n    Instructions for edit:\r\n        radius\r\n            This is how far away from the tool the dice will fall.\r\n            If you set it too low, items will fall back into the bag FOREVER. Fun.\r\n        height\r\n            This is how high off the table, relative to the tool, the dice will fall.\r\n            If you set it too low (negative numbers), dice can spawn in the table. Bad.\r\n        print\r\n            This decides if the results of the dice will print to chat. Will not work with custom dice.\r\n            Can be true or false. True prints, false does not print. ]]--\r\n\r\nradius = 4\r\nheight = 4\r\nprintResultsToChat = false\r\n\r\n--[[    End of edit section. below is the functional code, commented.    ]]--\r\n\r\n--[[Runs any time an object touches the bag (or it touches anything)]]\r\nfunction onCollisionEnter()\r\n    --Gets # of objects in bag. If there are some, it runs the emptyContents function\r\n    if self.getQuantity() > 0 then\r\n        allDice = {}\r\n        emptyContents()\r\n    end\r\nend\r\n\r\n--[[Empties the contents of the bag into a ring around the object.]]\r\nfunction emptyContents()\r\n    --Establish some necessary basic information on what is in the bag and where it is\r\n    local contents = self.getObjects()\r\n    local selfRot = self.getRotation()\r\n    local selfPos = self.getPosition()\r\n\r\n    --Establishes the X/Y/Z of position, and the Y of rotation.\r\n    local yRot = selfRot.y\r\n    local xPos = selfPos.x\r\n    local yPos = selfPos.y\r\n    local zPos = selfPos.z\r\n    --Establishes the variable we need for each spoke (placed item). Like spokes on a wheel.\r\n    --360 is our number of degrees, #contents is our number of individual spokes we will have.\r\n    local spokes = 360/#contents\r\n\r\n    --Loop, runs through each item in the bag, sets its position and rotation for its destination, and pulls it out\r\n    for i, v in pairs(contents) do\r\n        --This is how we determine the position of each individual removed item. (see end for more)\r\n        local xp = xPos + math.sin( ((spokes*i)+yRot)*0.0174532 ) * radius\r\n        local yp = yPos + height\r\n        local zp = zPos + math.cos( ((spokes*i)+yRot)*0.0174532 ) * radius\r\n        --We place our x/y/z for position into this table. We also place 3 random numbers for rotation X/Y/Z\r\n        takeParam = {\r\n            position = {xp,yp,zp},\r\n            rotation = {math.random(1,360),math.random(1,360),math.random(1,360)},\r\n            callback = 'lameFix'\r\n        }\r\n        --Use the info in the table to remove the item.\r\n        local die = self.takeObject(takeParam)\r\n        allDice[i] = die\r\n    end\r\n    --Activates a timer to call a function to print the dice values\r\n    if printResultsToChat == true then\r\n        --destroy makes sure a currently existing one is gone, in case timers overlap.\r\n        Timer.destroy(self.getGUID())\r\n        local timerParams = {\r\n            identifier=self.getGUID(), function_name='printResults',\r\n            function_owner=self, delay=3\r\n        }\r\n        Timer.create(timerParams)\r\n    end\r\nend\r\n\r\n--[[A fix to the bias towards 2/5. This puts torque on the dice, effectively rolling them.]]\r\nfunction lameFix(dieObject)\r\n    dieObject.addTorque( {math.random()*360, math.random()*360, math.random()*360} )\r\nend\r\n\r\n--[[Activated by the timer if printResultsToChat is true]]\r\nfunction printResults()\r\n    local printString = dropper .. ' rolled: '\r\n    for i, v in pairs(allDice) do\r\n        printString = printString .. v.getValue() .. '  '\r\n    end\r\n    printToAll(printString, {1,1,1})\r\nend\r\n\r\n--[[Tracks every object drops and adds it to a table. Needs]]--\r\nfunction onObjectDropped(col, obj)\r\n    if printResultsToChat == true then\r\n        dropper = Player[col].steam_name\r\n    end\r\nend\r\n\r\n--[[The core of determining direction from an object, based on its rotation, is based in trig.\r\nI barely understand it, but I might be able to explain how to use it (if that is what you are here for).\r\n    x = sourceXposition + math.sin( (0+sourceYrotation)*0.0174532)  * distance\r\n    y = yPosition\r\n    z = sourceZposition + math.cos( (0+sourceYrotation)*0.0174532)  * distance\r\nThis is the heart of the formula. Let me explain each part of x.\r\n\r\n    sourceXposition || the halo's x position.\r\n        When we're giving our placed item coordinates, they will be relative to the world. Where 0,0,0 is the middle of the table.\r\n        Basically, if we didn't add sourceXposition, we would be making a ring of objects around table center instead of this object.\r\n    math.sin( (0 + sourceYrotation) * 0.017453 ) || converting an angle into a vector\r\n        math.sin() is our mathmatical function. for Z, you will notice we use math.cos() instead, and the z position, but the rest is the same.\r\n        sourceYrotation is the angle we are looking to convert into a vector (for our item to be placed)\r\n        0 is how much we want to add to our angle. If 0 comes out the left side, 90 would come out the top, 180 out the right, etc\r\n        0.0174532 is the number used to conver radians/degrees to/from eachother. Dont try to change this number.\r\n    distance || measurement of distance\r\n        How far from our item's center we want to spawn the object.\r\n\r\nIf you cam here looking to understand how this works, I hope this helped. ]]--\r\n",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

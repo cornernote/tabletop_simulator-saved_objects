@@ -1,0 +1,72 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "2977cc",
+      "Name": "Custom_Assetbundle",
+      "Transform": {
+        "posX": -4.935,
+        "posY": 1.55404508,
+        "posZ": -5.67,
+        "rotX": -1.51859285E-06,
+        "rotY": 270.023315,
+        "rotZ": -7.21576043E-07,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Bell of nothing",
+      "Description": "has no response!",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomAssetbundle": {
+        "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/878627699992447473/1B1807C074199CF939062A342B1BEC537CC42AF5/",
+        "AssetbundleSecondaryURL": "",
+        "MaterialIndex": 2,
+        "TypeIndex": 1,
+        "LoopingEffectIndex": 0
+      },
+      "LuaScript": "function buttonPress(clicked_object, player_color)\r\n    if lockout == false then\n        local clicker = Player[player_color]\n        msg = clicker.steam_name\r\n        msg = msg .. \" \" .. clicked_object.getDescription()\r\r\n        broadcastToAll(msg, player_color)\n        self.AssetBundle.playTriggerEffect(0)\n\r\n        lockout = true\r\n        startLockoutTimer(0)\r\n    end\nend\n\r\n\r\nfunction onload()\r\n    self.createButton({\r\n        click_function = \"buttonPress\", function_owner = self, position={0,0.9,0}, scale={3,5,3}\r\n    })\n    lockout = false\r\nend\r\n\r\r\nfunction startLockoutTimer()\r\n    Timer.create({identifier=self.getGUID(), function_name='unlockLockout', delay=1})\r\nend\r\n\r\r\nfunction unlockLockout()\r\n    lockout = false\r\nend\r\r",
+      "LuaScriptState": "",
+      "XmlUI": ""
+    }
+  ]
+}

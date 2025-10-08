@@ -1,0 +1,1002 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "28ab6d",
+      "Name": "Bag",
+      "Transform": {
+        "posX": 11.6211338,
+        "posY": 0.774957955,
+        "posZ": 3.48516,
+        "rotX": 9.72339149E-06,
+        "rotY": -0.000197588524,
+        "rotZ": 2.631188E-05,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Mastermind",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.7058823,
+        "g": 0.366520882,
+        "b": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": true,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "MaterialIndex": -1,
+      "MeshIndex": -1,
+      "Bag": {
+        "Order": 0
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "ContainedObjects": [
+        {
+          "GUID": "9f508b",
+          "Name": "Infinite_Bag",
+          "Transform": {
+            "posX": 11.7291765,
+            "posY": 3.02957058,
+            "posZ": 3.56718373,
+            "rotX": 0.28248176,
+            "rotY": -0.0008329126,
+            "rotZ": 359.667847,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.3058885,
+            "g": 0.372555166,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ContainedObjects": [
+            {
+              "GUID": "62ea8f",
+              "Name": "Chinese_Checkers_Piece",
+              "Transform": {
+                "posX": 2.42384529,
+                "posY": 3.29156232,
+                "posZ": 11.40219,
+                "rotX": 0.119046755,
+                "rotY": 269.997742,
+                "rotZ": 3.07212067,
+                "scaleX": 0.75,
+                "scaleY": 0.75,
+                "scaleZ": 0.75
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 0.0,
+                "g": 0.00512166228,
+                "b": 0.74267894
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "MaterialIndex": 4,
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        },
+        {
+          "GUID": "168c9d",
+          "Name": "Infinite_Bag",
+          "Transform": {
+            "posX": 8.30693,
+            "posY": 3.0041194,
+            "posZ": 3.56766129,
+            "rotX": -1.28714355E-05,
+            "rotY": -5.91382E-05,
+            "rotZ": 1.40224438E-05,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.3058885,
+            "g": 0.372555166,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ContainedObjects": [
+            {
+              "GUID": "0a19f7",
+              "Name": "Chinese_Checkers_Piece",
+              "Transform": {
+                "posX": -1.03100252,
+                "posY": 3.34913182,
+                "posZ": 11.712081,
+                "rotX": 38.42674,
+                "rotY": 105.398262,
+                "rotZ": 23.904438,
+                "scaleX": 0.75,
+                "scaleY": 0.75,
+                "scaleZ": 0.75
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 0.713270366,
+                "g": 0.0472336039,
+                "b": 0.0472336039
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "MaterialIndex": 1,
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        },
+        {
+          "GUID": "5701d7",
+          "Name": "Infinite_Bag",
+          "Transform": {
+            "posX": 5.26124525,
+            "posY": 3.00412178,
+            "posZ": 3.69455147,
+            "rotX": -1.28757256E-05,
+            "rotY": -5.2577212E-05,
+            "rotZ": 6.644494E-06,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.3058885,
+            "g": 0.372555166,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ContainedObjects": [
+            {
+              "GUID": "244fa3",
+              "Name": "Chinese_Checkers_Piece",
+              "Transform": {
+                "posX": -4.09455442,
+                "posY": 3.34072971,
+                "posZ": 11.7329578,
+                "rotX": 31.5169964,
+                "rotY": 348.70636,
+                "rotZ": 159.143,
+                "scaleX": 0.75,
+                "scaleY": 0.75,
+                "scaleZ": 0.75
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 0.7353269,
+                "g": 0.09736062,
+                "b": 0.717729747
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "MaterialIndex": 5,
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        },
+        {
+          "GUID": "826e55",
+          "Name": "Infinite_Bag",
+          "Transform": {
+            "posX": 0.96385324,
+            "posY": 3.024167,
+            "posZ": 3.75749922,
+            "rotX": 1.20273662,
+            "rotY": 0.013131164,
+            "rotZ": 359.236572,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.3058885,
+            "g": 0.372555166,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ContainedObjects": [
+            {
+              "GUID": "05bc5f",
+              "Name": "Chinese_Checkers_Piece",
+              "Transform": {
+                "posX": -8.506065,
+                "posY": 3.32051063,
+                "posZ": 12.19789,
+                "rotX": 6.03697443,
+                "rotY": 270.002075,
+                "rotZ": 179.9885,
+                "scaleX": 0.75,
+                "scaleY": 0.75,
+                "scaleZ": 0.75
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 0.9796609,
+                "g": 0.431161046,
+                "b": 0.141565889
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "MaterialIndex": 0,
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        },
+        {
+          "GUID": "417486",
+          "Name": "Infinite_Bag",
+          "Transform": {
+            "posX": -2.186451,
+            "posY": 3.19755077,
+            "posZ": 0.548254669,
+            "rotX": 3.831784,
+            "rotY": 0.111324646,
+            "rotZ": 359.8324,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.3058885,
+            "g": 0.372555166,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ContainedObjects": [
+            {
+              "GUID": "90c285",
+              "Name": "Chinese_Checkers_Piece",
+              "Transform": {
+                "posX": -11.3782463,
+                "posY": 3.334347,
+                "posZ": 8.542087,
+                "rotX": 359.9871,
+                "rotY": -0.00384802744,
+                "rotZ": 359.9918,
+                "scaleX": 0.75,
+                "scaleY": 0.75,
+                "scaleZ": 0.75
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 0.185231656,
+                "g": 0.470640659,
+                "b": 0.0207612365
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "MaterialIndex": 3,
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        },
+        {
+          "GUID": "b927dc",
+          "Name": "Infinite_Bag",
+          "Transform": {
+            "posX": -1.89765739,
+            "posY": 3.53760052,
+            "posZ": -3.863291,
+            "rotX": 7.128926,
+            "rotY": 0.351128459,
+            "rotZ": 0.6584019,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.3058885,
+            "g": 0.372555166,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ContainedObjects": [
+            {
+              "GUID": "3d788c",
+              "Name": "Chinese_Checkers_Piece",
+              "Transform": {
+                "posX": -10.9380207,
+                "posY": 3.32803416,
+                "posZ": 4.28796053,
+                "rotX": 0.0160688739,
+                "rotY": 90.00014,
+                "rotZ": 210.016922,
+                "scaleX": 0.75,
+                "scaleY": 0.75,
+                "scaleZ": 0.75
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 0.8309044,
+                "g": 0.8079864,
+                "b": 0.0
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "MaterialIndex": 2,
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        },
+        {
+          "GUID": "7b801b",
+          "Name": "Infinite_Bag",
+          "Transform": {
+            "posX": 12.1071749,
+            "posY": 3.0106492,
+            "posZ": 3.46536779,
+            "rotX": 359.979034,
+            "rotY": 0.00024549762,
+            "rotZ": 358.534027,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.3058885,
+            "g": 0.372555166,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ContainedObjects": [
+            {
+              "GUID": "fc0cc1",
+              "Name": "Chinese_Checkers_Piece",
+              "Transform": {
+                "posX": 9.189735,
+                "posY": 3.18223,
+                "posZ": 10.297102,
+                "rotX": 319.175232,
+                "rotY": 89.98973,
+                "rotZ": 0.0196701977,
+                "scaleX": 0.375,
+                "scaleY": 0.375,
+                "scaleZ": 0.375
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "MaterialIndex": 6,
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        },
+        {
+          "GUID": "4727be",
+          "Name": "Infinite_Bag",
+          "Transform": {
+            "posX": 8.639266,
+            "posY": 2.98544288,
+            "posZ": 4.902796,
+            "rotX": -1.48069494E-05,
+            "rotY": 2.789707E-05,
+            "rotZ": -8.269121E-06,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 0.3058885,
+            "g": 0.372555166,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "MaterialIndex": -1,
+          "MeshIndex": -1,
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "ContainedObjects": [
+            {
+              "GUID": "a392de",
+              "Name": "Chinese_Checkers_Piece",
+              "Transform": {
+                "posX": 5.555218,
+                "posY": 3.15800977,
+                "posZ": 11.3247108,
+                "rotX": 19.7232361,
+                "rotY": 73.4229355,
+                "rotZ": 138.6221,
+                "scaleX": 0.375,
+                "scaleY": 0.375,
+                "scaleZ": 0.375
+              },
+              "Nickname": "",
+              "Description": "",
+              "GMNotes": "",
+              "AltLookAngle": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "ColorDiffuse": {
+                "r": 0.7867919,
+                "g": 0.7867919,
+                "b": 0.7867919
+              },
+              "LayoutGroupSortIndex": 0,
+              "Value": 0,
+              "Locked": false,
+              "Grid": true,
+              "Snap": true,
+              "IgnoreFoW": false,
+              "MeasureMovement": false,
+              "DragSelectable": true,
+              "Autoraise": true,
+              "Sticky": true,
+              "Tooltip": true,
+              "GridProjection": false,
+              "HideWhenFaceDown": false,
+              "Hands": false,
+              "MaterialIndex": 0,
+              "LuaScript": "",
+              "LuaScriptState": "",
+              "XmlUI": ""
+            }
+          ]
+        },
+        {
+          "GUID": "aa8232",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 11.8183126,
+            "posY": 3.06808639,
+            "posZ": 3.60849357,
+            "rotX": 359.8746,
+            "rotY": 270.000946,
+            "rotZ": -0.002640608,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/sg4d83gr58lfhjf/Mastermind.obj?dl=1",
+            "DiffuseURL": "https://www.dropbox.com/s/es8rlpqsp0m36bd/Mastermind.jpg?dl=1",
+            "NormalURL": "",
+            "ColliderURL": "https://www.dropbox.com/s/sg4d83gr58lfhjf/Mastermind.obj?dl=1",
+            "Convex": false,
+            "MaterialIndex": 1,
+            "TypeIndex": 0,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "AttachedSnapPoints": [
+            {
+              "Position": {
+                "x": -4.735739,
+                "y": 1.49278629,
+                "z": -2.2801404
+              }
+            },
+            {
+              "Position": {
+                "x": -4.73340845,
+                "y": 1.49219632,
+                "z": 1.1259805
+              }
+            },
+            {
+              "Position": {
+                "x": -4.734186,
+                "y": 1.49239326,
+                "z": -0.012802477
+              }
+            },
+            {
+              "Position": {
+                "x": -4.734942,
+                "y": 1.49258459,
+                "z": -1.12130439
+              }
+            }
+          ]
+        },
+        {
+          "GUID": "7472ac",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": 4.171957,
+            "posY": 3.03078556,
+            "posZ": 3.35985684,
+            "rotX": 1.21082121E-05,
+            "rotY": 270.0,
+            "rotZ": -4.21688856E-06,
+            "scaleX": 1.0,
+            "scaleY": 1.0,
+            "scaleZ": 1.0
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://www.dropbox.com/s/sg4d83gr58lfhjf/Mastermind.obj?dl=1",
+            "DiffuseURL": "https://www.dropbox.com/s/es8rlpqsp0m36bd/Mastermind.jpg?dl=1",
+            "NormalURL": "",
+            "ColliderURL": "https://www.dropbox.com/s/sg4d83gr58lfhjf/Mastermind.obj?dl=1",
+            "Convex": false,
+            "MaterialIndex": 1,
+            "TypeIndex": 0,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "AttachedSnapPoints": [
+            {
+              "Position": {
+                "x": -4.735739,
+                "y": 1.49278629,
+                "z": -2.2801404
+              }
+            },
+            {
+              "Position": {
+                "x": -4.73340845,
+                "y": 1.49219632,
+                "z": 1.1259805
+              }
+            },
+            {
+              "Position": {
+                "x": -4.734186,
+                "y": 1.49239326,
+                "z": -0.012802477
+              }
+            },
+            {
+              "Position": {
+                "x": -4.734942,
+                "y": 1.49258459,
+                "z": -1.12130439
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

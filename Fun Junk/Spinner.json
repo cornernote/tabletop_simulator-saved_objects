@@ -1,0 +1,499 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "fdd917",
+      "Name": "Custom_Model",
+      "Transform": {
+        "posX": -14.0790291,
+        "posY": 5.610358,
+        "posZ": -14.3684788,
+        "rotX": 1.39111762E-07,
+        "rotY": 89.99998,
+        "rotZ": 1.391117E-07,
+        "scaleX": 2.64999938,
+        "scaleY": 2.64999938,
+        "scaleZ": 2.64999938
+      },
+      "Nickname": "",
+      "Description": "",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.0,
+        "g": 1.0,
+        "b": 0.107804991
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": false,
+      "Snap": true,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": true,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": true,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomMesh": {
+        "MeshURL": "https://pastebin.com/raw/ieCZBJMJ",
+        "DiffuseURL": "http://i.imgur.com/HxORizk.png",
+        "NormalURL": "",
+        "ColliderURL": "https://pastebin.com/raw/0CdP56bg",
+        "Convex": true,
+        "MaterialIndex": 0,
+        "TypeIndex": 0,
+        "CastShadows": true
+      },
+      "LuaScript": "",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "PhysicsMaterial": {
+        "StaticFriction": 0.0,
+        "DynamicFriction": 0.0,
+        "Bounciness": 0.0,
+        "FrictionCombine": 0,
+        "BounceCombine": 0
+      },
+      "Rigidbody": {
+        "Mass": 1.125,
+        "Drag": 0.0,
+        "AngularDrag": 0.0,
+        "UseGravity": false
+      },
+      "ChildObjects": [
+        {
+          "GUID": "700af7",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": -0.354119629,
+            "posY": -0.1582706,
+            "posZ": 0.7072755,
+            "rotX": 11.5232611,
+            "rotY": 186.297913,
+            "rotZ": 28.9121475,
+            "scaleX": 0.166667089,
+            "scaleY": 0.166667148,
+            "scaleZ": 0.166667074
+          },
+          "Nickname": "Rainbow Ball+RC car",
+          "Description": "Made by rcmrocks2 with help from chry!\n\nUse Number pad to use RC car. only works in white will update soon",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/883126625162923877/298E76A740C75F581EB26C32B06568C778D9897A/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "--[[\r\nRC CUBE SCRIPT BY MARKIMUS\r\nhttp://steamcommunity.com/id/markipie/\r\n--]]\r\n\r\nrc_car = true\r\n--USED FOR OTHER SCRIPTS TO DETECT WHETHER THIS OBJECT IS A RC_CAR OR NOT.\r\n\r\nmovement_speed = 0.5\r\n\r\nrotate_object_to_pointer = true\r\nrotate_type = 1\r\n--SET THIS TO 1 OR 2. ROTATION TYPE 1 FORCES THE ROTATION, ROTATION TYPE 2 USES TORQUE.\r\n--ROTATE_TYPE 1 IS SLIGHTLY MORE STABLE, THOUGH HAS HARSHER MOVEMENT.\r\n--ROTATE TYPE 2 IS SLIGHTLY LESS STABLE, THOUGH HAS SMOOTHER MOVEMENT.\r\nturn_speed = 100\r\n--ONLY USED WITH ROTATION TYPE 2.\r\n\r\n--DON'T CHANGE ANYTHING UNDER HERE UNLESS YOU KNOW WHAT YOU'RE DOING.\r\n\r\nindexes = {}\r\nindexes[8] = \"forwards\"\r\nindexes[5] = \"backwards\"\r\nindexes[4] = \"left\"\r\nindexes[6] = \"right\"\r\n\r\nmovement = {}\r\nmovement.forwards = false\r\nmovement.right = false\r\nmovement.backwards = false\r\nmovement.left = false\r\n\r\nall_colours = {\"White\", \"Brown\", \"Red\", \"Orange\", \"Yellow\", \"Green\", \"Teal\", \"Blue\", \"Purple\", \"Pink\"}\r\nmy_owner = \"White\"\r\n\r\nfunction onLoad()\r\n    self.static_friction = 0\r\n    self.dynamic_friction = 0\r\nend\r\n\r\nfunction inRange(num1, num2, range)\r\n    if num1 >= num2 - range and num1 <= num2 + range then return true end\r\n    return false\r\nend\r\n\r\nfunction tintSame(tint1, tint2)\r\n    local range = 0.05\r\n    if inRange(tint1.r, tint2.r, range) and inRange(tint1.g, tint2.g, range) and inRange(tint1.b, tint2.b, range) then\r\n        return true\r\n    end\r\n    return false\r\nend\r\n\r\nfunction getOwner()\r\n    local my_tint = self:getColorTint()\r\n    for i, col in pairs(all_colours) do\r\n        if tintSame(stringColorToRGB(col), my_tint) then\r\n            return col\r\n        end\r\n    end\r\nend\r\n\r\nfunction vectRotateRad(vector, rad_rot)\r\n    local new_x = math.cos(rad_rot) * vector.x + math.sin(rad_rot) * vector.z\r\n    local new_z = math.sin(rad_rot) * vector.x * -1 + math.cos(rad_rot) * vector.z\r\n    return {x=new_x, y=vector.y, z=new_z}\r\nend\r\n\r\nfunction getGlobalForce(vector)\r\n    return vectRotateRad(vector, math.rad(Player[my_owner]:getPointerRotation()))\r\nend\r\n\r\nfunction nearestDir(rot)\r\n    while rot >= 180 do\r\n        rot = rot - 360\r\n    end\r\n    while rot < -180 do\r\n        rot = rot + 360\r\n    end\r\n    return rot\r\nend\r\n\r\nrotateCubeToPointer = {}\r\n\r\nrotateCubeToPointer[1] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    self:setRotation({x=my_rot.x, y=pointer_rot, z=my_rot.z})\r\nend\r\n\r\nrotateCubeToPointer[2] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    local rot_diff = nearestDir(pointer_rot - my_rot.y)\r\n    \r\n    if rot_diff < 0 then\r\n        self:addTorque({x=0, y=-turn_speed * (rot_diff/-180), z=0})\r\n    elseif rot_diff > 0 then\r\n        self:addTorque({x=0, y=turn_speed * (rot_diff/180), z=0})\r\n    end\r\nend\r\n\r\nfunction fixedUpdate()\r\n    my_owner = getOwner()\r\n    if my_owner ~= nil and Player[my_owner].seated == true then\r\n        --self:setAngularVelocity({0, 0, 0})\r\n        --local my_rot = self:getRotation()\r\n        \r\n        if rotate_object_to_pointer == true then\r\n            rotateCubeToPointer[rotate_type]()\r\n        end\r\n        \r\n        if movement.forwards == true or movement.backwards == true or movement.left == true or movement.right == true then\r\n            local add_force = {x=0, y=0, z=0}\r\n            if movement.forwards == true then\r\n                add_force.z = add_force.z - movement_speed\r\n            end\r\n            if movement.backwards == true then\r\n                add_force.z = add_force.z + movement_speed\r\n            end\r\n            if movement.left == true then\r\n                add_force.x = add_force.x + movement_speed\r\n            end\r\n            if movement.right == true then\r\n                add_force.x = add_force.x - movement_speed\r\n            end\r\n            self:addForce(getGlobalForce(add_force), 4)\r\n        end\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonDown(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = true\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonUp(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = false\r\n    end\r\nend\r\n\r\n",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "PhysicsMaterial": {
+            "StaticFriction": 0.0,
+            "DynamicFriction": 0.0,
+            "Bounciness": 0.0,
+            "FrictionCombine": 0,
+            "BounceCombine": 0
+          }
+        },
+        {
+          "GUID": "ced9f2",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": 0.6448144,
+            "posY": -0.158310875,
+            "posZ": 0.039930664,
+            "rotX": 8.877892,
+            "rotY": 180.0069,
+            "rotZ": 180.002289,
+            "scaleX": 0.166666955,
+            "scaleY": 0.16666697,
+            "scaleZ": 0.166666955
+          },
+          "Nickname": "Rainbow Ball+RC car",
+          "Description": "Made by rcmrocks2 with help from chry!\n\nUse Number pad to use RC car. only works in white will update soon",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/883126625162923877/298E76A740C75F581EB26C32B06568C778D9897A/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "--[[\r\nRC CUBE SCRIPT BY MARKIMUS\r\nhttp://steamcommunity.com/id/markipie/\r\n--]]\r\n\r\nrc_car = true\r\n--USED FOR OTHER SCRIPTS TO DETECT WHETHER THIS OBJECT IS A RC_CAR OR NOT.\r\n\r\nmovement_speed = 0.5\r\n\r\nrotate_object_to_pointer = true\r\nrotate_type = 1\r\n--SET THIS TO 1 OR 2. ROTATION TYPE 1 FORCES THE ROTATION, ROTATION TYPE 2 USES TORQUE.\r\n--ROTATE_TYPE 1 IS SLIGHTLY MORE STABLE, THOUGH HAS HARSHER MOVEMENT.\r\n--ROTATE TYPE 2 IS SLIGHTLY LESS STABLE, THOUGH HAS SMOOTHER MOVEMENT.\r\nturn_speed = 100\r\n--ONLY USED WITH ROTATION TYPE 2.\r\n\r\n--DON'T CHANGE ANYTHING UNDER HERE UNLESS YOU KNOW WHAT YOU'RE DOING.\r\n\r\nindexes = {}\r\nindexes[8] = \"forwards\"\r\nindexes[5] = \"backwards\"\r\nindexes[4] = \"left\"\r\nindexes[6] = \"right\"\r\n\r\nmovement = {}\r\nmovement.forwards = false\r\nmovement.right = false\r\nmovement.backwards = false\r\nmovement.left = false\r\n\r\nall_colours = {\"White\", \"Brown\", \"Red\", \"Orange\", \"Yellow\", \"Green\", \"Teal\", \"Blue\", \"Purple\", \"Pink\"}\r\nmy_owner = \"White\"\r\n\r\nfunction onLoad()\r\n    self.static_friction = 0\r\n    self.dynamic_friction = 0\r\nend\r\n\r\nfunction inRange(num1, num2, range)\r\n    if num1 >= num2 - range and num1 <= num2 + range then return true end\r\n    return false\r\nend\r\n\r\nfunction tintSame(tint1, tint2)\r\n    local range = 0.05\r\n    if inRange(tint1.r, tint2.r, range) and inRange(tint1.g, tint2.g, range) and inRange(tint1.b, tint2.b, range) then\r\n        return true\r\n    end\r\n    return false\r\nend\r\n\r\nfunction getOwner()\r\n    local my_tint = self:getColorTint()\r\n    for i, col in pairs(all_colours) do\r\n        if tintSame(stringColorToRGB(col), my_tint) then\r\n            return col\r\n        end\r\n    end\r\nend\r\n\r\nfunction vectRotateRad(vector, rad_rot)\r\n    local new_x = math.cos(rad_rot) * vector.x + math.sin(rad_rot) * vector.z\r\n    local new_z = math.sin(rad_rot) * vector.x * -1 + math.cos(rad_rot) * vector.z\r\n    return {x=new_x, y=vector.y, z=new_z}\r\nend\r\n\r\nfunction getGlobalForce(vector)\r\n    return vectRotateRad(vector, math.rad(Player[my_owner]:getPointerRotation()))\r\nend\r\n\r\nfunction nearestDir(rot)\r\n    while rot >= 180 do\r\n        rot = rot - 360\r\n    end\r\n    while rot < -180 do\r\n        rot = rot + 360\r\n    end\r\n    return rot\r\nend\r\n\r\nrotateCubeToPointer = {}\r\n\r\nrotateCubeToPointer[1] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    self:setRotation({x=my_rot.x, y=pointer_rot, z=my_rot.z})\r\nend\r\n\r\nrotateCubeToPointer[2] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    local rot_diff = nearestDir(pointer_rot - my_rot.y)\r\n    \r\n    if rot_diff < 0 then\r\n        self:addTorque({x=0, y=-turn_speed * (rot_diff/-180), z=0})\r\n    elseif rot_diff > 0 then\r\n        self:addTorque({x=0, y=turn_speed * (rot_diff/180), z=0})\r\n    end\r\nend\r\n\r\nfunction fixedUpdate()\r\n    my_owner = getOwner()\r\n    if my_owner ~= nil and Player[my_owner].seated == true then\r\n        --self:setAngularVelocity({0, 0, 0})\r\n        --local my_rot = self:getRotation()\r\n        \r\n        if rotate_object_to_pointer == true then\r\n            rotateCubeToPointer[rotate_type]()\r\n        end\r\n        \r\n        if movement.forwards == true or movement.backwards == true or movement.left == true or movement.right == true then\r\n            local add_force = {x=0, y=0, z=0}\r\n            if movement.forwards == true then\r\n                add_force.z = add_force.z - movement_speed\r\n            end\r\n            if movement.backwards == true then\r\n                add_force.z = add_force.z + movement_speed\r\n            end\r\n            if movement.left == true then\r\n                add_force.x = add_force.x + movement_speed\r\n            end\r\n            if movement.right == true then\r\n                add_force.x = add_force.x - movement_speed\r\n            end\r\n            self:addForce(getGlobalForce(add_force), 4)\r\n        end\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonDown(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = true\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonUp(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = false\r\n    end\r\nend\r\n\r\n",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "PhysicsMaterial": {
+            "StaticFriction": 0.0,
+            "DynamicFriction": 0.0,
+            "Bounciness": 0.0,
+            "FrictionCombine": 0,
+            "BounceCombine": 0
+          }
+        },
+        {
+          "GUID": "096635",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": -0.3549456,
+            "posY": -0.158294648,
+            "posZ": -0.6268661,
+            "rotX": 8.559409,
+            "rotY": 184.894073,
+            "rotZ": 29.84598,
+            "scaleX": 0.166666985,
+            "scaleY": 0.166667074,
+            "scaleZ": 0.166667059
+          },
+          "Nickname": "Rainbow Ball+RC car",
+          "Description": "Made by rcmrocks2 with help from chry!\n\nUse Number pad to use RC car. only works in white will update soon",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/883126625162923877/298E76A740C75F581EB26C32B06568C778D9897A/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "--[[\r\nRC CUBE SCRIPT BY MARKIMUS\r\nhttp://steamcommunity.com/id/markipie/\r\n--]]\r\n\r\nrc_car = true\r\n--USED FOR OTHER SCRIPTS TO DETECT WHETHER THIS OBJECT IS A RC_CAR OR NOT.\r\n\r\nmovement_speed = 0.5\r\n\r\nrotate_object_to_pointer = true\r\nrotate_type = 1\r\n--SET THIS TO 1 OR 2. ROTATION TYPE 1 FORCES THE ROTATION, ROTATION TYPE 2 USES TORQUE.\r\n--ROTATE_TYPE 1 IS SLIGHTLY MORE STABLE, THOUGH HAS HARSHER MOVEMENT.\r\n--ROTATE TYPE 2 IS SLIGHTLY LESS STABLE, THOUGH HAS SMOOTHER MOVEMENT.\r\nturn_speed = 100\r\n--ONLY USED WITH ROTATION TYPE 2.\r\n\r\n--DON'T CHANGE ANYTHING UNDER HERE UNLESS YOU KNOW WHAT YOU'RE DOING.\r\n\r\nindexes = {}\r\nindexes[8] = \"forwards\"\r\nindexes[5] = \"backwards\"\r\nindexes[4] = \"left\"\r\nindexes[6] = \"right\"\r\n\r\nmovement = {}\r\nmovement.forwards = false\r\nmovement.right = false\r\nmovement.backwards = false\r\nmovement.left = false\r\n\r\nall_colours = {\"White\", \"Brown\", \"Red\", \"Orange\", \"Yellow\", \"Green\", \"Teal\", \"Blue\", \"Purple\", \"Pink\"}\r\nmy_owner = \"White\"\r\n\r\nfunction onLoad()\r\n    self.static_friction = 0\r\n    self.dynamic_friction = 0\r\nend\r\n\r\nfunction inRange(num1, num2, range)\r\n    if num1 >= num2 - range and num1 <= num2 + range then return true end\r\n    return false\r\nend\r\n\r\nfunction tintSame(tint1, tint2)\r\n    local range = 0.05\r\n    if inRange(tint1.r, tint2.r, range) and inRange(tint1.g, tint2.g, range) and inRange(tint1.b, tint2.b, range) then\r\n        return true\r\n    end\r\n    return false\r\nend\r\n\r\nfunction getOwner()\r\n    local my_tint = self:getColorTint()\r\n    for i, col in pairs(all_colours) do\r\n        if tintSame(stringColorToRGB(col), my_tint) then\r\n            return col\r\n        end\r\n    end\r\nend\r\n\r\nfunction vectRotateRad(vector, rad_rot)\r\n    local new_x = math.cos(rad_rot) * vector.x + math.sin(rad_rot) * vector.z\r\n    local new_z = math.sin(rad_rot) * vector.x * -1 + math.cos(rad_rot) * vector.z\r\n    return {x=new_x, y=vector.y, z=new_z}\r\nend\r\n\r\nfunction getGlobalForce(vector)\r\n    return vectRotateRad(vector, math.rad(Player[my_owner]:getPointerRotation()))\r\nend\r\n\r\nfunction nearestDir(rot)\r\n    while rot >= 180 do\r\n        rot = rot - 360\r\n    end\r\n    while rot < -180 do\r\n        rot = rot + 360\r\n    end\r\n    return rot\r\nend\r\n\r\nrotateCubeToPointer = {}\r\n\r\nrotateCubeToPointer[1] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    self:setRotation({x=my_rot.x, y=pointer_rot, z=my_rot.z})\r\nend\r\n\r\nrotateCubeToPointer[2] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    local rot_diff = nearestDir(pointer_rot - my_rot.y)\r\n    \r\n    if rot_diff < 0 then\r\n        self:addTorque({x=0, y=-turn_speed * (rot_diff/-180), z=0})\r\n    elseif rot_diff > 0 then\r\n        self:addTorque({x=0, y=turn_speed * (rot_diff/180), z=0})\r\n    end\r\nend\r\n\r\nfunction fixedUpdate()\r\n    my_owner = getOwner()\r\n    if my_owner ~= nil and Player[my_owner].seated == true then\r\n        --self:setAngularVelocity({0, 0, 0})\r\n        --local my_rot = self:getRotation()\r\n        \r\n        if rotate_object_to_pointer == true then\r\n            rotateCubeToPointer[rotate_type]()\r\n        end\r\n        \r\n        if movement.forwards == true or movement.backwards == true or movement.left == true or movement.right == true then\r\n            local add_force = {x=0, y=0, z=0}\r\n            if movement.forwards == true then\r\n                add_force.z = add_force.z - movement_speed\r\n            end\r\n            if movement.backwards == true then\r\n                add_force.z = add_force.z + movement_speed\r\n            end\r\n            if movement.left == true then\r\n                add_force.x = add_force.x + movement_speed\r\n            end\r\n            if movement.right == true then\r\n                add_force.x = add_force.x - movement_speed\r\n            end\r\n            self:addForce(getGlobalForce(add_force), 4)\r\n        end\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonDown(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = true\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonUp(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = false\r\n    end\r\nend\r\n\r\n",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "PhysicsMaterial": {
+            "StaticFriction": 0.0,
+            "DynamicFriction": 0.0,
+            "Bounciness": 0.0,
+            "FrictionCombine": 0,
+            "BounceCombine": 0
+          }
+        },
+        {
+          "GUID": "ced9f2",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": 0.6776221,
+            "posY": 0.158333272,
+            "posZ": -0.0673965141,
+            "rotX": 0.391788781,
+            "rotY": 180.164871,
+            "rotZ": 22.0766373,
+            "scaleX": 0.166666985,
+            "scaleY": 0.16666694,
+            "scaleZ": 0.166667014
+          },
+          "Nickname": "Rainbow Ball+RC car",
+          "Description": "Made by rcmrocks2 with help from chry!\n\nUse Number pad to use RC car. only works in white will update soon",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/883126625162923877/298E76A740C75F581EB26C32B06568C778D9897A/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "--[[\r\nRC CUBE SCRIPT BY MARKIMUS\r\nhttp://steamcommunity.com/id/markipie/\r\n--]]\r\n\r\nrc_car = true\r\n--USED FOR OTHER SCRIPTS TO DETECT WHETHER THIS OBJECT IS A RC_CAR OR NOT.\r\n\r\nmovement_speed = 0.5\r\n\r\nrotate_object_to_pointer = true\r\nrotate_type = 1\r\n--SET THIS TO 1 OR 2. ROTATION TYPE 1 FORCES THE ROTATION, ROTATION TYPE 2 USES TORQUE.\r\n--ROTATE_TYPE 1 IS SLIGHTLY MORE STABLE, THOUGH HAS HARSHER MOVEMENT.\r\n--ROTATE TYPE 2 IS SLIGHTLY LESS STABLE, THOUGH HAS SMOOTHER MOVEMENT.\r\nturn_speed = 100\r\n--ONLY USED WITH ROTATION TYPE 2.\r\n\r\n--DON'T CHANGE ANYTHING UNDER HERE UNLESS YOU KNOW WHAT YOU'RE DOING.\r\n\r\nindexes = {}\r\nindexes[8] = \"forwards\"\r\nindexes[5] = \"backwards\"\r\nindexes[4] = \"left\"\r\nindexes[6] = \"right\"\r\n\r\nmovement = {}\r\nmovement.forwards = false\r\nmovement.right = false\r\nmovement.backwards = false\r\nmovement.left = false\r\n\r\nall_colours = {\"White\", \"Brown\", \"Red\", \"Orange\", \"Yellow\", \"Green\", \"Teal\", \"Blue\", \"Purple\", \"Pink\"}\r\nmy_owner = \"White\"\r\n\r\nfunction onLoad()\r\n    self.static_friction = 0\r\n    self.dynamic_friction = 0\r\nend\r\n\r\nfunction inRange(num1, num2, range)\r\n    if num1 >= num2 - range and num1 <= num2 + range then return true end\r\n    return false\r\nend\r\n\r\nfunction tintSame(tint1, tint2)\r\n    local range = 0.05\r\n    if inRange(tint1.r, tint2.r, range) and inRange(tint1.g, tint2.g, range) and inRange(tint1.b, tint2.b, range) then\r\n        return true\r\n    end\r\n    return false\r\nend\r\n\r\nfunction getOwner()\r\n    local my_tint = self:getColorTint()\r\n    for i, col in pairs(all_colours) do\r\n        if tintSame(stringColorToRGB(col), my_tint) then\r\n            return col\r\n        end\r\n    end\r\nend\r\n\r\nfunction vectRotateRad(vector, rad_rot)\r\n    local new_x = math.cos(rad_rot) * vector.x + math.sin(rad_rot) * vector.z\r\n    local new_z = math.sin(rad_rot) * vector.x * -1 + math.cos(rad_rot) * vector.z\r\n    return {x=new_x, y=vector.y, z=new_z}\r\nend\r\n\r\nfunction getGlobalForce(vector)\r\n    return vectRotateRad(vector, math.rad(Player[my_owner]:getPointerRotation()))\r\nend\r\n\r\nfunction nearestDir(rot)\r\n    while rot >= 180 do\r\n        rot = rot - 360\r\n    end\r\n    while rot < -180 do\r\n        rot = rot + 360\r\n    end\r\n    return rot\r\nend\r\n\r\nrotateCubeToPointer = {}\r\n\r\nrotateCubeToPointer[1] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    self:setRotation({x=my_rot.x, y=pointer_rot, z=my_rot.z})\r\nend\r\n\r\nrotateCubeToPointer[2] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    local rot_diff = nearestDir(pointer_rot - my_rot.y)\r\n    \r\n    if rot_diff < 0 then\r\n        self:addTorque({x=0, y=-turn_speed * (rot_diff/-180), z=0})\r\n    elseif rot_diff > 0 then\r\n        self:addTorque({x=0, y=turn_speed * (rot_diff/180), z=0})\r\n    end\r\nend\r\n\r\nfunction fixedUpdate()\r\n    my_owner = getOwner()\r\n    if my_owner ~= nil and Player[my_owner].seated == true then\r\n        --self:setAngularVelocity({0, 0, 0})\r\n        --local my_rot = self:getRotation()\r\n        \r\n        if rotate_object_to_pointer == true then\r\n            rotateCubeToPointer[rotate_type]()\r\n        end\r\n        \r\n        if movement.forwards == true or movement.backwards == true or movement.left == true or movement.right == true then\r\n            local add_force = {x=0, y=0, z=0}\r\n            if movement.forwards == true then\r\n                add_force.z = add_force.z - movement_speed\r\n            end\r\n            if movement.backwards == true then\r\n                add_force.z = add_force.z + movement_speed\r\n            end\r\n            if movement.left == true then\r\n                add_force.x = add_force.x + movement_speed\r\n            end\r\n            if movement.right == true then\r\n                add_force.x = add_force.x - movement_speed\r\n            end\r\n            self:addForce(getGlobalForce(add_force), 4)\r\n        end\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonDown(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = true\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonUp(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = false\r\n    end\r\nend\r\n\r\n",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "PhysicsMaterial": {
+            "StaticFriction": 0.0,
+            "DynamicFriction": 0.0,
+            "Bounciness": 0.0,
+            "FrictionCombine": 0,
+            "BounceCombine": 0
+          }
+        },
+        {
+          "GUID": "05186c",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": -0.322215855,
+            "posY": 0.158333421,
+            "posZ": 0.599517763,
+            "rotX": 348.482147,
+            "rotY": 263.7161,
+            "rotZ": 208.91507,
+            "scaleX": 0.166666955,
+            "scaleY": 0.166666985,
+            "scaleZ": 0.1666669
+          },
+          "Nickname": "Rainbow Ball+RC car",
+          "Description": "Made by rcmrocks2 with help from chry!\n\nUse Number pad to use RC car. only works in white will update soon",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/883126625162923877/298E76A740C75F581EB26C32B06568C778D9897A/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "--[[\r\nRC CUBE SCRIPT BY MARKIMUS\r\nhttp://steamcommunity.com/id/markipie/\r\n--]]\r\n\r\nrc_car = true\r\n--USED FOR OTHER SCRIPTS TO DETECT WHETHER THIS OBJECT IS A RC_CAR OR NOT.\r\n\r\nmovement_speed = 0.5\r\n\r\nrotate_object_to_pointer = true\r\nrotate_type = 1\r\n--SET THIS TO 1 OR 2. ROTATION TYPE 1 FORCES THE ROTATION, ROTATION TYPE 2 USES TORQUE.\r\n--ROTATE_TYPE 1 IS SLIGHTLY MORE STABLE, THOUGH HAS HARSHER MOVEMENT.\r\n--ROTATE TYPE 2 IS SLIGHTLY LESS STABLE, THOUGH HAS SMOOTHER MOVEMENT.\r\nturn_speed = 100\r\n--ONLY USED WITH ROTATION TYPE 2.\r\n\r\n--DON'T CHANGE ANYTHING UNDER HERE UNLESS YOU KNOW WHAT YOU'RE DOING.\r\n\r\nindexes = {}\r\nindexes[8] = \"forwards\"\r\nindexes[5] = \"backwards\"\r\nindexes[4] = \"left\"\r\nindexes[6] = \"right\"\r\n\r\nmovement = {}\r\nmovement.forwards = false\r\nmovement.right = false\r\nmovement.backwards = false\r\nmovement.left = false\r\n\r\nall_colours = {\"White\", \"Brown\", \"Red\", \"Orange\", \"Yellow\", \"Green\", \"Teal\", \"Blue\", \"Purple\", \"Pink\"}\r\nmy_owner = \"White\"\r\n\r\nfunction onLoad()\r\n    self.static_friction = 0\r\n    self.dynamic_friction = 0\r\nend\r\n\r\nfunction inRange(num1, num2, range)\r\n    if num1 >= num2 - range and num1 <= num2 + range then return true end\r\n    return false\r\nend\r\n\r\nfunction tintSame(tint1, tint2)\r\n    local range = 0.05\r\n    if inRange(tint1.r, tint2.r, range) and inRange(tint1.g, tint2.g, range) and inRange(tint1.b, tint2.b, range) then\r\n        return true\r\n    end\r\n    return false\r\nend\r\n\r\nfunction getOwner()\r\n    local my_tint = self:getColorTint()\r\n    for i, col in pairs(all_colours) do\r\n        if tintSame(stringColorToRGB(col), my_tint) then\r\n            return col\r\n        end\r\n    end\r\nend\r\n\r\nfunction vectRotateRad(vector, rad_rot)\r\n    local new_x = math.cos(rad_rot) * vector.x + math.sin(rad_rot) * vector.z\r\n    local new_z = math.sin(rad_rot) * vector.x * -1 + math.cos(rad_rot) * vector.z\r\n    return {x=new_x, y=vector.y, z=new_z}\r\nend\r\n\r\nfunction getGlobalForce(vector)\r\n    return vectRotateRad(vector, math.rad(Player[my_owner]:getPointerRotation()))\r\nend\r\n\r\nfunction nearestDir(rot)\r\n    while rot >= 180 do\r\n        rot = rot - 360\r\n    end\r\n    while rot < -180 do\r\n        rot = rot + 360\r\n    end\r\n    return rot\r\nend\r\n\r\nrotateCubeToPointer = {}\r\n\r\nrotateCubeToPointer[1] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    self:setRotation({x=my_rot.x, y=pointer_rot, z=my_rot.z})\r\nend\r\n\r\nrotateCubeToPointer[2] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    local rot_diff = nearestDir(pointer_rot - my_rot.y)\r\n    \r\n    if rot_diff < 0 then\r\n        self:addTorque({x=0, y=-turn_speed * (rot_diff/-180), z=0})\r\n    elseif rot_diff > 0 then\r\n        self:addTorque({x=0, y=turn_speed * (rot_diff/180), z=0})\r\n    end\r\nend\r\n\r\nfunction fixedUpdate()\r\n    my_owner = getOwner()\r\n    if my_owner ~= nil and Player[my_owner].seated == true then\r\n        --self:setAngularVelocity({0, 0, 0})\r\n        --local my_rot = self:getRotation()\r\n        \r\n        if rotate_object_to_pointer == true then\r\n            rotateCubeToPointer[rotate_type]()\r\n        end\r\n        \r\n        if movement.forwards == true or movement.backwards == true or movement.left == true or movement.right == true then\r\n            local add_force = {x=0, y=0, z=0}\r\n            if movement.forwards == true then\r\n                add_force.z = add_force.z - movement_speed\r\n            end\r\n            if movement.backwards == true then\r\n                add_force.z = add_force.z + movement_speed\r\n            end\r\n            if movement.left == true then\r\n                add_force.x = add_force.x + movement_speed\r\n            end\r\n            if movement.right == true then\r\n                add_force.x = add_force.x - movement_speed\r\n            end\r\n            self:addForce(getGlobalForce(add_force), 4)\r\n        end\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonDown(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = true\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonUp(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = false\r\n    end\r\nend\r\n\r\n",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "PhysicsMaterial": {
+            "StaticFriction": 0.0,
+            "DynamicFriction": 0.0,
+            "Bounciness": 0.0,
+            "FrictionCombine": 0,
+            "BounceCombine": 0
+          }
+        },
+        {
+          "GUID": "12529b",
+          "Name": "Custom_Assetbundle",
+          "Transform": {
+            "posX": -0.289213866,
+            "posY": 0.158331841,
+            "posZ": -0.637936354,
+            "rotX": 352.47168,
+            "rotY": 265.6647,
+            "rotZ": 210.110764,
+            "scaleX": 0.166666985,
+            "scaleY": 0.166667044,
+            "scaleZ": 0.166667014
+          },
+          "Nickname": "Rainbow Ball+RC car",
+          "Description": "Made by rcmrocks2 with help from chry!\n\nUse Number pad to use RC car. only works in white will update soon",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": true,
+          "Snap": true,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomAssetbundle": {
+            "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/883126625162923877/298E76A740C75F581EB26C32B06568C778D9897A/",
+            "AssetbundleSecondaryURL": "",
+            "MaterialIndex": 0,
+            "TypeIndex": 0,
+            "LoopingEffectIndex": 0
+          },
+          "LuaScript": "--[[\r\nRC CUBE SCRIPT BY MARKIMUS\r\nhttp://steamcommunity.com/id/markipie/\r\n--]]\r\n\r\nrc_car = true\r\n--USED FOR OTHER SCRIPTS TO DETECT WHETHER THIS OBJECT IS A RC_CAR OR NOT.\r\n\r\nmovement_speed = 0.5\r\n\r\nrotate_object_to_pointer = true\r\nrotate_type = 1\r\n--SET THIS TO 1 OR 2. ROTATION TYPE 1 FORCES THE ROTATION, ROTATION TYPE 2 USES TORQUE.\r\n--ROTATE_TYPE 1 IS SLIGHTLY MORE STABLE, THOUGH HAS HARSHER MOVEMENT.\r\n--ROTATE TYPE 2 IS SLIGHTLY LESS STABLE, THOUGH HAS SMOOTHER MOVEMENT.\r\nturn_speed = 100\r\n--ONLY USED WITH ROTATION TYPE 2.\r\n\r\n--DON'T CHANGE ANYTHING UNDER HERE UNLESS YOU KNOW WHAT YOU'RE DOING.\r\n\r\nindexes = {}\r\nindexes[8] = \"forwards\"\r\nindexes[5] = \"backwards\"\r\nindexes[4] = \"left\"\r\nindexes[6] = \"right\"\r\n\r\nmovement = {}\r\nmovement.forwards = false\r\nmovement.right = false\r\nmovement.backwards = false\r\nmovement.left = false\r\n\r\nall_colours = {\"White\", \"Brown\", \"Red\", \"Orange\", \"Yellow\", \"Green\", \"Teal\", \"Blue\", \"Purple\", \"Pink\"}\r\nmy_owner = \"White\"\r\n\r\nfunction onLoad()\r\n    self.static_friction = 0\r\n    self.dynamic_friction = 0\r\nend\r\n\r\nfunction inRange(num1, num2, range)\r\n    if num1 >= num2 - range and num1 <= num2 + range then return true end\r\n    return false\r\nend\r\n\r\nfunction tintSame(tint1, tint2)\r\n    local range = 0.05\r\n    if inRange(tint1.r, tint2.r, range) and inRange(tint1.g, tint2.g, range) and inRange(tint1.b, tint2.b, range) then\r\n        return true\r\n    end\r\n    return false\r\nend\r\n\r\nfunction getOwner()\r\n    local my_tint = self:getColorTint()\r\n    for i, col in pairs(all_colours) do\r\n        if tintSame(stringColorToRGB(col), my_tint) then\r\n            return col\r\n        end\r\n    end\r\nend\r\n\r\nfunction vectRotateRad(vector, rad_rot)\r\n    local new_x = math.cos(rad_rot) * vector.x + math.sin(rad_rot) * vector.z\r\n    local new_z = math.sin(rad_rot) * vector.x * -1 + math.cos(rad_rot) * vector.z\r\n    return {x=new_x, y=vector.y, z=new_z}\r\nend\r\n\r\nfunction getGlobalForce(vector)\r\n    return vectRotateRad(vector, math.rad(Player[my_owner]:getPointerRotation()))\r\nend\r\n\r\nfunction nearestDir(rot)\r\n    while rot >= 180 do\r\n        rot = rot - 360\r\n    end\r\n    while rot < -180 do\r\n        rot = rot + 360\r\n    end\r\n    return rot\r\nend\r\n\r\nrotateCubeToPointer = {}\r\n\r\nrotateCubeToPointer[1] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    self:setRotation({x=my_rot.x, y=pointer_rot, z=my_rot.z})\r\nend\r\n\r\nrotateCubeToPointer[2] = function()\r\n    local my_rot = self:getRotation()\r\n    local pointer_rot = Player[my_owner]:getPointerRotation()\r\n    local rot_diff = nearestDir(pointer_rot - my_rot.y)\r\n    \r\n    if rot_diff < 0 then\r\n        self:addTorque({x=0, y=-turn_speed * (rot_diff/-180), z=0})\r\n    elseif rot_diff > 0 then\r\n        self:addTorque({x=0, y=turn_speed * (rot_diff/180), z=0})\r\n    end\r\nend\r\n\r\nfunction fixedUpdate()\r\n    my_owner = getOwner()\r\n    if my_owner ~= nil and Player[my_owner].seated == true then\r\n        --self:setAngularVelocity({0, 0, 0})\r\n        --local my_rot = self:getRotation()\r\n        \r\n        if rotate_object_to_pointer == true then\r\n            rotateCubeToPointer[rotate_type]()\r\n        end\r\n        \r\n        if movement.forwards == true or movement.backwards == true or movement.left == true or movement.right == true then\r\n            local add_force = {x=0, y=0, z=0}\r\n            if movement.forwards == true then\r\n                add_force.z = add_force.z - movement_speed\r\n            end\r\n            if movement.backwards == true then\r\n                add_force.z = add_force.z + movement_speed\r\n            end\r\n            if movement.left == true then\r\n                add_force.x = add_force.x + movement_speed\r\n            end\r\n            if movement.right == true then\r\n                add_force.x = add_force.x - movement_speed\r\n            end\r\n            self:addForce(getGlobalForce(add_force), 4)\r\n        end\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonDown(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = true\r\n    end\r\nend\r\n\r\nfunction onScriptingButtonUp(index, player_color)\r\n    if indexes[index] ~= nil and player_color == my_owner then\r\n        movement[indexes[index]] = false\r\n    end\r\nend\r\n\r\n",
+          "LuaScriptState": "",
+          "XmlUI": "",
+          "PhysicsMaterial": {
+            "StaticFriction": 0.0,
+            "DynamicFriction": 0.0,
+            "Bounciness": 0.0,
+            "FrictionCombine": 0,
+            "BounceCombine": 0
+          }
+        },
+        {
+          "GUID": "d4a618",
+          "Name": "Custom_Model",
+          "Transform": {
+            "posX": -0.0263161939,
+            "posY": 0.112647824,
+            "posZ": -0.0334254131,
+            "rotX": 0.000158768074,
+            "rotY": 359.962921,
+            "rotZ": 0.0001559717,
+            "scaleX": 0.6499997,
+            "scaleY": 0.6499995,
+            "scaleZ": 0.6499997
+          },
+          "Nickname": "",
+          "Description": "",
+          "GMNotes": "",
+          "AltLookAngle": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ColorDiffuse": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0
+          },
+          "LayoutGroupSortIndex": 0,
+          "Value": 0,
+          "Locked": false,
+          "Grid": false,
+          "Snap": false,
+          "IgnoreFoW": false,
+          "MeasureMovement": false,
+          "DragSelectable": true,
+          "Autoraise": true,
+          "Sticky": true,
+          "Tooltip": true,
+          "GridProjection": false,
+          "HideWhenFaceDown": false,
+          "Hands": false,
+          "CustomMesh": {
+            "MeshURL": "https://gist.githubusercontent.com/anonymous/7df1d4a69b8aeff0e1beff5ba9b9c7cc/raw/b7b365ee6a841cce5fe7eb938a4ae9667804c201/gistfile1.txt",
+            "DiffuseURL": "https://s8.postimg.cc/s09lv4zeb/jesusfigure.png",
+            "NormalURL": "",
+            "ColliderURL": "https://gist.githubusercontent.com/anonymous/279da90af4a2b0f8ca40027e4889de67/raw/8554aa936b08291274e8a965eb45d60366b926c1/gistfile1.txt",
+            "Convex": true,
+            "MaterialIndex": 3,
+            "TypeIndex": 1,
+            "CastShadows": true
+          },
+          "LuaScript": "",
+          "LuaScriptState": "",
+          "XmlUI": ""
+        }
+      ]
+    }
+  ]
+}

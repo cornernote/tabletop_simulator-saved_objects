@@ -1,0 +1,143 @@
+{
+  "SaveName": "",
+  "Date": "",
+  "VersionNumber": "",
+  "GameMode": "",
+  "GameType": "",
+  "GameComplexity": "",
+  "Tags": [],
+  "Gravity": 0.5,
+  "PlayArea": 0.5,
+  "Table": "",
+  "Sky": "",
+  "Note": "",
+  "TabStates": {},
+  "LuaScript": "",
+  "LuaScriptState": "",
+  "XmlUI": "",
+  "ObjectStates": [
+    {
+      "GUID": "1e839a",
+      "Name": "Custom_Board",
+      "Transform": {
+        "posX": 1.045393,
+        "posY": 1.01883435,
+        "posZ": 0.210259661,
+        "rotX": 7.275367E-06,
+        "rotY": 179.998779,
+        "rotZ": 5.63379035E-06,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "Nickname": "Bowling Lane",
+      "Description": "\r\nClick \"Setup Lane\" to place pins and balls\r\n\r\n----------\r\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=3577637275",
+      "GMNotes": "",
+      "AltLookAngle": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "ColorDiffuse": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0
+      },
+      "LayoutGroupSortIndex": 0,
+      "Value": 0,
+      "Locked": false,
+      "Grid": false,
+      "Snap": false,
+      "IgnoreFoW": false,
+      "MeasureMovement": false,
+      "DragSelectable": false,
+      "Autoraise": true,
+      "Sticky": true,
+      "Tooltip": false,
+      "GridProjection": false,
+      "HideWhenFaceDown": false,
+      "Hands": false,
+      "CustomImage": {
+        "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/10005374916860194464/22C8B35BD01ED49E638C8E7EBB3B87A5F408839C/",
+        "ImageSecondaryURL": "",
+        "ImageScalar": 1.0,
+        "WidthScale": 0.323809534
+      },
+      "LuaScript": "local Base = {\n    name = \"Bowling Lane\",\n    debug = false,\n    host = self,\n    print = function(self, message)\n        print(self.name .. \": \" .. message)\n    end,\n    error = function(self, message)\n        if self.debug then\n            error(self.name .. \": \" .. message)\n        end\n    end,\n    reload = function(self)\n        Wait.condition(function()\n            return not self.host or self.host.reload()\n        end, function()\n            return not self.host or self.host.resting\n        end)\n    end\n}\n\nlocal AutoUpdate  = setmetatable({\n    version = \"1.0.2\",\n    versionUrl = \"https://raw.githubusercontent.com/cornernote/tabletop_simulator-bowling_lane/refs/heads/main/lua/bowling-lane.ver\",\n    scriptUrl = \"https://raw.githubusercontent.com/cornernote/tabletop_simulator-bowling_lane/refs/heads/main/lua/bowling-lane.lua\",\n\n    run = function(self)\n        WebRequest.get(self.versionUrl, function(request)\n            if request.response_code ~= 200 then\n                self:error(\"Failed to check version (\" .. request.response_code .. \": \" .. request.error .. \")\")\n                return\n            end\n            local remoteVersion = request.text:match(\"[^\\r\\n]+\") or \"\"\n            if self:isNewerVersion(remoteVersion) then\n                self:fetchNewScript(remoteVersion)\n            end\n        end)\n    end,\n    isNewerVersion = function(self, remoteVersion)\n        local function split(v)\n            return { v:match(\"^(%d+)%.?(%d*)%.?(%d*)\") or 0 }\n        end\n        local r, l = split(remoteVersion), split(self.version)\n        for i = 1, math.max(#r, #l) do\n            local rv, lv = tonumber(r[i]) or 0, tonumber(l[i]) or 0\n            if rv ~= lv then\n                return rv > lv\n            end\n        end\n        return false\n    end,\n    fetchNewScript = function(self, newVersion)\n        WebRequest.get(self.scriptUrl, function(request)\n            if request.response_code ~= 200 then\n                self:error(\"Failed to fetch new script (\" .. request.response_code .. \": \" .. request.error .. \")\")\n                return\n            end\n            if request.text and #request.text > 0 then\n                self.host.setLuaScript(request.text)\n                self:print(\"Updated to version \" .. newVersion)\n                self:reload()\n            else\n                self:error(\"New script is empty\")\n            end\n        end)\n    end,\n}, { __index = Base })\n\nlocal pins = { }\nlocal balls = { }\n\nfunction onLoad()\n    self.createButton({\n        label = \"Setup Lane\",\n        click_function = \"setupLane\",\n        function_owner = self,\n        position = { 0, 0.1, 9.3 },\n        rotation = { 0, 0, 0 },\n        scale = { 3, 1, 1 },\n        width = 2000,\n        height = 300,\n        font_size = 200,\n    })\n\n    AutoUpdate:run()\nend\n\nfunction setupLane()\n    cleanupPins()\n    cleanupBalls()\n    spawnPins()\n    spawnBalls()\nend\n\nfunction cleanupPins()\n    for i = #pins, 1, -1 do\n        local obj = getObjectFromGUID(pins[i])\n        if obj then\n            destroyObject(obj)\n        end\n    end\n    pins = {}\nend\n\nfunction cleanupBalls()\n    for i = #balls, 1, -1 do\n        local obj = getObjectFromGUID(balls[i])\n        if obj then\n            destroyObject(obj)\n        end\n    end\n    balls = {}\nend\n\nfunction spawnBalls()\n    local rescale = 1.5\n    local scale = self.getScale()\n    local ballPositions = {\n        { -11, 1, 7 },\n        { -11, 1, 8 },\n    }\n\n    for _, ballPosition in ipairs(ballPositions) do\n        local ball = spawnObject({\n            type = \"Metal Ball\",\n            position = self.positionToWorld(ballPosition),\n            scale = { scale.x * rescale, scale.y * rescale, scale.z * rescale },\n            callback_function = function(ball)\n                ball.setColorTint({ math.random(), math.random(), math.random() })\n                ball.setLuaScript([[\n                    local dropPosY = nil\n                    function onDropped()\n                        local pos = self.getPosition()\n                        Wait.time(function()\n                            dropPosY = self.getPosition().y\n                        end, 0.5)\n                    end\n                    function onUpdate()\n                        if dropPosY and self.getPosition().y < dropPosY - 0.1 then\n                            Wait.time(function()\n                                destroyObject(self)\n                            end, 1)\n                        end\n                    end\n                ]])\n            end\n        })\n\n        table.insert(balls, ball.getGUID())\n    end\nend\n\nfunction spawnPins()\n    local rescale = 1.1\n    local scale = self.getScale()\n    local snaps = self.getSnapPoints()\n\n    for _, snap in ipairs(snaps) do\n        local pin = spawnObject({\n            type = \"Custom_Model\",\n            position = self.positionToWorld(snap.position),\n            scale = { scale.x * rescale, scale.y * rescale, scale.z * rescale },\n            use_snap_points = true,\n        })\n\n        pin.setCustomObject({\n            type = 1,\n            material = 1,\n            mesh = \"https://steamusercontent-a.akamaihd.net/ugc/1491209074614740757/3BBB5FA45409A0723A9662E53EB4D1A2E09DD727/\",\n            diffuse = \"https://steamusercontent-a.akamaihd.net/ugc/1491209074614215657/4A01683186B1A6E49A2E7558EA9006ABDEE7DF2E/\",\n            collider = \"https://steamusercontent-a.akamaihd.net/ugc/1491209074614740523/6027BD9A9B84B4E3F9C58AF517CB2277619F423B/\",\n        })\n\n        pin.setLuaScript([[\n            function onUpdate()\n                if math.abs(self.getTransformUp().y) < 0.8 then\n                    Wait.time(function()\n                        destroyObject(self)\n                    end, 1)\n                end\n            end\n        ]])\n\n        table.insert(pins, pin.getGUID())\n    end\nend\n\n-- Global.getVar('Encoder') -- comment needed to prevent mtg pi table falsely detecting this as a game-crashing or virus-infected object",
+      "LuaScriptState": "",
+      "XmlUI": "",
+      "AttachedSnapPoints": [
+        {
+          "Position": {
+            "x": 4.79273462,
+            "y": 0.592240751,
+            "z": -7.605207
+          }
+        },
+        {
+          "Position": {
+            "x": 1.43449879,
+            "y": 0.5922408,
+            "z": -7.61547041
+          }
+        },
+        {
+          "Position": {
+            "x": -1.65876222,
+            "y": 0.5922408,
+            "z": -7.61440134
+          }
+        },
+        {
+          "Position": {
+            "x": -4.91183138,
+            "y": 0.5922401,
+            "z": -7.64758158
+          }
+        },
+        {
+          "Position": {
+            "x": -3.30970287,
+            "y": 0.592240751,
+            "z": -6.93525457
+          }
+        },
+        {
+          "Position": {
+            "x": -0.118057184,
+            "y": 0.592241049,
+            "z": -6.9363656
+          }
+        },
+        {
+          "Position": {
+            "x": -1.57496083,
+            "y": 0.592241,
+            "z": -6.232226
+          }
+        },
+        {
+          "Position": {
+            "x": 3.37359214,
+            "y": 0.592241,
+            "z": -6.96601963
+          }
+        },
+        {
+          "Position": {
+            "x": 1.41526,
+            "y": 0.592241,
+            "z": -6.23325348
+          }
+        },
+        {
+          "Position": {
+            "x": -0.00700582564,
+            "y": 0.592240751,
+            "z": -5.600221
+          }
+        }
+      ]
+    }
+  ]
+}
